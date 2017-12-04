@@ -1,0 +1,100 @@
+// Text Content Component
+// ===
+//
+// Text content styles tag elements in a way that matches their component
+// equivilent in absence of any component classes, or styles tags to have
+// appropriate levels of margins that they would otherwise be lacking. You can
+// think of the c-text-content component as a way of creating a designated
+// WYSIWYG or markdown zone.
+
+.c-text-content {
+    > *:not(:last-child) {
+        margin-bottom: $base-space;
+    }
+
+    h2:not(:first-child) {
+        margin-top: $very-large-space;
+    }
+
+    h3:not(:first-child) {
+        margin-top: $large-space;
+    }
+
+
+    // Heading sizes in content area
+    // ---
+
+    h2 {
+        @extend %h3;
+        font-weight:$heavy-font-weight;
+    }
+
+    h3 {
+        @extend %h4;
+    }
+
+    h4 {
+        @extend %h5;
+    }
+
+    h5,
+    h6 {
+        @extend %h6;
+    }
+
+
+    ul,
+    ol {
+        margin-left: $base-space;
+        padding-left: $large-space;
+        
+        li {     
+            margin-bottom: $very-small-space;
+        }
+    }
+
+    a {
+        text-decoration: underline;
+
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    table {
+        min-width: 100%;
+
+        background: $neutral-10;
+    }
+
+    td,
+    th {
+        padding: $small-space;
+        border: 1px solid $border-color;
+
+        text-align: left;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    blockquote {
+        margin-left: $base-space;
+        padding-left: $base-space;
+        border-left: 4px solid $darker-accent-color;
+    }
+
+    hr {
+        @extend %c-divider;
+    }
+
+    figcaption {
+        color: $neutral-50;
+        font-family: $mono-font-family;
+        font-size: $small-font-size;
+        text-align: center;
+    }
+}

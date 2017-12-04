@@ -1,0 +1,25 @@
+// Contain Component
+// ===
+//
+// 1. Center content horizontally.
+// 2. Calculate the width to re-include space chunked in by the left and right
+//    padding values.
+// 3. Fix flexbox issue with width
+
+.c-contain {
+    width: 100%; // 3
+    margin-right: auto; // 1
+    margin-left: auto; // 1
+    padding-right: $base-space;
+    padding-left: $base-space;
+
+    @include for-tablet-portrait-up {
+        max-width: calc(#{$base-content-width} + #{$xlarge-space * 2}); // 2
+        padding-right: $xlarge-space;
+        padding-left: $xlarge-space;
+    }
+
+    &.c--narrow {
+        max-width: calc(#{$narrow-content-width} + #{$xlarge-space * 2}); // 2
+    }
+}

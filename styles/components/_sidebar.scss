@@ -1,0 +1,168 @@
+// Sidebar Component
+// ===
+
+.c-sidebar {
+    @include for-phone-only {
+        width: 80%;
+    }
+    @include for-tablet-only {
+        width: 70%;
+    }
+
+    width: calc(100% - #{$large-space});
+
+    &.c--hide {
+        display: none !important;
+    }
+
+    // need to place code here after .c--hide style so it will overide style
+    @include for-tablet-landscape-up {
+        width: $sidebar-width;
+
+        &.c--hide {
+            display: flex !important;
+        }
+    }
+}
+
+
+// Sidebar list
+// ---
+//
+// 1. Give some space between scrollbar and links
+
+.c-sidebar__list {
+    margin-right: $unit*1.5; // 1
+}
+
+// Sidebar Heading
+// ---
+
+.c-sidebar__heading {
+    a {
+        font-family: $brand-font-family;
+    }
+}
+
+// Sidebar Doc title
+// ---
+
+.c-sidebar__doc-title {
+    a {
+        font-family: $brand-font-family;
+
+        &:hover,
+        &:focus {
+            background: $light-accent-color;
+
+            color: $white;
+        }
+
+        &:active {
+            background: $lighter-accent-color;
+
+            color: $white;
+        }
+    }
+}
+
+
+// Sidebar Title
+// ---
+
+.c-sidebar__scroll-parent {
+    &::before,
+    &::after {
+        content: '';
+
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: $z1-depth;
+
+        height: $small-space;
+    }
+
+    &::before {
+        top: 0;
+
+        background: linear-gradient(to bottom, $accent-color, rgba($accent-color, 0));
+    }
+
+    &::after {
+        bottom: 0;
+
+        background: linear-gradient(to top, $accent-color, rgba($accent-color, 0));
+    }
+}
+
+
+// Sidebar Scroll
+// ---
+
+.c-sidebar__scroll {
+    right: $small-space;
+
+    overflow-y: scroll;
+
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+        width: $unit/2;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba($neutral-10, 0.25);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $neutral-10;
+    }
+}
+
+
+// Sidebar Item Link
+// ---
+//
+// 1. This color will be changed once the designer decides on the color
+// 2. Add 1 px spacing to show some spacing between current state and active/focus state
+
+.c-sidebar__item-link {
+    margin: 1px 0; // 1
+    padding: ($very-small-space - 1) $small-space ($very-small-space - 1) $xlarge-space;
+
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    font-family: $brand-font-family;
+    font-size: ($base-font-size - 2);
+
+    &:hover,
+    &:focus {
+        background: $light-accent-color;
+
+        color: $white;
+    }
+
+    &:active {
+        background: $lighter-accent-color;
+
+        color: $white;
+    }
+
+    &:visited {
+        color: $neutral-40; // 1
+    }
+
+    &.c--active {
+        background-color: $lighter-accent-color;
+
+        font-weight: $heavy-font-weight;
+    }
+
+    &.c--header {
+        padding-left: $base-space;
+
+        font-weight: $heavy-font-weight;
+    }
+}

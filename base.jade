@@ -1,0 +1,215 @@
+//- 👉 The `base` layout!
+
+include ./mixins/appbar
+include ./mixins/sidebar
+include ./mixins/markdownify
+
+//- 👉 The block `config` is helpful for introducing defining inline variables to use within templates.
+block config
+    //- Used for inline variables.
+
+    //- Override classes on body
+    - var bodyClasses = ['sdk-base', 'flex', 'items-stretch-ns', 'h-100', 'u-background-neutral-20']
+
+    //- Override in `block config` to set <title> of page.
+    -
+        var docsRoot = environment === "production" ? docsRootProd : docsRootDev
+        var title = projectName = 'Mobify Platform'
+
+        // This is basically always true, but remove 'index' from the path array
+        // since it's of no value
+        var localPath = current.path
+        if (localPath[localPath.length - 1] === 'index') {
+            localPath = localPath.slice(0, localPath.length - 1)
+        }
+
+        var section = localPath[localPath.length - 1]
+        var version = current.path[0]
+        var node = public[version]
+        if (node && node._data) {
+            var titleNode = node._data
+
+            for (i=1; i< localPath.length; i++) {
+                node = node[localPath[i]];
+                // Title for this page comes from the parent's `_data` node
+                if (i === localPath.length - 2) {
+                    titleNode = node._data;
+                }
+            }
+
+            title = (titleNode && titleNode[section] && titleNode[section].title) || title
+        }
+
+doctype html
+html(lang='en')
+    head
+        //
+            👋 docs.mobify.com, handcoded in Vancouver, Canada. http://www.mobify.com/jobs/
+              __    __     ______     ______     __     ______   __  __
+             /\ "-./  \   /\  __ \   /\  == \   /\ \   /\  ___\ /\ \_\ \
+             \ \ \-./\ \  \ \ \/\ \  \ \  __<   \ \ \  \ \  __\ \ \____ \
+              \ \_\ \ \_\  \ \_____\  \ \_____\  \ \_\  \ \_\    \/\_____\
+               \/_/  \/_/   \/_____/   \/_____/   \/_/   \/_/     \/_____/
+
+        //- 👉 Meta!
+        title=title
+        //- If `pageTitle` is defined, use it! Titles look like "Quick Start - Progressive Web SDK"
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+        meta(http-equiv='X-UA-Compatible' content='chrome=1')
+        meta(name='description' content=siteDescription)
+        meta(name='author' content='Mobify')
+        meta(name='google-site-verification' content='hcu0ZUGe8eYI-5_8gL5Nd1A7qCfxdzVCOtHEOF0kMkI')
+
+        //- 👉 Social!
+        meta(property='og:site_name' content='Mobify')
+        meta(property='og:type' content='article')
+        meta(property='fb:admins' content='146664288704690')
+        meta(name='twitter:card' content='summary')
+        meta(name='twitter:site' content='@mobify')
+        meta(name='twitter:domain' content='http://www.mobify.com')
+        meta(property='og:title' content='Platform - Better Mobile Shopping')
+        meta(name='twitter:title' content='Platform - Better Mobile Shopping')
+        meta(property='og:url' content='http://www.mobify.com/platform/better-mobile-shopping/')
+        meta(name='twitter:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
+        meta(property='og:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
+        meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
+
+        link(rel='icon' href='assets/images/favicon.ico')
+
+        //- 👉 Stylesheet
+        link(rel="stylesheet" href='/assets/css/main.css')
+
+        //- 👉 Typography.com font
+        link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
+
+        //- 📈 Google Tag Manager
+        noscript
+            iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-MD9HC8",
+            height="0", width="0", style="display:none; visibility: hidden;")
+
+    body(class=bodyClasses)
+        block nav
+            +sidebar(projectName)
+
+        //- 👉 The block `content` is the main block.
+        main.sdk-base__main.flex-auto.pl-nav.h-100
+            block header
+                +appbar("", title)
+
+            block content
+                .sdk-base__content.w-100.pt-appbar.center.ph5-ns.util-min-width.mw8
+                    != yield
+
+        block scripts
+            //- Pretty section anchors and permalinks
+            +markdownify
+
+            //- 👉 Syntax highlighter
+            script(src="/assets/js/prism.js")
+
+            //- 📈 Google Tag Manager
+            script.
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-MD9HC8');
+
+            //-
+                🔎 Google Custom Search Engine. Setup by ewright@mobify.com
+                Login as support@mobify.com to have admin status!
+                * https://cse.google.com/cse/setup/basic?cx=003287487325783809005:qko7xrhe0k4
+                * https://cse.google.com/cse/setup/basic?cx=003287487325783809005:5kfskqeb_xm
+            script.
+                (function() {
+                    var cseId = /mobify/.test(window.location.hostname) ? 'qko7xrhe0k4' : '5kfskqeb_xm';
+                    var gcse = document.createElement('script');
+                    gcse.type = 'text/javascript';
+                    gcse.async = true;
+                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=003287487325783809005:' + cseId;
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(gcse, s);
+                })();
+
+            script.
+                var acc = document.querySelectorAll(".sdk-sidebar__accordion");
+                var i;
+                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
+                var setHeight = function(node, value) {
+                    node.style.maxHeight = value
+                };
+                var handleAccClick = function() {
+                    var classList = this.classList
+                    classList.toggle("sdk--active");
+                    classList.remove("sdk--remove-transition")
+
+                    var accordionItem = this.nextElementSibling;
+                    if (classList.toString().indexOf("sdk--active") > 0){
+                        setHeight(accordionItem, accordionItem.scrollHeight + "px")
+                    } else {
+                        setHeight(accordionItem, null)
+                    }
+                };
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].onclick = handleAccClick;
+                };
+                setHeight(activeItem, activeItem.scrollHeight + "px");
+
+            // Responsive Navigation
+            // ---
+            // 1. Add delay to hide nav when the transition is done, otherwise user will be able to see hide nav in middle of transition.
+            // 2. Change Menu Icon
+            // 3. Add overlay so when user click on overlay and will close menu
+            // 4. Prevent from scrolling when menu is open
+            // 5. Improve a11y to focus on menu when its open
+            script.
+                document.getElementById('js-nav-toggle').onclick = function(){
+                    document.getElementsByClassName('c-article')[0].classList.add('c--sidebar-open');
+                    document.getElementsByClassName('c-menu__close-icon')[0].classList.remove('u-hidden'); // 2
+                    document.getElementsByClassName('c-menu__menu-icon')[0].classList.add('u-hidden'); // 2
+                    document.getElementsByClassName('c-overlay')[0].classList.add('c--active'); // 3
+                    document.getElementsByClassName('c-sidebar')[0].classList.remove('c--hide'); // 1
+                    document.getElementsByClassName('c-article')[0].setAttribute('style', 'position: fixed !important; top: 0; right: 0; left: 0; width: 100%;'); // 4
+                    document.getElementsByClassName('c-sidebar')[0].setAttribute('tabindex', '1'); // 5
+                    document.getElementsByClassName('c-article')[0].setAttribute('tabindex', '0'); // 5
+                    document.getElementById('js-menu-first-focus').focus();
+
+                    document.getElementsByClassName('c-search-button__close-icon')[0].classList.add('u-hidden');
+                    document.getElementsByClassName('c-search-button__search-icon')[0].classList.remove('u-hidden');
+                    document.getElementsByClassName('c-search-sheet')[0].classList.remove('c--active');
+                    document.getElementsByClassName('js-search-input')[0].classList.add('u-hidden--for-phone-only');
+                    document.getElementsByClassName('js-search-input')[0].classList.add('u-hidden--for-tablet-only');
+                }
+
+                document.getElementById('js-menu-sheet').onclick = function(){
+                    document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
+                    document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
+                    document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
+                    this.classList.remove('c--active'); // 3
+                    setTimeout(function(){document.getElementsByClassName('c-sidebar')[0].classList.add('c--hide')}, 210); // 1
+                    document.getElementsByClassName('c-article')[0].setAttribute('style', ''); // 4
+                    document.getElementsByClassName('c-sidebar')[0].setAttribute('tabindex', '0'); // 5
+                    document.getElementsByClassName('c-article')[0].setAttribute('tabindex', '1'); // 5
+                    document.getElementById('js-nav-toggle').focus(); // 5
+                }
+
+                document.getElementById('js-close-menu').onclick = function(){
+                    document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
+                    document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
+                    document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
+                    this.classList.remove('c--active'); // 3
+                    setTimeout(function(){document.getElementsByClassName('c-sidebar')[0].classList.add('c--hide')}, 210); // 1
+                    document.getElementsByClassName('c-sidebar')[0].setAttribute('tabindex', '0'); // 5
+                    document.getElementsByClassName('c-article')[0].setAttribute('tabindex', '1'); // 5
+                    document.getElementById('js-nav-toggle').focus(); // 5
+                }
+
+                document.getElementById('js-search-toggle').onclick = function(){
+                    document.getElementsByClassName('c-search-button__close-icon')[0].classList.toggle('u-hidden');
+                    document.getElementsByClassName('c-search-button__search-icon')[0].classList.toggle('u-hidden');
+                    document.getElementsByClassName('c-search-sheet')[0].classList.toggle('c--active');
+                    document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-phone-only');
+                    document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-tablet-only');
+                    document.querySelector('.gsc-input-box input.gsc-input').focus(); // 5
+                }

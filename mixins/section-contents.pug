@@ -1,0 +1,26 @@
+include ./card
+
+mixin sectionContents(path)
+    // This is a bit complex due to the fact that we use directories with `index.md`
+    // in them so that we can have trailing slashes for all of our doc URLs
+    // `/progressive-web-sdk/latest/reference/changelog` -> `reference/changelog/index.md`
+    - var localPath = path
+    - if (localPath[localPath.length - 1] === 'index') {
+        - localPath = localPath.slice(0, localPath.length - 1)
+    - }
+
+    - var node = public
+
+    - for (i=0; i< localPath.length; i++) {
+    -     node = node[localPath[i]];
+    - }
+
+    - var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
+
+    .mw8.center
+        ul.list.ma0.pa0
+            each childNode, slug in node._data
+                if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
+                    - url = docsRoot + localPath.join('/') + '/' + slug
+                    li
+                        +card(url, childNode.title)

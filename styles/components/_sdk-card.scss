@@ -1,0 +1,62 @@
+.sdk-card {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 16px;
+
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.1);
+}
+
+.sdk-card:hover {
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.16);
+    transition: box-shadow 0.15s ease;
+}
+
+.sdk-card.sdk--2up {
+    width: 48%;
+}
+
+.sdk-card.sdk--2up:nth-child(even) {
+    margin-left: 2%;
+}
+
+.sdk-card.sdk--4up {
+    width: 23%;
+    margin-right: 2%;
+}
+
+.sdk-card__button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid #005c83;
+
+    border-radius: 2px;
+    background: #005c83;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+
+    color: #fff;
+    text-align: center;
+    text-decoration: none !important; /*To override base styles */
+
+    transition-property: color, background, border;
+    transition-duration: 0.15s;
+}
+
+.sdk-card__button:hover,
+.sdk-card__button:focus {
+    border-color: #0288a7;
+
+    background: #0288a7;
+
+    color: #fff;
+}
+
+.sdk-card__button:active {
+    border-color: #003e58;
+
+    background: #003e58;
+
+    color: #fff;
+}

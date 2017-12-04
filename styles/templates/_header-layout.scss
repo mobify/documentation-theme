@@ -1,0 +1,63 @@
+// Header layout
+// ===
+//
+// 1. Set min height so looks okay without intro content
+
+.t-header-layout {
+    min-height: 125px; // 1
+    padding-top: $base-space;
+    padding-bottom: $base-space;
+
+    .c-search-box {
+        position: absolute;
+        top: $very-small-space;
+        right: 0;
+        left: 0;
+        z-index: $z4-depth;
+
+        @include for-phone-only {
+            min-width: initial;
+
+            &.c--search-open {
+                transform: translate(calc(100% - 15%), 0);
+            }
+        }
+        @include for-tablet-only {
+            min-width: initial;
+
+            &.c--search-open {
+                transform: translate(calc(100% - 30%), 0);
+            }
+        }
+    }
+
+    @include for-tablet-landscape-up {
+        padding-top: $large-space + 2; // align line to menu
+        padding-bottom: $large-space + 1; // align line to menu
+
+        .c-search-box {
+            position: inherit;
+        }
+    }
+}
+
+
+// Search
+// ---
+
+.t-header-layout__search {
+    @include for-tablet-landscape-up {
+        width: 290px;
+        margin-left: $very-large-space;
+    }
+}
+
+
+// Content
+// ---
+//
+// 1. Set same height as search input so can align text middle
+
+.t-header-layout__content {
+    min-height: 70px // 1
+}

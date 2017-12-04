@@ -1,0 +1,10 @@
+// Footer layout
+// ===
+
+.t-footer-layout__buttons {
+    @include for-phone-only {
+        > div:first-child {
+            margin-bottom: $large-space;
+        }
+    }
+}

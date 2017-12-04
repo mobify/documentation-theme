@@ -1,0 +1,65 @@
+include ./logo
+
+- var tabIndex = 0
+
+// All of our articles are nested in a folder matching the article "short name"
+// and then contain a file name `index.md` that hosts the actual content
+- var currentDoc = current.path[current.path.length-2]
+- var currentPath = '/' + current.path.slice(0, -2).join('/')
+- var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
+
+mixin renderMenuHead()
+    div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
+        div.u-flexbox.u-align-center.u-justify-between
+            a.u-neutral-10(href='http://docs.mobify.com/')
+                div.sdk-logo
+                    +logo
+            a.u-neutral-10(href='https://cloud.mobify.com/support/')
+                span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
+
+mixin renderMenuBackToDocs(projectName)
+    div.c-sidebar__heading.u-background-accent-dark
+        a.u-flexbox.u-padding-top.u-padding-bottom.u-padding-start-sm.u-padding-end.u-neutral-10.u-text-size-medium(href='https://docs.mobify.com/progressive-web/latest/')
+            span #{projectName}
+
+mixin renderMenuLink(level, slug, path, data, hasChildren)
+    - var anchorClass = "pl" + (level * 2) + "-mobify"
+    - anchorClass += (slug === currentDoc ? " c--active" : "")
+    - var title = ((data && data.title) || "** MISSING TITLE **")
+    - var accordionIsActive = hasChildren && currentDoc in hasChildren
+    - var accordionClass = (accordionIsActive ? " sdk--active sdk--remove-transition" : "")
+    - var href = `${path}/${slug}/`
+    if (level === 1 && hasChildren)
+        button.bn.sdk-sidebar__accordion.util-text-medium(class=accordionClass)
+            div.sdk-sidebar__accordion-title= title
+    if (level === 1 && !hasChildren)
+        a.bn.pa8.sdk-sidebar__link.util-text-medium.f-large-mobify(href=href tabindex=tabIndex++ class=anchorClass)
+            span.ml-large-mobify= title
+    if (level !== 1)
+        a(href=href class=anchorClass + " sdk-sidebar__list-link util-text-medium")= title
+
+mixin renderMenu(level, path, node)
+    each item, slug in node._data
+        // Ignore special slugs
+        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index")
+            - continue;
+
+        li
+            - var hasChildren = node[slug] && node[slug]._data
+            - var accordionIsActive = hasChildren && currentDoc in hasChildren
+            - var accordionInlineStyles = (accordionIsActive ? "max-height: initial;" : "")
+            +renderMenuLink(level, slug, path, node._data[slug], hasChildren)
+            if (level === 1 && hasChildren)
+                ul.list.sdk-sidebar__accordion-item(style=accordionInlineStyles)
+                    +renderMenu(level + 1, path + '/' + slug, node[slug])
+
+mixin sidebar(projectName)
+    nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent
+        +renderMenuHead()
+        +renderMenuBackToDocs(projectName)
+
+        div.sdk-sidebar__scroll-parent.util-flex.util-context.util-background-accent
+            div.sdk-sidebar__scroll.util-absolute.util-place-start.util-place-top.util-place-bottom.util-padding-bottom-lg.util-padding-top
+                ul#sidebar-links.list.pa0.ma0.sdk-sidebar__list
+                    if version && public[version] && public[version]._data
+                        +renderMenu(1, docsRoot + version, public[version])

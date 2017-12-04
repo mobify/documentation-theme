@@ -1,0 +1,26 @@
+{
+  "name": "documentation-theme",
+  "version": "0.0.1",
+  "description": "Jade template theme for Mobify documentation",
+  "main": "index.js",
+  "files": [
+    "mixins",
+    "layouts",
+    "js",
+    "images",
+    "icons",
+    "css"
+  ],
+  "scripts": {
+    "compile": "harp compile",
+    "sass": "node-sass styles -o css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dev@mobify.com",
+  "license": "ISC",
+  "devDependencies": {
+    "harp": "mobify/harp#update-to-pug",
+    "node-sass": "4.7.2",
+    "prismjs": "1.8.4"
+  }
+}

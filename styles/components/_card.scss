@@ -1,0 +1,38 @@
+// Card Theme
+// ===
+//
+// 1. For phone screen card should be full width, if no width set then when content will give width value
+
+.c-card {
+    @include for-phone-only {
+        width: 100%; // 1
+    }
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $base-space;
+    padding: $base-space;
+
+    border-radius: $border-radius;
+    background-color: $neutral-10;
+    box-shadow: $small-box-shadow;
+}
+
+.c-card__heading,
+.c-card__message {
+    margin-bottom: $base-space;
+
+    color: $neutral-60;
+    font-family: $base-font-family;
+    text-decoration: none;
+}
+
+.c-card__heading {
+    a {
+        color: $font-color;
+    }
+}
+
+.c-card__basement {
+    margin-top: auto;
+}
