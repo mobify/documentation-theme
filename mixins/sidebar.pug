@@ -8,35 +8,20 @@ include ./logo
 - var currentPath = '/' + current.path.slice(0, -2).join('/')
 - var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
 
-mixin renderMenuHead()
-    div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
-        div.u-flexbox.u-align-center.u-justify-between
-            a.u-neutral-10(href='http://docs.mobify.com/')
-                div.sdk-logo
-                    +logo
-            a.u-neutral-10(href='https://cloud.mobify.com/support/')
-                span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
-
-mixin renderMenuBackToDocs(projectName)
-    div.c-sidebar__heading.u-background-accent-dark
-        a.u-flexbox.u-padding-top.u-padding-bottom.u-padding-start-sm.u-padding-end.u-neutral-10.u-text-size-medium(href='https://docs.mobify.com/progressive-web/latest/')
-            span #{projectName}
-
 mixin renderMenuLink(level, slug, path, data, hasChildren)
-    - var anchorClass = "pl" + (level * 2) + "-mobify"
-    - anchorClass += (slug === currentDoc ? " c--active" : "")
+    - isActive = slug === currentDoc ? " c--active" : ""
     - var title = ((data && data.title) || "** MISSING TITLE **")
     - var accordionIsActive = hasChildren && currentDoc in hasChildren
     - var accordionClass = (accordionIsActive ? " sdk--active sdk--remove-transition" : "")
     - var href = `${path}/${slug}/`
     if (level === 1 && hasChildren)
-        button.bn.sdk-sidebar__accordion.util-text-medium(class=accordionClass)
-            div.sdk-sidebar__accordion-title= title
+        button.sdk-sidebar__accordion.u-text-medium(class=accordionClass)
+            .sdk-sidebar__accordion-title #{title}
     if (level === 1 && !hasChildren)
-        a.bn.pa8.sdk-sidebar__link.util-text-medium.f-large-mobify(href=href tabindex=tabIndex++ class=anchorClass)
-            span.ml-large-mobify= title
+        a.sdk-sidebar__link.u-text-medium(href=href tabindex=tabIndex++ class=isActive)
+            span.sdk-sidebar__accordion-title #{title}
     if (level !== 1)
-        a(href=href class=anchorClass + " sdk-sidebar__list-link util-text-medium")= title
+        a.sdk-sidebar__list-link(href=href class=isActive) #{title}
 
 mixin renderMenu(level, path, node)
     each item, slug in node._data
@@ -50,16 +35,29 @@ mixin renderMenu(level, path, node)
             - var accordionInlineStyles = (accordionIsActive ? "max-height: initial;" : "")
             +renderMenuLink(level, slug, path, node._data[slug], hasChildren)
             if (level === 1 && hasChildren)
-                ul.list.sdk-sidebar__accordion-item(style=accordionInlineStyles)
+                ul.sdk-sidebar__accordion-item.u-list-style-none(style=accordionInlineStyles)
                     +renderMenu(level + 1, path + '/' + slug, node[slug])
 
-mixin sidebar(projectName)
-    nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent
-        +renderMenuHead()
-        +renderMenuBackToDocs(projectName)
+mixin sidebar
+    nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent(role='navigation' id='navigation')
+        h2.u-visually-hidden Menu
+
+        div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
+            div.u-flexbox.u-align-center.u-justify-between
+                a#js-menu-first-focus.u-neutral-10(href='/')
+                    div.c-logo
+                        +logo
+                a.u-neutral-10(href='https://cloud.mobify.com/support/')
+                    span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
+
+        div.c-sidebar__heading.u-background-accent-dark
+            a.u-flexbox.u-padding-top.u-padding-bottom.u-padding-start-sm.u-padding-end.u-neutral-10.u-text-size-medium(href='/')
+                span.u-block(style='transform:rotate(90deg) scale(0.5);')
+                    include ../icons/icon-chevron.svg
+                span Mobify Documentation
 
         div.sdk-sidebar__scroll-parent.util-flex.util-context.util-background-accent
             div.sdk-sidebar__scroll.util-absolute.util-place-start.util-place-top.util-place-bottom.util-padding-bottom-lg.util-padding-top
-                ul#sidebar-links.list.pa0.ma0.sdk-sidebar__list
+                ul#sidebar-links.u-list-style-none.u-background-accent
                     if version && public[version] && public[version]._data
                         +renderMenu(1, docsRoot + version, public[version])

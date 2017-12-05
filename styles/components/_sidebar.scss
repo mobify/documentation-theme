@@ -1,6 +1,3 @@
-// Sidebar Component
-// ===
-
 .c-sidebar {
     @include for-phone-only {
         width: 80%;
@@ -25,144 +22,177 @@
     }
 }
 
-
-// Sidebar list
-// ---
-//
-// 1. Give some space between scrollbar and links
-
-.c-sidebar__list {
-    margin-right: $unit*1.5; // 1
+.sdk-sidebar__doc-title {
+    margin: 0;
 }
 
-// Sidebar Heading
-// ---
+/* Sidebar Accordio */
+/* 1. To absolutely position the accordion icon relative to accordion */
+/* 2. To align the icon to the text  */
+/* 3. A fix for Chrome Canary */
+
+.sdk-sidebar__accordion {
+    position: relative; /* 1 */
+    padding: $base-space;
+
+    width: 100%;
+
+    border-radius: unset; /* 3 */
+
+    background-color: $mobify-dark-blue;
+    color: $white;
+    text-align: left;
+
+    transition: color 0.2s ease-out;
+
+    border-style: none;
+}
+
+.sdk-sidebar__accordion:hover {
+    background: $black-20;
+
+    cursor: pointer;
+}
+
+.sdk-sidebar__accordion ~ .sdk-sidebar__accordion-item {
+    visibility: hidden;
+}
+
+.sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
+    visibility: visible;
+}
+
+.sdk-sidebar__accordion-title {
+    margin-left: $large-space;
+    font-size: $medium-font-size;
+}
+
+.sdk-sidebar__accordion:before {
+    content: '';
+
+    position: absolute; /* 1 */
+    top: 20px; /* 2 */
+    left: 0;
+
+    width: 15px;
+    height: 15px;
+    margin-left: $base-space;
+
+    background-image: url('../icons/plus.svg');
+
+    transform: rotate(0);
+
+    transition: transform 0.2s ease-out;
+}
+
+.sdk-sidebar__accordion.sdk--active:before {
+    transform: rotate(45deg);
+}
+
+.sdk-sidebar__accordion.sdk--active {
+    background: $dark-accent-color;
+}
+
+.sdk-sidebar__accordion.sdk--active::after {
+    content: '';
+
+    position: absolute; /* 1 */
+    right: 16px;
+    bottom: 0;
+    left: 16px;
+
+    border-top: 1px solid $mobify-dark-blue;
+}
+
+.sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
+    color: $white;
+    background: $dark-accent-color;
+    padding: $base-space 0;
+}
+
+.sdk-sidebar__accordion:focus {
+    outline: none;
+}
+
+.sdk-sidebar__accordion-item {
+    overflow: hidden;
+    max-height: 0;
+
+    transition: max-height 0.2s ease-out;
+}
+
+.sdk-sidebar__accordion.sdk--remove-transition ~ .sdk-sidebar__accordion-item {
+    transition: none;
+}
+
+.sdk-sidebar__link {
+    display: block;
+    padding: $base-space;
+
+    color: $white;
+}
+
+.sdk-sidebar__link.c--active {
+    background: $lighter-accent-color;
+}
+
+.sdk-sidebar__link:hover {
+    background: $black-20;
+    color: $white;
+}
+
+.sdk-sidebar__list-link {
+    display: block;
+    margin: 1px 0;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    color: $white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Special padding for 3rd-level menu items */
+.sdk-sidebar__list li ul li ul a {
+    padding-left: 50px;
+}
+
+.sdk-sidebar__accordion-item a.c--active {
+    background-color: $lighter-accent-color;
+
+    font-weight: $heavy-font-weight;
+}
+
+.sdk-sidebar__list-link:hover,
+.sdk-sidebar__list-link:focus {
+    background: $light-accent-color;
+
+    color: $white;
+}
+
+.sdk-sidebar__accordion-item a:active {
+    background: $lighter-accent-color;
+
+    color: $white;
+}
+
+.sdk-sidebar__scroll {
+    overflow-y: scroll;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.sdk-sidebar__scroll::-webkit-scrollbar {
+    display: none;
+}
 
 .c-sidebar__heading {
     a {
         font-family: $brand-font-family;
-    }
-}
-
-// Sidebar Doc title
-// ---
-
-.c-sidebar__doc-title {
-    a {
-        font-family: $brand-font-family;
-
-        &:hover,
-        &:focus {
-            background: $light-accent-color;
-
-            color: $white;
-        }
-
-        &:active {
-            background: $lighter-accent-color;
-
-            color: $white;
-        }
-    }
-}
-
-
-// Sidebar Title
-// ---
-
-.c-sidebar__scroll-parent {
-    &::before,
-    &::after {
-        content: '';
-
-        position: absolute;
-        right: 0;
-        left: 0;
-        z-index: $z1-depth;
-
-        height: $small-space;
-    }
-
-    &::before {
-        top: 0;
-
-        background: linear-gradient(to bottom, $accent-color, rgba($accent-color, 0));
-    }
-
-    &::after {
-        bottom: 0;
-
-        background: linear-gradient(to top, $accent-color, rgba($accent-color, 0));
-    }
-}
-
-
-// Sidebar Scroll
-// ---
-
-.c-sidebar__scroll {
-    right: $small-space;
-
-    overflow-y: scroll;
-
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-        width: $unit/2;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: rgba($neutral-10, 0.25);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: $neutral-10;
-    }
-}
-
-
-// Sidebar Item Link
-// ---
-//
-// 1. This color will be changed once the designer decides on the color
-// 2. Add 1 px spacing to show some spacing between current state and active/focus state
-
-.c-sidebar__item-link {
-    margin: 1px 0; // 1
-    padding: ($very-small-space - 1) $small-space ($very-small-space - 1) $xlarge-space;
-
-    border-top-right-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-
-    font-family: $brand-font-family;
-    font-size: ($base-font-size - 2);
-
-    &:hover,
-    &:focus {
-        background: $light-accent-color;
-
-        color: $white;
-    }
-
-    &:active {
-        background: $lighter-accent-color;
-
-        color: $white;
-    }
-
-    &:visited {
-        color: $neutral-40; // 1
-    }
-
-    &.c--active {
-        background-color: $lighter-accent-color;
-
-        font-weight: $heavy-font-weight;
-    }
-
-    &.c--header {
-        padding-left: $base-space;
-
-        font-weight: $heavy-font-weight;
     }
 }

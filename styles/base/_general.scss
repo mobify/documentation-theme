@@ -12,13 +12,22 @@ body {
     min-height: 100%;
 
     color: $font-color;
-    font-family: $base-font-family;
+    font-family: $brand-font-family;
     font-weight: $base-font-weight;
     font-size: $base-font-size;
     line-height: $base-line-height;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit; /* 1 */
+  margin: 0; /* 2 */
 }
 
 html,

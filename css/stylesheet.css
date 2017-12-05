@@ -640,12 +640,22 @@ html,
 body {
   min-height: 100%;
   color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", helvetica, sans-serif;
+  font-family: "Gotham SSm A", "Gotham SSm B", "avenir", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
 
 html,
 body,
@@ -1358,69 +1368,136 @@ a {
       .c-sidebar.c--hide {
         display: flex !important; } }
 
-.c-sidebar__list {
-  margin-right: 12px; }
+.sdk-sidebar__doc-title {
+  margin: 0; }
+
+/* Sidebar Accordio */
+/* 1. To absolutely position the accordion icon relative to accordion */
+/* 2. To align the icon to the text  */
+/* 3. A fix for Chrome Canary */
+.sdk-sidebar__accordion {
+  position: relative;
+  /* 1 */
+  padding: 16px;
+  width: 100%;
+  border-radius: unset;
+  /* 3 */
+  background-color: #005c83;
+  color: #fff;
+  text-align: left;
+  transition: color 0.2s ease-out;
+  border-style: none; }
+
+.sdk-sidebar__accordion:hover {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer; }
+
+.sdk-sidebar__accordion ~ .sdk-sidebar__accordion-item {
+  visibility: hidden; }
+
+.sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
+  visibility: visible; }
+
+.sdk-sidebar__accordion-title {
+  margin-left: 24px;
+  font-size: 18px; }
+
+.sdk-sidebar__accordion:before {
+  content: '';
+  position: absolute;
+  /* 1 */
+  top: 20px;
+  /* 2 */
+  left: 0;
+  width: 15px;
+  height: 15px;
+  margin-left: 16px;
+  background-image: url("../icons/plus.svg");
+  transform: rotate(0);
+  transition: transform 0.2s ease-out; }
+
+.sdk-sidebar__accordion.sdk--active:before {
+  transform: rotate(45deg); }
+
+.sdk-sidebar__accordion.sdk--active {
+  background: #003e58; }
+
+.sdk-sidebar__accordion.sdk--active::after {
+  content: '';
+  position: absolute;
+  /* 1 */
+  right: 16px;
+  bottom: 0;
+  left: 16px;
+  border-top: 1px solid #005c83; }
+
+.sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
+  color: #fff;
+  background: #003e58;
+  padding: 16px 0; }
+
+.sdk-sidebar__accordion:focus {
+  outline: none; }
+
+.sdk-sidebar__accordion-item {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease-out; }
+
+.sdk-sidebar__accordion.sdk--remove-transition ~ .sdk-sidebar__accordion-item {
+  transition: none; }
+
+.sdk-sidebar__link {
+  display: block;
+  padding: 16px;
+  color: #fff; }
+
+.sdk-sidebar__link.c--active {
+  background: #0288a7; }
+
+.sdk-sidebar__link:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff; }
+
+.sdk-sidebar__list-link {
+  display: block;
+  margin: 1px 0;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none; }
+
+/* Special padding for 3rd-level menu items */
+.sdk-sidebar__list li ul li ul a {
+  padding-left: 50px; }
+
+.sdk-sidebar__accordion-item a.c--active {
+  background-color: #0288a7;
+  font-weight: 700; }
+
+.sdk-sidebar__list-link:hover,
+.sdk-sidebar__list-link:focus {
+  background: #0f7293;
+  color: #fff; }
+
+.sdk-sidebar__accordion-item a:active {
+  background: #0288a7;
+  color: #fff; }
+
+.sdk-sidebar__scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
+
+.sdk-sidebar__scroll::-webkit-scrollbar {
+  display: none; }
 
 .c-sidebar__heading a {
   font-family: "Gotham SSm A", "Gotham SSm B", "avenir", sans-serif; }
-
-.c-sidebar__doc-title a {
-  font-family: "Gotham SSm A", "Gotham SSm B", "avenir", sans-serif; }
-  .c-sidebar__doc-title a:hover, .c-sidebar__doc-title a:focus {
-    background: #0f7293;
-    color: #fff; }
-  .c-sidebar__doc-title a:active {
-    background: #0288a7;
-    color: #fff; }
-
-.c-sidebar__scroll-parent::before, .c-sidebar__scroll-parent::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  height: 8px; }
-
-.c-sidebar__scroll-parent::before {
-  top: 0;
-  background: linear-gradient(to bottom, #005c83, rgba(0, 92, 131, 0)); }
-
-.c-sidebar__scroll-parent::after {
-  bottom: 0;
-  background: linear-gradient(to top, #005c83, rgba(0, 92, 131, 0)); }
-
-.c-sidebar__scroll {
-  right: 8px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; }
-  .c-sidebar__scroll::-webkit-scrollbar {
-    width: 4px; }
-  .c-sidebar__scroll::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.25); }
-  .c-sidebar__scroll::-webkit-scrollbar-thumb {
-    background: #fff; }
-
-.c-sidebar__item-link {
-  margin: 1px 0;
-  padding: 3px 8px 3px 32px;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-  font-family: "Gotham SSm A", "Gotham SSm B", "avenir", sans-serif;
-  font-size: 14px; }
-  .c-sidebar__item-link:hover, .c-sidebar__item-link:focus {
-    background: #0f7293;
-    color: #fff; }
-  .c-sidebar__item-link:active {
-    background: #0288a7;
-    color: #fff; }
-  .c-sidebar__item-link:visited {
-    color: #ebebeb; }
-  .c-sidebar__item-link.c--active {
-    background-color: #0288a7;
-    font-weight: 700; }
-  .c-sidebar__item-link.c--header {
-    padding-left: 16px;
-    font-weight: 700; }
 
 .c-spinner {
   display: block;
