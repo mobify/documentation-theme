@@ -2,30 +2,37 @@ include ./logo
 
 - var tabIndex = 0
 
-// All of our articles are nested in a folder matching the article "short name"
-// and then contain a file name `index.md` that hosts the actual content
-- var currentDoc = current.path[current.path.length-2]
-- var currentPath = '/' + current.path.slice(0, -2).join('/')
+//- All of our articles are nested in a folder matching the article "short name"
+//- and then contain a file name `index.md` that hosts the actual content
+- var currentDoc = current.path[current.path.length - 2]
 - var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
 
 mixin renderMenuLink(level, slug, path, data, hasChildren)
-    - isActive = slug === currentDoc ? " c--active" : ""
-    - var title = ((data && data.title) || "** MISSING TITLE **")
-    - var accordionIsActive = hasChildren && currentDoc in hasChildren
-    - var accordionClass = (accordionIsActive ? " sdk--active sdk--remove-transition" : "")
-    - var href = `${path}/${slug}/`
+    -
+        var isActiveDoc = slug === currentDoc ? "c--active" : ""
+        var title = ((data && data.title) || "** MISSING TITLE **")
+        var accordionIsActive = hasChildren && currentDoc in hasChildren
+        var accordionClasses = {
+            "sdk--active": accordionIsActive,
+            "sdk--remove-transition": accordionIsActive
+        }
+        var href = `${path}/${slug}/`
+
+    //- Top-level category; accordion button
     if (level === 1 && hasChildren)
-        button.sdk-sidebar__accordion.u-text-medium(class=accordionClass)
-            .sdk-sidebar__accordion-title #{title}
+        button.sdk-sidebar__accordion.u-text-medium(class=accordionClasses)
+            .sdk-sidebar__accordion-title= title
+    //- Top-level category; just a link
     if (level === 1 && !hasChildren)
-        a.sdk-sidebar__link.u-text-medium(href=href tabindex=tabIndex++ class=isActive)
-            span.sdk-sidebar__accordion-title #{title}
+        a.sdk-sidebar__link.u-text-medium(href=href, tabindex=tabIndex++, class=isActiveDoc)
+            span.sdk-sidebar__accordion-title= title
+    //- Document link
     if (level !== 1)
-        a.sdk-sidebar__list-link(href=href class=isActive) #{title}
+        a.sdk-sidebar__list-link(href=href, class=isActiveDoc)= title
 
 mixin renderMenu(level, path, node)
     each item, slug in node._data
-        // Ignore special slugs
+        //- Ignore special slugs
         if (slug.startsWith('_') || slug === "styleguidist" || slug === "index")
             - continue;
 
@@ -56,8 +63,8 @@ mixin sidebar
                     include ../icons/icon-chevron.svg
                 span Mobify Documentation
 
-        div.sdk-sidebar__scroll-parent.util-flex.util-context.util-background-accent
-            div.sdk-sidebar__scroll.util-absolute.util-place-start.util-place-top.util-place-bottom.util-padding-bottom-lg.util-padding-top
+        div.u-flex.u-context.u-background-accent
+            div.sdk-sidebar__scroll.u-position.u-place-start.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
                 ul#sidebar-links.u-list-style-none.u-background-accent
                     if version && public[version] && public[version]._data
                         +renderMenu(1, docsRoot + version, public[version])
