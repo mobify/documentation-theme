@@ -24,11 +24,11 @@ mixin renderMenuLink(level, slug, path, data, hasChildren)
             .sdk-sidebar__accordion-title= title
     //- Top-level category; just a link
     if (level === 1 && !hasChildren)
-        a.sdk-sidebar__link.u-text-medium(href=href, tabindex=tabIndex++, class=isActiveDoc)
+        a.sdk-sidebar__link.u-text-medium(href=href tabindex=tabIndex++ class=isActiveDoc)
             span.sdk-sidebar__accordion-title= title
     //- Document link
     if (level !== 1)
-        a.sdk-sidebar__list-link(href=href, class=isActiveDoc)= title
+        a.sdk-sidebar__list-link(href=href class=isActiveDoc)= title
 
 mixin renderMenu(level, path, node)
     each item, slug in node._data
@@ -64,7 +64,8 @@ mixin sidebar
                 span Mobify Documentation
 
         div.u-flex.u-context.u-background-accent
-            div.sdk-sidebar__scroll.u-position.u-place-start.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
+            div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
                 ul#sidebar-links.u-list-style-none.u-background-accent
                     if version && public[version] && public[version]._data
                         +renderMenu(1, docsRoot + version, public[version])
+                button#js-close-menu.u-visually-hidden Close Menu

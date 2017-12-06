@@ -1,6 +1,6 @@
 //- 👉 The `base` layout!
 
-include ./mixins/appbar
+include ./mixins/header
 include ./mixins/sidebar
 include ./mixins/markdownify
 
@@ -8,16 +8,13 @@ include ./mixins/markdownify
 block config
     //- Used for inline variables.
 
-    //- Override classes on body
-    - var bodyClasses = ['sdk-base', 'flex', 'items-stretch-ns', 'h-100', 'u-background-neutral-20']
-
     //- Override in `block config` to set <title> of page.
     -
         var docsRoot = environment === "production" ? docsRootProd : docsRootDev
         var title = projectName = 'Mobify Platform'
 
-        // This is basically always true, but remove 'index' from the path array
-        // since it's of no value
+        //- This is basically always true, but remove 'index' from the path array
+        //- since it's of no value
         var localPath = current.path
         if (localPath[localPath.length - 1] === 'index') {
             localPath = localPath.slice(0, localPath.length - 1)
@@ -31,7 +28,7 @@ block config
 
             for (i=1; i< localPath.length; i++) {
                 node = node[localPath[i]];
-                // Title for this page comes from the parent's `_data` node
+                //- Title for this page comes from the parent's `_data` node
                 if (i === localPath.length - 2) {
                     titleNode = node._data;
                 }
@@ -88,18 +85,19 @@ html(lang='en')
             iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-MD9HC8",
             height="0", width="0", style="display:none; visibility: hidden;")
 
-    body(class=bodyClasses)
-        block nav
-            +sidebar(projectName)
-
+    body.u-background-neutral-20
         //- 👉 The block `content` is the main block.
-        main.sdk-base__main.flex-auto.pl-nav.h-100
-            block header
-                +appbar("", title)
+        main.t-category
+            block nav
+                +sidebar(projectName)
 
-            block content
-                .sdk-base__content.w-100.pt-appbar.center.ph5-ns.util-min-width.mw8
-                    != yield
+            article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-20
+                block header
+                    +header(title)
+
+                .c-contain.c-text-content.u-margin-bottom-xl.u-flex
+                    block content
+                        != yield
 
         block scripts
             //- Pretty section anchors and permalinks
@@ -133,38 +131,44 @@ html(lang='en')
                 })();
 
             script.
-                var acc = document.querySelectorAll(".sdk-sidebar__accordion");
-                var i;
-                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
                 var setHeight = function(node, value) {
                     node.style.maxHeight = value
                 };
+                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
+
                 var handleAccClick = function() {
                     var classList = this.classList
                     classList.toggle("sdk--active");
                     classList.remove("sdk--remove-transition")
 
                     var accordionItem = this.nextElementSibling;
-                    if (classList.toString().indexOf("sdk--active") > 0){
+                    if (classList.toString().indexOf("sdk--active") > 0) {
                         setHeight(accordionItem, accordionItem.scrollHeight + "px")
                     } else {
                         setHeight(accordionItem, null)
                     }
                 };
-                for (i = 0; i < acc.length; i++) {
+
+                var acc = document.querySelectorAll(".sdk-sidebar__accordion");
+                for (var i = 0; i < acc.length; i++) {
                     acc[i].onclick = handleAccClick;
                 };
-                setHeight(activeItem, activeItem.scrollHeight + "px");
 
-            // Responsive Navigation
-            // ---
-            // 1. Add delay to hide nav when the transition is done, otherwise user will be able to see hide nav in middle of transition.
-            // 2. Change Menu Icon
-            // 3. Add overlay so when user click on overlay and will close menu
-            // 4. Prevent from scrolling when menu is open
-            // 5. Improve a11y to focus on menu when its open
+                if (activeItem !== null) {
+                    setHeight(activeItem, activeItem.scrollHeight + "px");
+                }
+
+            //-
+                Responsive Navigation
+                ---
+                1. Add delay to hide nav when the transition is done, otherwise
+                   user will be able to see hide nav in middle of transition.
+                2. Change Menu Icon
+                3. Add overlay so when user click on overlay and will close menu
+                4. Prevent from scrolling when menu is open
+                5. Improve a11y to focus on menu when its open
             script.
-                document.getElementById('js-nav-toggle').onclick = function(){
+                document.getElementById('js-nav-toggle').onclick = function() {
                     document.getElementsByClassName('c-article')[0].classList.add('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.remove('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.add('u-hidden'); // 2
@@ -182,7 +186,7 @@ html(lang='en')
                     document.getElementsByClassName('js-search-input')[0].classList.add('u-hidden--for-tablet-only');
                 }
 
-                document.getElementById('js-menu-sheet').onclick = function(){
+                document.getElementById('js-menu-sheet').onclick = function() {
                     document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
@@ -194,7 +198,7 @@ html(lang='en')
                     document.getElementById('js-nav-toggle').focus(); // 5
                 }
 
-                document.getElementById('js-close-menu').onclick = function(){
+                document.getElementById('js-close-menu').onclick = function() {
                     document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
@@ -205,7 +209,7 @@ html(lang='en')
                     document.getElementById('js-nav-toggle').focus(); // 5
                 }
 
-                document.getElementById('js-search-toggle').onclick = function(){
+                document.getElementById('js-search-toggle').onclick = function() {
                     document.getElementsByClassName('c-search-button__close-icon')[0].classList.toggle('u-hidden');
                     document.getElementsByClassName('c-search-button__search-icon')[0].classList.toggle('u-hidden');
                     document.getElementsByClassName('c-search-sheet')[0].classList.toggle('c--active');
