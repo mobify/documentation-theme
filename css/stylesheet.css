@@ -653,9 +653,7 @@ optgroup,
 select,
 textarea {
   font: inherit;
-  /* 1 */
-  margin: 0;
-  /* 2 */ }
+  margin: 0; }
 
 html,
 body,
@@ -779,6 +777,21 @@ code {
 
 [hidden] {
   display: none !important; }
+
+h2 > a[name],
+h3 > a[name],
+h4 > a[name],
+h5 > a[name],
+h6 > a[name] {
+  font-size: 1.125rem;
+  visibility: hidden; }
+
+h2:hover > a[name],
+h3:hover > a[name],
+h4:hover > a[name],
+h5:hover > a[name],
+h6:hover > a[name] {
+  visibility: visible; }
 
 @font-face {
   font-family: 'Mobify-Icons';

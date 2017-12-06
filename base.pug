@@ -134,7 +134,6 @@ html(lang='en')
                 var setHeight = function(node, value) {
                     node.style.maxHeight = value
                 };
-                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
 
                 var handleAccClick = function() {
                     var classList = this.classList
@@ -149,13 +148,21 @@ html(lang='en')
                     }
                 };
 
+                //- Handle click events for accordions
                 var acc = document.querySelectorAll(".sdk-sidebar__accordion");
                 for (var i = 0; i < acc.length; i++) {
                     acc[i].onclick = handleAccClick;
                 };
 
+                //- Set the height properly for accordion that is open on page load
+                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
                 if (activeItem !== null) {
+                    var nav = document.getElementById('navigation')
+                    //- Gross, but display the navigation briefly so we can calculate
+                    //- the height properly in mobile mode
+                    nav.classList.remove('c--hide')
                     setHeight(activeItem, activeItem.scrollHeight + "px");
+                    nav.classList.add('c--hide')
                 }
 
             //-
