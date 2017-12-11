@@ -1,10 +1,10 @@
-include ./card
+include ./row
 
-mixin sectionContents(path)
+mixin sectionContents()
     // This is a bit complex due to the fact that we use directories with `index.md`
     // in them so that we can have trailing slashes for all of our doc URLs
     // `/progressive-web-sdk/latest/reference/changelog` -> `reference/changelog/index.md`
-    - var localPath = path
+    - var localPath = current.path
     - if (localPath[localPath.length - 1] === 'index') {
         - localPath = localPath.slice(0, localPath.length - 1)
     - }
@@ -23,4 +23,4 @@ mixin sectionContents(path)
                 if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
                     - url = docsRoot + localPath.join('/') + '/' + slug
                     li
-                        +card(url, childNode.title)
+                        +row(url, childNode.title)
