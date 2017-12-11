@@ -16,6 +16,10 @@
     border-radius: $border-radius;
     background-color: $neutral-10;
     box-shadow: $small-box-shadow;
+
+    & a {
+        text-decoration: none;
+    }
 }
 
 .c-card__heading,

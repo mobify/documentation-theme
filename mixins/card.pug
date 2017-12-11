@@ -1,4 +1,11 @@
-mixin card(url, title, isTargetBlank)
-    - var target = isTargetBlank ? '_blank' : '_self'
-    a.bg-white.db.b--black-30.br2.ba.pa4.mt2.no-underline.trans-all.shadow-hover.link-no-decoration(href=url target=target)
-        h3.ma0.black.f3.fw4= title
+mixin card(href, heading, message, button, image)
+    article.c-card
+        h4.c-card__heading
+            a(href=href) #{heading}
+        div.u-flexbox
+            p.u-flex.c-card__message #{message}
+            if image
+                div.u-flex
+                    img(src=image)
+        div.c-card__basement
+            a.c-button.c--primary(href=href) #{button}

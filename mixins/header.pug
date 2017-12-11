@@ -1,6 +1,6 @@
 include ./top-nav
 
-mixin header(projectName)
+mixin header(title, intro)
     header.t-header-layout.u-flex-none.u-margin-bottom-xl.u-background-neutral-10.u-small-shadow
         +top-nav
         div.c-contain
@@ -8,9 +8,9 @@ mixin header(projectName)
                 span.u-visually-hidden Search Sheet
             div.t-header-layout__content.u-flexbox.u-align-center.u-context
                 div.u-flex
-                    h1.c-heading.c--h2 #{projectName}
-                    if headerIntro
-                        p.u-margin-top-sm.u-neutral-50 #{headerIntro}
+                    h1.c-heading.c--h2 #{title}
+                    if intro
+                        p.u-margin-top-sm.u-neutral-50 #{intro}
                 div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
                     div.c-search-box
                         gcse:searchbox-only

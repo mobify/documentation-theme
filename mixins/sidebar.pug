@@ -57,12 +57,20 @@ mixin sidebar
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
                     span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
 
-        div.c-sidebar__heading.u-background-accent-dark
-            a.u-flexbox.u-padding-top.u-padding-bottom.u-padding-start-sm.u-padding-end.u-neutral-10.u-text-size-medium(href='/')
-                span.u-block(style='transform:rotate(90deg) scale(0.5);')
-                    include ../icons/icon-chevron.svg
-                span Mobify Documentation
-
+        div.u-background-accent-dark
+            div.c-sidebar__product-picker.u-flexbox.u-justify-between.u-align-center.u-margin-top-md.u-margin-bottom-md.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium
+                button.u-background-accent-dark #{PROJECT_NAME}
+                span.c-sidebar__product-picker-chevron
+                    include ../icons/icon-chevron-down.svg
+            ul.c-sidebar__product-picker-item.u-text-size-medium
+                //- Projects define a PROJECT_NAME global in _harp.json, which
+                //- we use here to determine what appears in the list of other
+                //- products.
+                each href, name in { 'Progressive Web SDK': '/progressive-web', 'AMP SDK': '/amp-sdk', 'Documentation Home': '/' }
+                    if PROJECT_NAME !== name
+                        li.u-margin-start.u-margin-bottom-md
+                            a.c-sidebar__product-picker-link(href=href) #{name}
+                
         div.u-flex.u-context.u-background-accent
             div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
                 ul#sidebar-links.u-list-style-none.u-background-accent

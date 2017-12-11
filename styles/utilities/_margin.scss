@@ -21,6 +21,10 @@
     margin-top: $base-space !important;
 }
 
+.u-margin-top-md {
+    margin-top: $medium-space !important;
+}
+
 .u-margin-top-lg {
     margin-top: $large-space !important;
 }
@@ -55,6 +59,10 @@
     margin-bottom: $base-space !important;
 }
 
+.u-margin-bottom-md {
+    margin-bottom: $medium-space !important;
+}
+
 .u-margin-bottom-lg {
     margin-bottom: $large-space !important;
 }
@@ -87,6 +95,10 @@
     margin-left: $base-space !important;
 }
 
+.u-margin-start-md {
+    margin-left: $medium-space !important;
+}
+
 .u-margin-start-lg {
     margin-left: $large-space !important;
 }
@@ -117,6 +129,10 @@
 
 .u-margin-end {
     margin-right: $base-space !important;
+}
+
+.u-margin-end {
+    margin-right: $medium-space !important;
 }
 
 .u-margin-end-lg {

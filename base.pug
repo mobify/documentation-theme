@@ -10,8 +10,9 @@ block config
 
     //- Override in `block config` to set <title> of page.
     -
+        console.log('Current path', current.path)
         var docsRoot = environment === "production" ? docsRootProd : docsRootDev
-        var title = projectName = 'Mobify Platform'
+        var title = SITE_TITLE
 
         //- This is basically always true, but remove 'index' from the path array
         //- since it's of no value
@@ -23,10 +24,15 @@ block config
         var section = localPath[localPath.length - 1]
         var version = current.path[0]
         var node = public[version]
+
         if (node && node._data) {
             var titleNode = node._data
 
-            for (i=1; i< localPath.length; i++) {
+            // localPath is like ['latest', 'getting-started', 'quick-start', 'index']
+            // and we want the `_data` object located at `quick-start` so we
+            // can just iterate over each item in `localPath` starting at index
+            // 1 until the second to last item
+            for (i = 1; i < localPath.length; i++) {
                 node = node[localPath[i]];
                 //- Title for this page comes from the parent's `_data` node
                 if (i === localPath.length - 2) {
@@ -89,11 +95,11 @@ html(lang='en')
         //- 👉 The block `content` is the main block.
         main.t-category
             block nav
-                +sidebar(projectName)
+                +sidebar
 
             article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-20
                 block header
-                    +header(title)
+                    +header(title, pageIntro)
 
                 .c-contain.c-text-content.u-margin-bottom-xl.u-flex
                     block content
@@ -102,6 +108,29 @@ html(lang='en')
         block scripts
             //- Pretty section anchors and permalinks
             +markdownify
+
+            script.
+                (function() {
+                    var setHeight = function(node, value) {
+                        node.style.maxHeight = value
+                    };
+
+                    var productPicker = document.querySelector('.c-sidebar__product-picker');
+                    var products = document.querySelector('.c-sidebar__product-picker-item');
+                    var chevron = document.querySelector('.c-sidebar__product-picker-chevron')
+
+                    productPicker.addEventListener('click', function() {
+                        var isActive = products.classList.toggle("c--active");
+
+                        if (isActive) {
+                            setHeight(products, products.scrollHeight + "px");
+                            chevron.classList.add('c--active');
+                        } else {
+                            setHeight(products, null);
+                            chevron.classList.remove('c--active');
+                        }
+                    });
+                })()
 
             //- 👉 Syntax highlighter
             script(src="/assets/js/prism.js")

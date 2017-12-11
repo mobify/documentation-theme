@@ -27,7 +27,9 @@ $ratio: 1.5;
 
 $very-small-space: $unit/2; // 4px
 $small-space: $unit*1; // 8px
+$smallish-space: $unit*1.5; // 12px
 $base-space: $unit*2; // 16px
+$medium-space: $unit*2.5; // 20px
 $large-space: $unit*3; // 24px
 $xlarge-space: $unit*4; //32px
 $very-large-space: $unit*5; // 40px
@@ -55,6 +57,7 @@ $small-font-size: 12px;
 $base-font-size: 16px;
 $medium-font-size: 18px;
 $large-font-size: 20px;
+$larger-font-size: 24px;
 $very-large-font-size: 28px;
 $massive-font-size: 40px;
 $super-massive-font-size: 64px;
@@ -78,7 +81,7 @@ $heavy-font-weight: 700;
 // Content Area Widths
 // --
 
-$base-content-width: 50em;
+$base-content-width: 60em;
 
 $narrow-content-width: 20em;
 $small-content-width: 35em;
