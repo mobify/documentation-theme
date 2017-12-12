@@ -1,15 +1,12 @@
+extends ../base
+
 //- 🚫 404 Page.
 include ../mixins/logo
 
-block config
-    - title = `Page Not Found`
+append config
+    - title = 'Page Not Found'
 
-block nav
-    div Hello
-
-block header
-
-block content
+block main
     main.t-error.u-context.u-flexbox.u-flex-column.u-height-full-vh
         header.t-header-small.u-flex-none.u-margin-bottom-lg.u-context.u-clip.u-neutral-10.u-background-accent-gradient.u-large-shadow
             div.c-contain.u-context.u-z1

@@ -1,6 +1,7 @@
 include ./top-nav
 
 mixin header(title, intro)
+    - title = title || SITE_TITLE
     header.t-header-layout.u-flex-none.u-margin-bottom-xl.u-background-neutral-10.u-small-shadow
         +top-nav
         div.c-contain

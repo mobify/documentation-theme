@@ -1,11 +1,10 @@
 include ./logo
 
-- var tabIndex = 0
-
 //- All of our articles are nested in a folder matching the article "short name"
 //- and then contain a file name `index.md` that hosts the actual content
-- var currentDoc = current.path[current.path.length - 2]
-- var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
+append config
+    - var tabIndex = 0
+    - var currentDoc = current.path[current.path.length - 2]
 
 mixin renderMenuLink(level, slug, path, data, hasChildren)
     -
@@ -51,7 +50,7 @@ mixin sidebar
 
         div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
             div.u-flexbox.u-align-center.u-justify-between
-                a#js-menu-first-focus.u-neutral-10(href='/')
+                a#js-menu-first-focus.u-neutral-10(href=`${DOCS_ROOT}${VERSION}/`)
                     div.c-logo
                         +logo
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
@@ -74,6 +73,6 @@ mixin sidebar
         div.u-flex.u-context.u-background-accent
             div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
                 ul#sidebar-links.u-list-style-none.u-background-accent
-                    if version && public[version] && public[version]._data
-                        +renderMenu(1, docsRoot + version, public[version])
+                    if VERSION && public[VERSION] && public[VERSION]._data
+                        +renderMenu(1, DOCS_ROOT + VERSION, public[VERSION])
                 button#js-close-menu.u-visually-hidden Close Menu

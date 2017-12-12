@@ -1,46 +1,67 @@
 //- 👉 The `base` layout!
-
-include ./mixins/header
-include ./mixins/sidebar
 include ./mixins/markdownify
+include ./mixins/sidebar
+include ./mixins/header
 
-//- 👉 The block `config` is helpful for introducing defining inline variables to use within templates.
+//- 👉
+//- By adding an `append config` block to your extending template, you gain
+//- access to all variables defined here.
 block config
-    //- Used for inline variables.
+    - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
+    - var VERSION = current.path[0]
+    - var metaData = {}
 
-    //- Override in `block config` to set <title> of page.
+    //- current.path looks like:
+    //- ['latest', 'index']
+    //- ['latest', 'getting-started', 'quick-start', 'index']
+    - var path = current.path
+    - console.log('Path:', path)
+
+    //- public contains all the metadata from _data.json files
+    //- public = {
+    //-     "latest": {
+    //-         "_data": {
+    //-             "index": {
+    //-                 "title": "Homepage"
+    //-             },
+    //-             "getting-started": {
+    //-                 "title": "Getting Started"
+    //-             }
+    //-         },
+    //-         "getting-started": [...]
+    - var node = public[path[0]]
+
+    - var pathLength = path.length
+    //- Path lengths of 1 or 2 mean the root index page or the index page under
+    //- latest. In this case, we actually want to use that slug name.
+    - var lastIndex = pathLength <= 2 ? 1 : 2
+    - var slug = path[pathLength - lastIndex]
+
+    //- Recursively traverse the path array, using each index as a key lookup in
+    //- the `_data` child objects of `public` until we find the one we want.
     -
-        console.log('Current path', current.path)
-        var docsRoot = environment === "production" ? docsRootProd : docsRootDev
-        var title = SITE_TITLE
-
-        //- This is basically always true, but remove 'index' from the path array
-        //- since it's of no value
-        var localPath = current.path
-        if (localPath[localPath.length - 1] === 'index') {
-            localPath = localPath.slice(0, localPath.length - 1)
-        }
-
-        var section = localPath[localPath.length - 1]
-        var version = current.path[0]
-        var node = public[version]
-
-        if (node && node._data) {
-            var titleNode = node._data
-
-            // localPath is like ['latest', 'getting-started', 'quick-start', 'index']
-            // and we want the `_data` object located at `quick-start` so we
-            // can just iterate over each item in `localPath` starting at index
-            // 1 until the second to last item
-            for (i = 1; i < localPath.length; i++) {
-                node = node[localPath[i]];
-                //- Title for this page comes from the parent's `_data` node
-                if (i === localPath.length - 2) {
-                    titleNode = node._data;
-                }
+        var findData = function(slug, node, path) {
+            if (!node._data) {
+                console.log(`No Metadata found for`, slug)
+                return {}
             }
 
-            title = (titleNode && titleNode[section] && titleNode[section].title) || title
+            if (node._data[slug]) {
+                return node._data[slug]
+            } else {
+                // If `_data` doesn't have a key for the current index, remove it
+                // from the array and continue through the tree.
+                var pathSection = path.splice(0, 1)
+                return findData(slug, node[pathSection], path)
+            }
+        }
+
+    -
+        if (node) {
+            path.splice(0, 1)
+            metaData = findData(slug, node, path)
+            console.log(`Metadata for page "${slug}":`, metaData)
+            console.log('-----')
         }
 
 doctype html
@@ -55,30 +76,31 @@ html(lang='en')
                \/_/  \/_/   \/_____/   \/_____/   \/_/   \/_/     \/_____/
 
         //- 👉 Meta!
-        title=title
-        //- If `pageTitle` is defined, use it! Titles look like "Quick Start - Progressive Web SDK"
-        meta(charset='utf-8')
-        meta(name='viewport' content='width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
-        meta(http-equiv='X-UA-Compatible' content='chrome=1')
-        meta(name='description' content=siteDescription)
-        meta(name='author' content='Mobify')
-        meta(name='google-site-verification' content='hcu0ZUGe8eYI-5_8gL5Nd1A7qCfxdzVCOtHEOF0kMkI')
+        title=`${metaData.title} - ${SITE_TITLE}` || SITE_TITLE
 
-        //- 👉 Social!
-        meta(property='og:site_name' content='Mobify')
-        meta(property='og:type' content='article')
-        meta(property='fb:admins' content='146664288704690')
-        meta(name='twitter:card' content='summary')
-        meta(name='twitter:site' content='@mobify')
-        meta(name='twitter:domain' content='http://www.mobify.com')
-        meta(property='og:title' content='Platform - Better Mobile Shopping')
-        meta(name='twitter:title' content='Platform - Better Mobile Shopping')
-        meta(property='og:url' content='http://www.mobify.com/platform/better-mobile-shopping/')
-        meta(name='twitter:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
-        meta(property='og:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
-        meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
+        block meta
+            meta(charset='utf-8')
+            meta(name='viewport' content='width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
+            meta(http-equiv='X-UA-Compatible' content='chrome=1')
+            meta(name='description' content=siteDescription)
+            meta(name='author' content='Mobify')
+            meta(name='google-site-verification' content='hcu0ZUGe8eYI-5_8gL5Nd1A7qCfxdzVCOtHEOF0kMkI')
 
-        link(rel='icon' href='assets/images/favicon.ico')
+            //- 👉 Social!
+            meta(property='og:site_name' content='Mobify')
+            meta(property='og:type' content='article')
+            meta(property='fb:admins' content='146664288704690')
+            meta(name='twitter:card' content='summary')
+            meta(name='twitter:site' content='@mobify')
+            meta(name='twitter:domain' content='http://www.mobify.com')
+            meta(property='og:title' content='Platform - Better Mobile Shopping')
+            meta(name='twitter:title' content='Platform - Better Mobile Shopping')
+            meta(property='og:url' content='http://www.mobify.com/platform/better-mobile-shopping/')
+            meta(name='twitter:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
+            meta(property='og:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
+            meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
+
+        link(rel='icon' href=`${DOCS_ROOT}favicon.ico`)
 
         //- 👉 Stylesheet
         link(rel="stylesheet" href='/assets/css/main.css')
@@ -92,14 +114,15 @@ html(lang='en')
             height="0", width="0", style="display:none; visibility: hidden;")
 
     body.u-background-neutral-20
-        //- 👉 The block `content` is the main block.
-        main.t-category
-            block nav
-                +sidebar
+        //- 👉 The block `main` is the main block.
+        block main
+            main.t-category
+                block nav
+                    +sidebar
 
             article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-20
                 block header
-                    +header(title, pageIntro)
+                    +header(metaData.title, metaData.intro)
 
                 .c-contain.c-text-content.u-margin-bottom-xl.u-flex
                     block content
