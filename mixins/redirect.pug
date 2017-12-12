@@ -10,8 +10,8 @@ mixin redirect(url)
             script.
                 (function() {
                     setTimeout(function() {
-                        window.location.href = url;
-                    }, timeout * 1000);
+                        window.location.href = "#{url}";
+                    }, #{timeout} * 1000);
                 })();
         body
             h3 This URL has changed. Redirecting...
