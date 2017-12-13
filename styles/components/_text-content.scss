@@ -20,29 +20,6 @@
         margin-top: $large-space;
     }
 
-
-    // Heading sizes in content area
-    // ---
-
-    h2 {
-        @extend %h3;
-        font-weight:$heavy-font-weight;
-    }
-
-    h3 {
-        @extend %h4;
-    }
-
-    h4 {
-        @extend %h5;
-    }
-
-    h5,
-    h6 {
-        @extend %h6;
-    }
-
-
     ul,
     ol {
         margin-left: $base-space;

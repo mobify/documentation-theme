@@ -1,6 +1,6 @@
 include ./row
 
-mixin sectionContents()
+mixin sectionContents
     // This is a bit complex due to the fact that we use directories with `index.md`
     // in them so that we can have trailing slashes for all of our doc URLs
     // `/progressive-web-sdk/latest/reference/changelog` -> `reference/changelog/index.md`
@@ -11,11 +11,11 @@ mixin sectionContents()
 
     - var node = public
 
-    - for (i=0; i< localPath.length; i++) {
+    - for (i = 0; i < localPath.length; i++) {
     -     node = node[localPath[i]];
     - }
 
-    - var docsRoot = environment === 'production' ? docsRootProd : docsRootDev
+    - var docsRoot = environment === 'production' ? PROD_ROOT : DEV_ROOT
 
     .mw8.center
         ul.list.ma0.pa0
