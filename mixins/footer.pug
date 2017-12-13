@@ -1,0 +1,12 @@
+mixin footer
+    - var path = current.path
+    footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
+        div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
+            div.u-flex-shrink
+                if prevButton
+                    span.u-text-uppercase Prev—
+                    a(href="/#{component}/#{version}/#{prevButtonLink}") #{prevButton}
+            div.u-flex-shrink
+                if nextButton
+                    span.u-text-uppercase Next—
+                    a(href="/#{component}/#{version}/#{nextButtonLink}") #{nextButton}

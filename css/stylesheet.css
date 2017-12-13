@@ -1121,6 +1121,7 @@ a {
       left: 0;
       width: 18px;
       height: 18px;
+      background-image: url("../icons/icon-search.svg");
       background-size: contain;
       transform: translate(50%, -50%);
       pointer-events: none; }

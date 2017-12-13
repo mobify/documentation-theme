@@ -1,0 +1,24 @@
+include documentation-theme/mixins/card
+
+mixin blockContents
+    // This is a bit complex due to the fact that we use directories with `index.md`
+    // in them so that we can have trailing slashes for all of our doc URLs
+    // `/progressive-web-sdk/latest/reference/changelog` -> `reference/changelog/index.md`
+
+    - var version = current.path[0]
+    - var homepageData = public[version]._data._homepage
+
+    each section, sectionName in homepageData
+        if section.title
+            h2.u-text-size-larger #{section.title}
+        if section.intro
+            p #{section.intro}
+        if section.questions
+            for question in section.questions
+                div.mt2
+                    a.no-underline.util-block(href=`./${question.href}`) #{question.question}
+        if section.blocks
+            - var isComponentBlock = sectionName === 'components'
+            div(class=["c-grid", isComponentBlock ? 'c--4up' : 'c--2up'])
+                each block in section.blocks
+                    +card(block.href, block.title, block.info, block.button, block.image, isComponentBlock)

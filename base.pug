@@ -5,9 +5,7 @@ include ./mixins/header
 include ./mixins/inject-metadata
 include ./mixins/footer
 
-//- 👉
-//- By adding an `append config` block to your *EXTENDING* template, you gain
-//- access to all variables defined here.
+//- 👉 Just a nice location to place variables for use within the template.
 block config
     - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
     - var metaData = {}
@@ -76,6 +74,9 @@ html(lang='en')
                 .c-contain.c-text-content.u-margin-bottom-xl.u-flex
                     block content
                         != yield
+
+                block footer
+                    +footer
 
         block scripts
             //- Pretty section anchors and permalinks
