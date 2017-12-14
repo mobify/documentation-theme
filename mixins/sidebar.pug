@@ -20,14 +20,14 @@ mixin renderMenuLink(level, slug, path, data, hasChildren)
 
     //- Top-level category; accordion button
     if (level === 1 && hasChildren)
-        button.sdk-sidebar__accordion.u-text-medium(class=accordionClasses)
+        button.sdk-sidebar__accordion.u-text-medium(class=[accordionClasses, isActiveDoc])
             .sdk-sidebar__accordion-title= title
     //- Top-level category; just a link
     if (level === 1 && !hasChildren)
         a.sdk-sidebar__link.u-text-medium(href=href tabindex=tabIndex++ class=isActiveDoc)
             span.sdk-sidebar__accordion-title= title
-    //- Document link
-    if (level !== 1)
+    //- Document link (inside accordion)
+    if (level > 1)
         a.sdk-sidebar__list-link(href=href class=isActiveDoc)= title
 
 mixin renderMenu(level, path, node)

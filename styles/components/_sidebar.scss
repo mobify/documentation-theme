@@ -48,6 +48,10 @@
     border-style: none;
 }
 
+.sdk-sidebar__accordion.c--active {
+    background: $lighter-accent-color;
+}
+
 .sdk-sidebar__accordion:hover {
     background: $black-20;
 

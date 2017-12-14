@@ -1387,6 +1387,9 @@ a {
   transition: color 0.2s ease-out;
   border-style: none; }
 
+.sdk-sidebar__accordion.c--active {
+  background: #0288a7; }
+
 .sdk-sidebar__accordion:hover {
   background: rgba(0, 0, 0, 0.2);
   cursor: pointer; }
