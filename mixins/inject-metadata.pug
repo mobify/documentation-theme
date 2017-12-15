@@ -14,7 +14,7 @@ mixin injectMetadata
     //- current.path looks like:
         ['latest', 'index']
         ['latest', 'getting-started', 'quick-start', 'index']
-    - var path = current.path
+    - var path = [].concat(current.path)
     - console.log('Path:', path)
 
     //- public contains all the metadata from _data.json files

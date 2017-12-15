@@ -1,10 +1,10 @@
-include ./row
+include ./card
 
 mixin sectionContents
     // This is a bit complex due to the fact that we use directories with `index.md`
     // in them so that we can have trailing slashes for all of our doc URLs
     // `/progressive-web-sdk/latest/reference/changelog` -> `reference/changelog/index.md`
-    - var localPath = current.path
+    - var localPath = [].concat(current.path)
     - if (localPath[localPath.length - 1] === 'index') {
         - localPath = localPath.slice(0, localPath.length - 1)
     - }
@@ -17,10 +17,10 @@ mixin sectionContents
 
     - var docsRoot = environment === 'production' ? PROD_ROOT : DEV_ROOT
 
-    .mw8.center
-        ul.list.ma0.pa0
-            each childNode, slug in node._data
-                if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
-                    - url = docsRoot + localPath.join('/') + '/' + slug
-                    li
-                        +row(url, childNode.title)
+    ul.c-section-contents.u-list-style-none
+        each childNode, slug in node._data
+            if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
+                - url = docsRoot + localPath.join('/') + '/' + slug
+                li
+                    a.c-card(href=url)
+                        h2.c-card__heading.c-heading.c--h3 #{childNode.title}

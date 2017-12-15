@@ -3,9 +3,10 @@ include ./logo
 //- All of our articles are nested in a folder matching the article "short name"
 //- and then contain a file name `index.md` that hosts the actual content
 
-- var version = current.path[0]
+- var path = [].concat(current.path)
+- var version = path[0]
 - var tabIndex = 0
-- var currentDoc = current.path[current.path.length - 2]
+- var currentDoc = path[path.length - 2]
 
 mixin renderMenuLink(level, slug, path, data, hasChildren)
     -

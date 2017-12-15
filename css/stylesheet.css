@@ -1656,6 +1656,18 @@ a {
 .c-card__basement {
   margin-top: auto; }
 
+ul.c-section-contents {
+  margin-left: 0;
+  padding-left: 0; }
+  ul.c-section-contents a {
+    text-decoration: none; }
+  ul.c-section-contents .c-card__heading {
+    margin-top: 16px; }
+  ul.c-section-contents .c-card {
+    transition: box-shadow 0.15s ease; }
+    ul.c-section-contents .c-card:hover {
+      box-shadow: 0 0 0.35rem rgba(6, 23, 39, 0.4); }
+
 @media (max-width: 35em) {
   .t-category table.gsc-search-box {
     width: 100%; } }
