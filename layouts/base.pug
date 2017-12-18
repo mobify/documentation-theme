@@ -47,10 +47,10 @@ html(lang='en')
             meta(property='og:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
             meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
 
-        link(rel='icon' href=`${DOCS_ROOT}favicon.ico`)
+        link(rel='icon' href=`${DOCS_ROOT}theme/img/favicon.ico`)
 
         //- 👉 Stylesheet
-        link(rel="stylesheet" href='/assets/css/main.css')
+        link(rel="stylesheet" href=`${DOCS_ROOT}theme/css/main.css`)
 
         //- 👉 Typography.com font
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
@@ -106,7 +106,7 @@ html(lang='en')
                 })()
 
             //- 👉 Syntax highlighter
-            script(src="/assets/js/prism.js")
+            script(src=`${DOCS_ROOT}theme/js/prism.js`)
 
             //- 📈 Google Tag Manager
             script.
