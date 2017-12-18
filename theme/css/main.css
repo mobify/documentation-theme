@@ -1414,7 +1414,7 @@ a {
   width: 15px;
   height: 15px;
   margin-left: 16px;
-  background-image: url("../icons/plus.svg");
+  background-image: url("../icons/icon-plus.svg");
   transform: rotate(0);
   transition: transform 0.2s ease-out; }
 

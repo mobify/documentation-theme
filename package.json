@@ -3,17 +3,17 @@
   "version": "0.0.1",
   "description": "Jade template theme for Mobify documentation",
   "main": "index.js",
+  "bin": {
+    "theme-copy-files": "scripts/copy.js"
+  },
   "files": [
     "mixins",
     "layouts",
-    "js",
-    "images",
-    "icons",
-    "css"
+    "scripts"
   ],
   "scripts": {
     "compile": "harp compile",
-    "sass": "node-sass styles -o css",
+    "sass": "node-sass styles -o theme/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "dev@mobify.com",
@@ -22,5 +22,8 @@
     "harp": "mobify/harp#update-to-pug",
     "node-sass": "4.7.2",
     "prismjs": "1.8.4"
+  },
+  "dependencies": {
+    "fs-extra": "5.0.0"
   }
 }
