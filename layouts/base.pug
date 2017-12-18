@@ -29,7 +29,7 @@ html(lang='en')
             meta(charset='utf-8')
             meta(name='viewport' content='width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
             meta(http-equiv='X-UA-Compatible' content='chrome=1')
-            meta(name='description' content=siteDescription)
+            meta(name='description' content=SITE_DESCRIPTION)
             meta(name='author' content='Mobify')
             meta(name='google-site-verification' content='hcu0ZUGe8eYI-5_8gL5Nd1A7qCfxdzVCOtHEOF0kMkI')
 
@@ -134,37 +134,37 @@ html(lang='en')
 
             script.
                 var setHeight = function(node, value) {
-                    node.style.maxHeight = value
+                    node.style.maxHeight = value;
                 };
 
                 var handleAccClick = function() {
-                    var classList = this.classList
+                    var classList = this.classList;
                     classList.toggle("sdk--active");
-                    classList.remove("sdk--remove-transition")
+                    classList.remove("sdk--remove-transition");
 
                     var accordionItem = this.nextElementSibling;
                     if (classList.toString().indexOf("sdk--active") > 0) {
-                        setHeight(accordionItem, accordionItem.scrollHeight + "px")
+                        setHeight(accordionItem, accordionItem.scrollHeight + "px");
                     } else {
-                        setHeight(accordionItem, null)
+                        setHeight(accordionItem, null);
                     }
                 };
 
-                //- Handle click events for accordions
+                // Handle click events for accordions
                 var acc = document.querySelectorAll(".sdk-sidebar__accordion");
                 for (var i = 0; i < acc.length; i++) {
                     acc[i].onclick = handleAccClick;
                 };
 
-                //- Set the height properly for accordion that is open on page load
-                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item")
+                // Set the height properly for accordion that is open on page load
+                var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
                 if (activeItem !== null) {
-                    var nav = document.getElementById('navigation')
-                    //- Gross, but display the navigation briefly so we can calculate
-                    //- the height properly in mobile mode
-                    nav.classList.remove('c--hide')
+                    var nav = document.getElementById('navigation');
+                    // Gross, but display the navigation briefly so we can calculate
+                    // the height properly in mobile mode
+                    nav.classList.remove('c--hide');
                     setHeight(activeItem, activeItem.scrollHeight + "px");
-                    nav.classList.add('c--hide')
+                    nav.classList.add('c--hide');
                 }
 
             //-
