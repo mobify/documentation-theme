@@ -7,8 +7,9 @@
     "theme-copy-files": "scripts/copy.js"
   },
   "files": [
-    "mixins",
+    "theme",
     "layouts",
+    "mixins",
     "scripts"
   ],
   "scripts": {
