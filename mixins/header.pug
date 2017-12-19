@@ -14,7 +14,6 @@ mixin header(title, intro)
                     if intro
                         p.u-margin-top-sm.u-neutral-50 #{intro}
                 div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
+                    +versionPicker
                     div.c-search-box
                         gcse:searchbox-only
-
-            +versionPicker

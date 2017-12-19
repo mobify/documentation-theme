@@ -8,9 +8,11 @@ $list-min-width: 140px;
 // Version Picker
 // ===
 //
+// 1. to cover search when version picker is open
 
 .c-version-picker {
     position: relative;
+    z-index: 1; // 1
 }
 
 
@@ -28,7 +30,6 @@ $list-min-width: 140px;
 
     font-weight: $medium-font-weight;
     font-size: $picker-font-size;
-    text-align: left;
 
     cursor: pointer;
 
@@ -100,8 +101,6 @@ $list-min-width: 140px;
 
 .c-version-picker__list {
     position: absolute; // 1
-    top: 100%;
-    left: 0;
 
     display: none;
     min-width: $list-min-width;
@@ -109,9 +108,9 @@ $list-min-width: 140px;
     padding: 0;
 
     border-radius: $border-radius*2;
-    // This will probably be a util class (stole this from the tachyons header bar in SDK docs)
     box-shadow: $small-box-shadow;
 
+    text-align: left;
     list-style: none;
 }
 

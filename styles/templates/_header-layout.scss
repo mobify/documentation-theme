@@ -2,6 +2,7 @@
 // ===
 //
 // 1. Set min height so looks okay without intro content
+// 2. To align picker and search input
 
 .t-header-layout {
     min-height: 125px; // 1
@@ -29,6 +30,19 @@
                 transform: translate(calc(100% - 30%), 0);
             }
         }
+    }
+
+    .c-version-picker {
+        margin-right: $medium-space;
+        margin-bottom: $large-space;
+
+        text-align: right;
+    }
+
+    .c-version-picker__list {
+        right: 0;
+
+        transform: translateX($medium-space); // 2
     }
 
     @include for-tablet-landscape-up {
