@@ -205,7 +205,26 @@
 }
 
 .c-sidebar__product-picker-link {
+    display: block;
+
     color: $white;
+
+    &:hover {
+        background: $light-accent-color;
+
+        color: $white;
+    }
+
+    &:active {
+        background: $lighter-accent-color;
+
+        color: $white;
+    }
+}
+
+
+.c-sidebar__product-picker-button {
+    outline: none;
 }
 
 .c-sidebar__product-picker-item ~ .c-sidebar__product-picker-item {

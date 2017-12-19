@@ -2,6 +2,34 @@
 // ===
 
 
+// padding all
+// ---
+
+
+.u-padding-xs {
+    padding: $very-small-space !important;
+}
+
+.u-padding-sm {
+    padding: $small-space !important;
+}
+
+.u-padding {
+    padding: $base-space !important;
+}
+
+.u-padding-lg {
+    padding: $large-space !important;
+}
+
+.u-padding-xl {
+    padding: $very-large-space !important;
+}
+
+.u-padding-massive {
+    padding: $massive-space !important;
+}
+
 // Top padding
 // ---
 
