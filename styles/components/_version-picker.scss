@@ -1,0 +1,145 @@
+// Variables
+// ---
+$picker-font-size: 14px;
+$picker-icon-size: 6px;
+$green-circle-color: #4cb944;
+$list-min-width: 140px;
+
+// Version Picker
+// ===
+//
+
+.c-version-picker {
+    position: relative;
+}
+
+
+// Version Picker Button
+// ---
+//
+// 1. Magic number to match the position of the button with the first item in the version list
+
+.c-version-picker__button {
+    position: relative;
+
+    border: none;
+
+    outline: none;
+
+    font-weight: $medium-font-weight;
+    font-size: $picker-font-size;
+    text-align: left;
+
+    cursor: pointer;
+
+    &::after {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        left: 100%;
+
+        width: $very-large-font-size;
+        height: $very-large-font-size;
+    }
+}
+
+
+// Version Picker Caret
+// ---
+//
+
+.c-version-picker__caret {
+    position: relative;
+
+    pointer-events: none;
+
+    &::before {
+        content: '';
+
+        position: absolute;
+        top: 50%;
+        left: 0;
+
+        width: $picker-icon-size;
+        height: $picker-icon-size;
+
+        border-radius: $picker-icon-size/2;
+        background-color: $green-circle-color;
+
+        transform: translate(-50%, -50%);
+    }
+
+    &::after {
+        content: '';
+
+        position: absolute;
+        top: 50%;
+        left: 0;
+
+        width: $picker-icon-size*2;
+        height: $picker-icon-size;
+
+        background-image: url('./../icons/icon-chevron.svg');
+        background-size: $picker-icon-size*2;
+
+        transform: translate(50%, -50%);
+
+        transition: transform ease-out 0.2s;
+    }
+    &.active::after {
+        transform: translate(50%, -50%) rotate(180deg);
+    }
+}
+
+
+// Version Picker List
+// ---
+//
+// 1. absolute positioned relative to c-version-picker__button
+
+.c-version-picker__list {
+    position: absolute; // 1
+    top: 100%;
+    left: 0;
+
+    display: none;
+    min-width: $list-min-width;
+    margin: 0;
+    padding: 0;
+
+    border-radius: $border-radius*2;
+    // This will probably be a util class (stole this from the tachyons header bar in SDK docs)
+    box-shadow: $small-box-shadow;
+
+    list-style: none;
+}
+
+
+// Version Picker Item
+// ---
+
+.c-version-picker__item {
+    padding: 3px 10px;
+
+    border-radius: $border-radius*2;
+    background: $white;
+
+    font-size: $picker-font-size;
+    line-height: $base-line-height;
+}
+
+
+// Version Picker Link
+// ---
+
+.c-version-picker__link {
+    display: block;
+
+    &.c--selected {
+        color: black;
+        font-weight: $heavy-font-weight;
+
+        cursor: pointer;
+    }
+}

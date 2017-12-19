@@ -1,4 +1,5 @@
 include ./top-nav
+include ./version-picker
 
 mixin header(title, intro)
     - title = title || SITE_TITLE
@@ -15,3 +16,5 @@ mixin header(title, intro)
                 div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
                     div.c-search-box
                         gcse:searchbox-only
+
+            +versionPicker

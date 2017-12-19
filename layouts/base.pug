@@ -10,6 +10,8 @@ block config
     - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
     - var metaData = {}
     +injectMetadata
+    - var version = current.path[0];
+    - var localPath = current.path
 
 doctype html
 html(lang='en')
@@ -107,6 +109,10 @@ html(lang='en')
 
             //- 👉 Syntax highlighter
             script(src=`${DOCS_ROOT}theme/js/prism.js`)
+            script(src=`${DOCS_ROOT}assets/js/jquery.min.js`)
+            script(src=`${DOCS_ROOT}assets/js/version-picker.js`)
+            script.
+                versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
 
             //- 📈 Google Tag Manager
             script.
