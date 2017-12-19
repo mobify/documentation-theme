@@ -71,17 +71,16 @@ mixin footer
     //- next link instead
     - if (tree && tree._data) nextSlug = getNames(tree._data)[0]
 
-    if prevSlug || nextSlug
-        footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
-            div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
-                - var version = current.path[0]
-                div.u-flex-shrink
-                    if prevSlug
-                        - var previous = getNavigationLink(prevSlug, root, path, 'prev')
-                        span.u-text-uppercase Prev—
-                        a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
-                div.u-flex-shrink
-                    if nextSlug
-                        - var next = getNavigationLink(nextSlug, root, path)
-                        span.u-text-uppercase Next—
-                        a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
+    footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
+        div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
+            - var version = current.path[0]
+            div.u-flex-shrink
+                if prevSlug
+                    - var previous = getNavigationLink(prevSlug, root, path, 'prev')
+                    span.u-text-uppercase Prev—
+                    a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
+            div.u-flex-shrink
+                if nextSlug
+                    - var next = getNavigationLink(nextSlug, root, path)
+                    span.u-text-uppercase Next—
+                    a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
