@@ -31,7 +31,7 @@ function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
         var $item = $('<li class="c-version-picker__item">');
         var $link = $('<a class="c-version-picker__link">' + label + '</a>');
         if (isSelected) {
-            $link.addClass('c--selected');
+            $item.addClass('c--selected');
         } else {
             $link.attr('href', link);
         }
@@ -52,6 +52,10 @@ function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
 
             if (isSelected) {
                 $versionPickerButton.text(getVersionLabel(version, isLatest))
+            }
+
+            if (isLatest) {
+                $versionPickerButton.addClass('is--latest')
             }
         }
 

@@ -3,7 +3,7 @@
 $picker-font-size: 14px;
 $picker-icon-size: 6px;
 $green-circle-color: #4cb944;
-$list-min-width: 140px;
+$list-min-width: 152px;
 
 // Version Picker
 // ===
@@ -24,6 +24,7 @@ $list-min-width: 140px;
 .c-version-picker__button {
     position: relative;
 
+    padding: $base-space;
     border: none;
 
     outline: none;
@@ -33,34 +34,12 @@ $list-min-width: 140px;
 
     cursor: pointer;
 
-    &::after {
-        content: '';
-
-        position: absolute;
-        top: 0;
-        left: 100%;
-
-        width: $very-large-font-size;
-        height: $very-large-font-size;
-    }
-}
-
-
-// Version Picker Caret
-// ---
-//
-
-.c-version-picker__caret {
-    position: relative;
-
-    pointer-events: none;
-
-    &::before {
+    &.is--latest::before {
         content: '';
 
         position: absolute;
         top: 50%;
-        left: 0;
+        right: 0;
 
         width: $picker-icon-size;
         height: $picker-icon-size;
@@ -68,7 +47,7 @@ $list-min-width: 140px;
         border-radius: $picker-icon-size/2;
         background-color: $green-circle-color;
 
-        transform: translate(-50%, -50%);
+        transform: translate(-$very-small-space, -$very-small-space);
     }
 
     &::after {
@@ -76,7 +55,7 @@ $list-min-width: 140px;
 
         position: absolute;
         top: 50%;
-        left: 0;
+        left: 100%;
 
         width: $picker-icon-size*2;
         height: $picker-icon-size;
@@ -84,12 +63,9 @@ $list-min-width: 140px;
         background-image: url('./../icons/icon-chevron.svg');
         background-size: $picker-icon-size*2;
 
-        transform: translate(50%, -50%);
+        transform: translateY(-$very-small-space);
 
         transition: transform ease-out 0.2s;
-    }
-    &.active::after {
-        transform: translate(50%, -50%) rotate(180deg);
     }
 }
 
@@ -101,11 +77,13 @@ $list-min-width: 140px;
 
 .c-version-picker__list {
     position: absolute; // 1
+    top: 0;
 
     display: none;
     min-width: $list-min-width;
     margin: 0;
     padding: 0;
+    border: 1px solid $border-color;
 
     border-radius: $border-radius*2;
     box-shadow: $small-box-shadow;
@@ -117,28 +95,67 @@ $list-min-width: 140px;
 
 // Version Picker Item
 // ---
+//
+// 1. absolute positioned relative to c-version-picker__item
 
 .c-version-picker__item {
-    padding: 3px 10px;
+    position: relative;
+
+    padding: $very-small-space $smallish-space;
 
     border-radius: $border-radius*2;
     background: $white;
 
     font-size: $picker-font-size;
     line-height: $base-line-height;
+
+    &:first-child::after {
+        content: '';
+
+        position: absolute; // 1
+        top: 50%;
+        right: 0;
+
+        width: $picker-icon-size*2;
+        height: $picker-icon-size;
+
+        background-image: url('./../icons/icon-chevron.svg');
+        background-size: $picker-icon-size*2;
+
+        transform: translate(-$small-space, $very-small-space/2) rotate(180deg);
+    }
+
+    &:first-child.c--selected::before {
+        content: '';
+
+        position: absolute; // 1
+        top: 50%;
+        right: 0;
+
+        width: $picker-icon-size;
+        height: $picker-icon-size;
+
+        border-radius: $picker-icon-size/2;
+        background-color: $green-circle-color;
+
+        transform: translate(-$large-space, $very-small-space/2);
+    }
+
+    &:first-child {
+        padding-top: $base-space;
+    }
+    &:last-child {
+        padding-bottom: $base-space;
+    }
 }
 
 
-// Version Picker Link
-// ---
+.c-version-picker__item.c--selected {
+    font-weight: $medium-font-weight;
 
-.c-version-picker__link {
-    display: block;
+    cursor: pointer;
 
-    &.c--selected {
+    .c-version-picker__link {
         color: black;
-        font-weight: $heavy-font-weight;
-
-        cursor: pointer;
     }
 }
