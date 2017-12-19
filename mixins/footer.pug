@@ -1,12 +1,87 @@
 mixin footer
-    - var path = current.path
+    - var root = public[current.path[0]]
+    //- Remove first and last indices - 'version' and 'index' respectively
+    - var path = current.path.slice(1, current.path.length - 1)
+
+    //- Get an array of child slugs for a given section's `_data` object
+    - var getNames = function(data) {
+        - if (!data) return []
+
+        - return Object.keys(data).filter(function(name) {
+            - return !name.startsWith('_') && name !== "styleguidist" && name !== "index"
+        - })
+    - }
+
+    //- Given a unique slug, representing a previous or next landing page/article,
+    //- traverse the data tree and build the path for it and return the metadata title
+    - var getNavigationLink = function(slug, node, path, isPrev) {
+        - var linkPath = []
+
+        - var _getLink = function(slug, node, path, isPrev) {
+            - if (!node._data) {
+                - return false
+            - }
+
+            // An attempt to follow nodes through to their child leaves - but
+            // only for the 'previous' link
+            - if (isPrev && node[slug] && node[slug]._data) {
+                - var names = getNames(node[slug]._data)
+                - var newSlug = names[names.length - 1]
+
+                - linkPath.push(slug)
+
+                - return _getLink(newSlug, node[slug], path, isPrev)
+            - } else if (node._data[slug]) {
+                - linkPath.push(slug)
+
+                -
+                    return {
+                        path: linkPath.join('/'),
+                        title: node._data[slug].title
+                    }
+            - } else {
+                - var pathSection = path.slice(0, 1)[0]
+
+                - linkPath.push(pathSection)
+
+                - return _getLink(slug, node[pathSection], path.slice(1), isPrev)
+            - }
+        - }
+
+        - return _getLink(slug, node, path, isPrev)
+    - }
+
+    - var prevSlug = null
+    - var nextSlug = null
+
+    - var tree = root
+    //- Iterate over each section in the path, keeping track of only the closest
+    //- siblings
+    - for (var i = 0; i < path.length; i++) {
+        - var currentName = path[i]
+        - var names = getNames(tree._data)
+        - var locationInList = names.indexOf(currentName)
+
+        - prevSlug = names[locationInList - 1] || prevSlug
+        - nextSlug = names[locationInList + 1] || nextSlug
+        - tree = tree[currentName]
+    - }
+
+    //- If the last 'tree' has children, then use it's first child slug as the
+    //- next link instead
+    - if (tree && tree._data) nextSlug = getNames(tree._data)[0]
+
+    - var previous = getNavigationLink(prevSlug, root, path, 'prev')
+    - var next = getNavigationLink(nextSlug, root, path)
+    - var version = current.path[0]
+
     footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
         div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
             div.u-flex-shrink
-                if prevButton
+                if previous
                     span.u-text-uppercase Prev—
-                    a(href="/#{component}/#{version}/#{prevButtonLink}") #{prevButton}
+                    a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
             div.u-flex-shrink
-                if nextButton
+                if next
                     span.u-text-uppercase Next—
-                    a(href="/#{component}/#{version}/#{nextButtonLink}") #{nextButton}
+                    a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
