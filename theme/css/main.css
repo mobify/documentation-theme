@@ -496,7 +496,7 @@ pre code {
   padding: 24px !important; }
 
 .u-padding-xl {
-  padding: 40px !important; }
+  padding: 32px !important; }
 
 .u-padding-massive {
   padding: 64px !important; }
@@ -653,6 +653,9 @@ pre code {
 
 .u-text-no-wrap {
   white-space: nowrap !important; }
+
+.u-text-no-decoration {
+  text-decoration: none !important; }
 
 .u-text-leading-reset {
   line-height: 1 !important; }
@@ -1872,3 +1875,14 @@ ul.c-section-contents {
   @media (max-width: 35em) {
     .t-search .c-search-box {
       width: 100%; } }
+
+.rsg-components__search-header input[type="search"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d2d2d2;
+  border-radius: 0;
+  background-color: #fff;
+  outline: none;
+  transition: all .15s ease-in-out; }
+  .rsg-components__search-header input[type="search"]:focus {
+    box-shadow: 0 0.1rem 0.25rem rgba(6, 23, 39, 0.1); }

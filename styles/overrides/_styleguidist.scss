@@ -1,0 +1,18 @@
+// Styleguidist Overrides
+// ===
+
+.rsg-components__search-header input[type="search"] {
+    width: 100%;
+    padding: $small-space;
+    border: 1px solid $border-color;
+
+    border-radius: 0;
+    background-color: $white;
+    outline: none;
+
+    transition: all .15s ease-in-out;
+
+    &:focus {
+        box-shadow: $small-box-shadow;
+    }
+}
