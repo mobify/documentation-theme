@@ -10,10 +10,16 @@ $hover-box-shadow: 0 2px 10px 0 rgba(0,0,0,.16);
 // ---
 //
 // 1. For phone screen card should be full width, if no width set then when content will give width value
+// 2. For phone screen small card's width is less than 50% + margin
 
 .c-card {
     @include for-phone-only {
         width: 100%; // 1
+
+        &.c--small {
+            width: 48%;
+            margin-left: $unit/2;
+        }
     }
 
     display: flex;

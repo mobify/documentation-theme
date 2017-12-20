@@ -2,7 +2,7 @@ mixin card(href, heading, message, button, image, isComponent)
     //- Vertically center cases where there is only an image by setting flex-
     //- direction to 'row' and adding align-items: center
     - var shouldVerticalCenter = !heading && isComponent
-    article.c-card(class={'u-flex-row': shouldVerticalCenter})
+    article.c-card(class=[isComponent && 'c--small', shouldVerticalCenter && 'u-flex-row'])
         if heading
             h4.c-card__heading
                 a(href=href) #{heading}
