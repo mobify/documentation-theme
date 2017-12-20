@@ -23,7 +23,7 @@
                 width: calc(#{(100% / $n)} - #{$base-space});
 
                 &:last-child,
-                &:nth-last-of-type(-n + #{$n}):not(:nth-child(even)) {
+                &:nth-last-of-type(-n + #{$n}) {
                     margin-bottom: 0; //2
                 }
             }
