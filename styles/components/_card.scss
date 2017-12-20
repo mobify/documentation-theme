@@ -1,5 +1,13 @@
 // Card Theme
 // ===
+
+
+// Variables
+//
+$hover-box-shadow: 0 2px 10px 0 rgba(0,0,0,.16);
+
+// Card
+// ---
 //
 // 1. For phone screen card should be full width, if no width set then when content will give width value
 
@@ -19,6 +27,11 @@
 
     & a {
         text-decoration: none;
+    }
+
+    &:hover {
+        box-shadow: $hover-box-shadow;
+        transition: box-shadow .15s ease;
     }
 }
 

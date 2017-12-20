@@ -1757,6 +1757,9 @@ a {
       width: 100%; } }
   .c-card a {
     text-decoration: none; }
+  .c-card:hover {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+    transition: box-shadow .15s ease; }
 
 .c-card__heading,
 .c-card__message {
