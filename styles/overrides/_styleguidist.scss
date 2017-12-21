@@ -1,5 +1,7 @@
 // Styleguidist Overrides
 // ===
+//
+// 1. To override styleguidist styles
 
 .rsg-components__search-header input[type="search"] {
     width: 100%;
@@ -15,4 +17,42 @@
     &:focus {
         box-shadow: $small-box-shadow;
     }
+}
+
+.rsg-components.full-screen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+
+    overflow: scroll;
+
+    background: $white;
+}
+
+.rsg-components__plain-header {
+    border-bottom: 1px solid $border-color;
+
+    text-align: right;
+
+    a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.ReactStyleguidist-Markdown__h4 {
+    margin-top: $large-space;
+}
+
+.ReactStyleguidist-Markdown__th,
+.ReactStyleguidist-Markdown__td {
+    border: none !important; // 1
+}
+
+.ReactStyleguidist-Markdown__table {
+    color: $neutral-50;
 }

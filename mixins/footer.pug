@@ -14,23 +14,22 @@ mixin footer
 
     //- Given a unique slug, representing a previous or next landing page/article,
     //- traverse the data tree and build the path for it and return the metadata title
-    - var getNavigationLink = function(slug, node, path, isPrev) {
+    - var getNavigationLink = function(slug, node, path, getLastChild) {
         - var linkPath = []
 
-        - var _getLink = function(slug, node, path, isPrev) {
+        - var _getLink = function(slug, node, path, getLastChild) {
             - if (!node._data) {
                 - return false
             - }
 
-            // An attempt to follow nodes through to their child leaves - but
-            // only for the 'previous' link
-            - if (isPrev && node[slug] && node[slug]._data) {
+            //- getLastChild relevant only in a previous link search
+            - if (getLastChild && node[slug] && node[slug]._data) {
                 - var names = getNames(node[slug]._data)
                 - var newSlug = names[names.length - 1]
 
                 - linkPath.push(slug)
 
-                - return _getLink(newSlug, node[slug], path, isPrev)
+                - return _getLink(newSlug, node[slug], path, getLastChild)
             - } else if (node._data[slug]) {
                 - linkPath.push(slug)
 
@@ -44,15 +43,16 @@ mixin footer
 
                 - linkPath.push(pathSection)
 
-                - return _getLink(slug, node[pathSection], path.slice(1), isPrev)
+                - return _getLink(slug, node[pathSection], path.slice(1), getLastChild)
             - }
         - }
 
-        - return _getLink(slug, node, path, isPrev)
+        - return _getLink(slug, node, path, getLastChild)
     - }
 
     - var prevSlug = null
     - var nextSlug = null
+    - var getLastChild = true
 
     - var tree = root
     //- Iterate over each section in the path, keeping track of only the closest
@@ -62,7 +62,15 @@ mixin footer
         - var names = getNames(tree._data)
         - var locationInList = names.indexOf(currentName)
 
-        - prevSlug = names[locationInList - 1] || prevSlug
+        //- If we're the first document in a section, the previous link should
+        //- be the landing page of the section
+        - if (locationInList === 0) {
+            - prevSlug = path[i - 1]
+            - getLastChild = false
+        - } else {
+            - prevSlug = names[locationInList - 1] || prevSlug
+        - }
+
         - nextSlug = names[locationInList + 1] || nextSlug
         - tree = tree[currentName]
     - }
@@ -76,7 +84,7 @@ mixin footer
             - var version = current.path[0]
             div.u-flex-shrink
                 if prevSlug
-                    - var previous = getNavigationLink(prevSlug, root, path, 'prev')
+                    - var previous = getNavigationLink(prevSlug, root, path, getLastChild)
                     span.u-text-uppercase Prev—
                     a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
             div.u-flex-shrink
