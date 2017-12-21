@@ -12,6 +12,9 @@ block config
     +injectMetadata
     - var version = current.path[0];
     - var localPath = current.path
+    - var fullProdUrl = "https://docs.mobify.com" + PROD_ROOT + localPath.slice(0, localPath.length - 1).join("/")
+    - var title = `${metaData.title} | ${SITE_TITLE}` || SITE_TITLE
+    - var description = `${metaData.description}` || SITE_DESCRIPTION
 
 doctype html
 html(lang='en')
@@ -25,13 +28,13 @@ html(lang='en')
                \/_/  \/_/   \/_____/   \/_____/   \/_/   \/_/     \/_____/
 
         //- 👉 Meta!
-        title=`${metaData.title} - ${SITE_TITLE}` || SITE_TITLE
+        title=title
 
         block meta
             meta(charset='utf-8')
             meta(name='viewport' content='width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no')
             meta(http-equiv='X-UA-Compatible' content='chrome=1')
-            meta(name='description' content=SITE_DESCRIPTION)
+            meta(name='description' content=description)
             meta(name='author' content='Mobify')
             meta(name='google-site-verification' content='hcu0ZUGe8eYI-5_8gL5Nd1A7qCfxdzVCOtHEOF0kMkI')
 
@@ -41,12 +44,12 @@ html(lang='en')
             meta(property='fb:admins' content='146664288704690')
             meta(name='twitter:card' content='summary')
             meta(name='twitter:site' content='@mobify')
-            meta(name='twitter:domain' content='http://www.mobify.com')
-            meta(property='og:title' content='Platform - Better Mobile Shopping')
-            meta(name='twitter:title' content='Platform - Better Mobile Shopping')
-            meta(property='og:url' content='http://www.mobify.com/platform/better-mobile-shopping/')
-            meta(name='twitter:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
-            meta(property='og:description' content='Mobify is a platform for extending your digital storefront to mobile touchpoints.')
+            meta(property='og:title' content=title)
+            meta(name='twitter:title' content=title)
+            meta(property='og:url' content=fullProdUrl)
+            meta(name='twitter:description' content=description)
+            meta(property='og:description' content=description)
+            // TODO should this be a Mobify logo???
             meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
 
         link(rel='icon' href=`${DOCS_ROOT}theme/img/favicon.ico`)
