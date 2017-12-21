@@ -125,14 +125,10 @@ html(lang='en')
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                 })(window,document,'script','dataLayer','GTM-MD9HC8');
 
-            //-
-                🔎 Google Custom Search Engine. Setup by ewright@mobify.com
-                Login as support@mobify.com to have admin status!
-                * https://cse.google.com/cse/setup/basic?cx=003287487325783809005:qko7xrhe0k4
-                * https://cse.google.com/cse/setup/basic?cx=003287487325783809005:5kfskqeb_xm
+            //- 🔎 Google Custom Search Engine (more details in README.md)
             script.
                 (function() {
-                    var cseId = /mobify/.test(window.location.hostname) ? 'qko7xrhe0k4' : '5kfskqeb_xm';
+                    var cseId = /docs.mobify.com/.test(window.location.hostname) ? 'qko7xrhe0k4' : '5kfskqeb_xm';
                     var gcse = document.createElement('script');
                     gcse.type = 'text/javascript';
                     gcse.async = true;

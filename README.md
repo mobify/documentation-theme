@@ -11,8 +11,16 @@ following projects:
 # Setup
 Add as an npm dependency to your project, `npm i` and...?
 
-# Google Custom Search Engine
-...
+# Google Search/SEO
+
+We use a Google Custom Search Engine to power our docs search. For admin
+access login as support@mobify.me to https://cse.google.com/cse/ and select
+either "Docs Theme Prod" or "Docs Theme Dev" (for local/staging). Credentials
+are in LastPass's `Shared-Product` folder.
+
+docs.mobify.com has been added to [Google Search Console](https://www.google.com/webmasters/).
+For any investigation around SEO and to do a Fetch As Google you'll want
+to start here. Login with the same support@mobify.me account.
 
 # Things you should do to make your docs awesome
 ^^^ Not sure this belongs here but... I wanna have this written down somewhere
