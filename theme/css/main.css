@@ -1910,3 +1910,13 @@ ul.c-section-contents {
     display: inline-flex;
     justify-content: center;
     align-items: center; }
+
+.ReactStyleguidist-Markdown__h4 {
+  margin-top: 24px; }
+
+.ReactStyleguidist-Markdown__th,
+.ReactStyleguidist-Markdown__td {
+  border: none !important; }
+
+.ReactStyleguidist-Markdown__table {
+  color: #707070; }
