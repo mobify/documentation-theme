@@ -191,6 +191,47 @@ pre code {
   .u-link-color:active, .u-link-color:hover, .u-link-color:focus {
     color: #003e58; }
 
+.u-width-1of6 {
+  flex: initial;
+  width: 16.66667%; }
+
+.u-width-1of4 {
+  flex: initial;
+  width: 25%; }
+
+.u-width-1of3,
+.u-width-2of6 {
+  flex: initial;
+  width: 33.33333%; }
+
+.u-width-1of2,
+.u-width-2of4,
+.u-width-3of6 {
+  flex: initial;
+  width: 50%; }
+
+.u-width-2of3,
+.u-width-4of6 {
+  flex: initial;
+  width: 66.66667%; }
+
+.u-width-3of4 {
+  flex: initial;
+  width: 75%; }
+
+.u-width-5of6 {
+  flex: initial;
+  width: 83.33333%; }
+
+.u-width-full {
+  flex: initial;
+  width: 100%; }
+
+.u-width-block-full {
+  display: block;
+  flex: initial;
+  width: 100%; }
+
 .u-block {
   display: block !important; }
 
