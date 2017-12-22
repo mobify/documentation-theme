@@ -13,14 +13,11 @@
     "scripts"
   ],
   "scripts": {
-    "compile": "harp compile",
-    "sass": "node-sass styles -o theme/css",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "node-sass styles -o theme/css"
   },
   "author": "dev@mobify.com",
   "license": "ISC",
   "devDependencies": {
-    "harp": "mobify/harp#update-to-pug",
     "node-sass": "4.7.2",
     "prismjs": "1.8.4"
   },
