@@ -34,7 +34,7 @@ mixin renderMenuLink(level, slug, path, data, hasChildren)
 mixin renderMenu(level, path, node)
     each item, slug in node._data
         //- Ignore special slugs
-        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index")
+        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index" || slug.indexOf("sitemap") > 0)
             - continue;
 
         li

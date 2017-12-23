@@ -31,6 +31,9 @@ and this seems good enough for right this second.
    would search for.
    * `description` - One to two sentences about this page. May be used in google
    search results or when a page is shared in slack/social media.
+   * `crawlPriority` - The priority of this doc relative to other docs on our site
+   when it comes to web crawlers. `0.5` is the default. Details can be found in the
+   [sitemaps spec](https://www.sitemaps.org/protocol.html#xmlTagDefinitions).
 
 
 

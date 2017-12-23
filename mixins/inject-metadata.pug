@@ -41,7 +41,7 @@ mixin injectMetadata
         the `_data` child objects of `public` until we find the one we want.
     -
         var findData = function(slug, node, path) {
-            if (!node._data) {
+            if (!node || !node._data) {
                 console.log(`No Metadata found for`, slug)
                 return {}
             }
