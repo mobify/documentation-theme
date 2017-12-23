@@ -14,15 +14,13 @@ mixin blockContents
                 div.mt2
                     a.no-underline.util-block(href=`./${question.href}`) #{question.question}
         if section.blocks
-            - var numberOfBlocks = section.blocks.length
             - var gridSize = 2
+            - var isComponentBlock = sectionName === 'components'
 
-            //- Honestly, completely arbitrary numbers to match what we already
-            //- display on docs.
-            - if (numberOfBlocks === 3) {
-                - gridSize = 3
-            - } else if (numberOfBlocks >= 7) {
+            - if (isComponentBlock) {
                 - gridSize = 4
+            - } else if (section.blocks.length === 3) {
+                - gridSize = 3
             - }
             div(class=["c-grid", `c--${gridSize}up`])
                 each block in section.blocks
