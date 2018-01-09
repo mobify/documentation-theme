@@ -135,6 +135,9 @@ html(lang='en')
                     gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=003287487325783809005:' + cseId;
                     var s = document.getElementsByTagName('script')[0];
                     s.parentNode.insertBefore(gcse, s);
+                    window.onload = function() {
+                        document.getElementById('gsc-i-id1').placeholder = "Type 'F' to Search";
+                    }
                 })();
 
             script.
