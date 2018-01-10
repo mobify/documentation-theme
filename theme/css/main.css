@@ -1516,12 +1516,15 @@ a {
     .c-search-box .gsst_a::after {
       content: '';
       position: absolute;
-      top: 7px;
+      top: 9px;
       left: 0;
       width: 18px;
       height: 18px;
       background-image: url("../icons/icon-search-clear.svg");
       background-size: contain; }
+    /* line 161, styles/components/_search-box.scss */
+    .c-search-box .gsst_a .gscb_a {
+      visibility: hidden; }
 
 /* line 22, styles/components/_search-results.scss */
 .c-search-results {

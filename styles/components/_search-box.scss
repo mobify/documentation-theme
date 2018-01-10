@@ -148,7 +148,7 @@
             content: '';
 
             position: absolute;
-            top: 7px; // 2
+            top: 9px; // 2
             left: 0;
 
             width: 18px;
@@ -156,6 +156,10 @@
 
             background-image: url('../icons/icon-search-clear.svg');
             background-size: contain;
+        }
+
+        .gscb_a {
+            visibility: hidden;
         }
     }
 }

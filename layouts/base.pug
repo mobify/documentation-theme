@@ -138,6 +138,12 @@ html(lang='en')
                     window.onload = function() {
                         document.getElementById('gsc-i-id1').placeholder = "Type 'F' to Search";
                     }
+                    onkeyup = function(e){
+                        var searchInput = document.getElementById('gsc-i-id1');
+                        if(e.keyCode==70 && e.target.tagName !== 'INPUT'){
+                            searchInput.focus();
+                        }
+                    }
                 })();
 
             script.
