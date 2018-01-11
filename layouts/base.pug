@@ -135,6 +135,21 @@ html(lang='en')
                     gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//cse.google.com/cse.js?cx=003287487325783809005:' + cseId;
                     var s = document.getElementsByTagName('script')[0];
                     s.parentNode.insertBefore(gcse, s);
+                    window.GCSECallback = function() {
+                        var search = document.getElementById('gsc-i-id1');
+                        if(!!search) {
+                            search.placeholder = "Type 'F' to Search";
+                        }
+                    }
+                    window.__gcse = {
+                        callback: window.GCSECallback
+                    }
+                    document.addEventListener('keyup', function(e){
+                        var searchInput = document.getElementById('gsc-i-id1');
+                        if(e.keyCode === 70 && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' ){
+                            searchInput.focus();
+                        }
+                    })
                 })();
 
             script.
