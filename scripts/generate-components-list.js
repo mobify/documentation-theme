@@ -37,7 +37,8 @@ folders.forEach((folder) => {
 })
 
 const componentsJSON = JSON.stringify({
-    reactComponents: componentList
+    _excludeFromMenu: true,
+    _componentsList: componentList
 })
 
 fs.writeFile(path.join('docs', 'public', 'dev', 'components', '_data.json'),

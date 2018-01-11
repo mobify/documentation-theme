@@ -1,6 +1,7 @@
 doctype xml
 
 - var DOCS_ROOT = `https://docs.mobify.com${PROD_ROOT}`
+- var COMPONENTS_LIST_SLUG = '_componentsList'
 - var path = [].concat(current.path)
 - var version = path[0]
 
@@ -17,12 +18,14 @@ mixin renderMenuLink(slug, path, data)
 mixin renderMenu(level, path, node)
     each item, slug in node._data
         //- Ignore special slugs
-        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index" || slug.indexOf("sitemap") > 0)
+        //- The COMPONENTS_LIST_SLUG has to start with '_' so that it is skipped in the sidebar,
+        //- however, it's prime purpose is for use in the sitemap, so we better not skip it here.
+        if ((slug.startsWith('_') && slug !== COMPONENTS_LIST_SLUG) || slug === "styleguidist" || slug === "index" || slug === "sitemap.xml")
             - continue;
 
         - var hasChildren = node[slug] && node[slug]._data
-        if (slug === "reactComponents")
-            each componentSlug in public.dev.components._data.reactComponents
+        if (slug === COMPONENTS_LIST_SLUG)
+            each componentSlug in public.dev.components._data[COMPONENTS_LIST_SLUG]
                 +renderComponentLink(componentSlug, path)
         else
             +renderMenuLink(slug, path, node._data[slug])
