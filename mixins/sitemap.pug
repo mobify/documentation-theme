@@ -1,0 +1,35 @@
+doctype xml
+
+- var DOCS_ROOT = `https://docs.mobify.com${PROD_ROOT}`
+- var path = [].concat(current.path)
+- var version = path[0]
+
+mixin renderComponentLink(slug, path)
+    url
+        loc #{path}/#!/#{slug}
+
+mixin renderMenuLink(slug, path, data)
+    url
+        loc #{path}/#{slug}/
+        if (data.crawlPriority)
+            priority #{data.crawlPriority}
+
+mixin renderMenu(level, path, node)
+    each item, slug in node._data
+        //- Ignore special slugs
+        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index" || slug.indexOf("sitemap") > 0)
+            - continue;
+
+        - var hasChildren = node[slug] && node[slug]._data
+        if (slug === "reactComponents")
+            each componentSlug in public.dev.components._data.reactComponents
+                +renderComponentLink(componentSlug, path)
+        else
+            +renderMenuLink(slug, path, node._data[slug])
+
+        if (level === 1 && hasChildren)
+            +renderMenu(level + 1, path + '/' + slug, node[slug])
+
+urlset(xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
+    if version && public[version] && public[version]._data
+        +renderMenu(1, DOCS_ROOT + version, public[version])

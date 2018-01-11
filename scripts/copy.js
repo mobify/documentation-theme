@@ -23,5 +23,7 @@ fs.copy(
     console.log('Copy success');
 })
 .catch(function(e) {
+    console.error('Failed to copy theme')
     console.error(e);
+    process.exit(1)
 });
