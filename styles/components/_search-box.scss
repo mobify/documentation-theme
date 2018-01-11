@@ -87,14 +87,6 @@
 
             transition: all $transition-duration ease-out;
         }
-
-        .gsib_a {
-            &::before {
-                background-image: url('../icons/icon-search-blue.svg');
-
-                transition: all $transition-duration ease-out;
-            }
-        }
     }
 
     .gsib_a {
@@ -112,7 +104,7 @@
             width: 18px;
             height: 18px;
 
-            background-image: url('../icons/icon-search.svg');
+            background-image: url('../icons/search.svg');
             background-size: contain;
 
             transform: translate(50%, -50%);
@@ -156,7 +148,7 @@
             content: '';
 
             position: absolute;
-            top: 7px; // 2
+            top: 9px; // 2
             left: 0;
 
             width: 18px;
@@ -164,6 +156,10 @@
 
             background-image: url('../icons/icon-search-clear.svg');
             background-size: contain;
+        }
+
+        .gscb_a {
+            visibility: hidden;
         }
     }
 }
