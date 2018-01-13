@@ -4,6 +4,7 @@
   "description": "Jade template theme for Mobify documentation",
   "main": "index.js",
   "bin": {
+    "theme-deploy": "scripts/deploy.sh",
     "theme-copy-files": "scripts/copy.js",
     "theme-list-components": "scripts/generate-components-list.js"
   },
