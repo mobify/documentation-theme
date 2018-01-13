@@ -96,7 +96,7 @@ if [[ ! -d "$DOCS_DIR" ]]; then
     exit 1
 fi
 
-echo "Deploying project ${PROJECT} to: s3://${S3_BUCKET}/${PROJECT}/${VERSION}"
+echo "Deploying ${PROJECT} docs to: s3://${S3_BUCKET}/${PROJECT}/${VERSION}"
 
 # TODO: Comment out before merge
 read -p "DEV MODE: Please verify the above is correct and press [Enter]..."
