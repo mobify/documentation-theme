@@ -115,4 +115,4 @@ s3_sync "$ASSET_DIR" "s3://${S3_BUCKET}/${PROJECT}/assets"
 s3_sync "$THEME_DIR" "s3://${S3_BUCKET}/${PROJECT}/theme"
 
 echo ""
-echo "Documentation available at: http://${URL}/${PROJECT}/${VERSION}"
+echo "Documentation available at: http://${URL}/${PROJECT}/${VERSION} AND http://${URL}/${PROJECT}/latest"
