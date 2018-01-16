@@ -30,6 +30,7 @@ function s3_operation() {
         --include "*.html" \
         --include "*.xml" \
         --include "*.js" \
+        --include "*.json" \
         --include "*.png" \
         --include "*.jpg" \
         --include "*.jpeg" \
