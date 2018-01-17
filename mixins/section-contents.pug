@@ -24,3 +24,5 @@ mixin sectionContents
                 li
                     a.c-card(href=url)
                         h2.c-card__heading.c-heading.c--h3 #{childNode.title}
+                        if childNode.intro 
+                            p #{childNode.intro}
