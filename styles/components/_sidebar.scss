@@ -26,7 +26,7 @@
     margin: 0;
 }
 
-/* Sidebar Accordio */
+/* Sidebar Accordion */
 /* 1. To absolutely position the accordion icon relative to accordion */
 /* 2. To align the icon to the text  */
 /* 3. A fix for Chrome Canary */
@@ -240,5 +240,11 @@
 
     &.c--active {
         transform: rotate(180deg);
+    }
+}
+
+.c-sidebar__doc-title {
+    &:hover {
+        background-color: $lighter-accent-color;
     }
 }

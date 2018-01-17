@@ -15,7 +15,7 @@
     "scripts"
   ],
   "scripts": {
-    "sass": "node-sass styles -o theme/css"
+    "sass": "node-sass styles -o theme/css --output-style compressed"
   },
   "author": "dev@mobify.com",
   "license": "ISC",
