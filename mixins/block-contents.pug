@@ -1,4 +1,4 @@
-//- This mixin is typically used on a product page, and is concerned with the
+//- This mixin is typically used on a product homepage, and is concerned with the
 //- _homepage key of _data.json files.
 
 include documentation-theme/mixins/card
@@ -40,7 +40,7 @@ mixin blockContents
 
     each section, sectionName in data._homepage
         if section.title
-            h2.u-text-size-larger #{section.title}
+            h2 #{section.title}
         if section.intro
             p #{section.intro}
         if section.questions
@@ -49,6 +49,9 @@ mixin blockContents
                     a.no-underline.util-block(href=`./${question.href}`) #{question.question}
         if section.blocks
             +renderCards(section, sectionName)
+        //- There's a use case on Documentation Hub where we display all of the
+            available sections on a product homepage, so this will just automatically
+            use the metadata available in _data.json for that product.
         else if sectionName === 'categories' && section.useCategoryList === true
             - var availableCategories = _.pickBy(data, function(value, key) {
                 - return !key.startsWith('_') && key !== 'index' && key !== 'styleguidist' && key !== 'overview'
