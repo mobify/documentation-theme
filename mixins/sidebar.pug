@@ -21,7 +21,7 @@ mixin buildMenu
             //- No defined data for a given category means there are no child
                 documents
             if typeof documents === 'undefined'
-                a.sdk-sidebar__link.u-text-medium(href=categorySlug class={ 'c--active': isActiveCategory })
+                a.sdk-sidebar__link.u-text-medium(href=`/${categorySlug}/` class={ 'c--active': isActiveCategory })
                     .sdk-sidebar__accordion-title= category.title
             else
                 -
