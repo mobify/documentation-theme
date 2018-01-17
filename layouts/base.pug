@@ -14,7 +14,7 @@ block config
     - var version = localPath[0]
     - var fullProdUrl = "https://docs.mobify.com" + PROD_ROOT + localPath.slice(0, localPath.length - 1).join("/")
     - var title = metaData.title ? `${metaData.title} | ${SITE_TITLE}` : SITE_TITLE
-    - var description = `${metaData.description}` || SITE_DESCRIPTION
+    - var description = metaData.intro ? metaData.intro : SITE_DESCRIPTION
     - var hasPicker = true
 
 doctype html
@@ -50,7 +50,7 @@ html(lang='en')
             meta(property='og:url' content=fullProdUrl)
             meta(name='twitter:description' content=description)
             meta(property='og:description' content=description)
-            // TODO should this be a Mobify logo???
+            //- TODO should this be a Mobify logo???
             meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
 
         link(rel='icon' href=`${DOCS_ROOT}theme/img/favicon.ico`)
