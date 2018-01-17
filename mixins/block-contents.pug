@@ -39,10 +39,15 @@ mixin blockContents
     - }
 
     each section, sectionName in data._homepage
+        - var isDeprecatedSection = sectionName === 'deprecated'
+
+        if isDeprecatedSection
+            hr.u-margin-top-massive
         if section.title
             h2 #{section.title}
         if section.intro
-            p #{section.intro}
+            - var deprecatedClasses = 'u-margin-top-sm u-padding-top-sm u-padding-start-lg u-padding-bottom-sm u-padding-end-lg u-small-shadow u-background-warning'
+            p(class=isDeprecatedSection ? deprecatedClasses : '') #{section.intro}
         if section.questions
             for question in section.questions
                 div.mt2
