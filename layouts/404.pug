@@ -1,7 +1,7 @@
 extends ./base
 
 //- 🚫 404 Page.
-include ../mixins/logo
+include ../mixins/header-top
 
 append config
     - title = 'Page Not Found'
@@ -10,12 +10,7 @@ block main
     main.t-error.u-context.u-flexbox.u-flex-column.u-height-full-vh
         header.t-header-small.u-flex-none.u-margin-bottom-lg.u-context.u-clip.u-neutral-10.u-background-accent-gradient.u-large-shadow
             div.c-contain.u-context.u-z1
-                div.u-padding-top-sm.u-padding-bottom-sm.u-clearfix.u-flexbox.u-align-center
-                    a(href='/').u-neutral-10
-                        div.c-logo
-                            +logo
-                    a(href='https://cloud.mobify.com/support/').u-neutral-10.u-margin-start-auto
-                        span.u-block.u-padding-top.u-padding-bottom.u-text-bold Support
+                +headerTop
 
         div.c-contain.u-flex.u-margin-bottom-xl
             a(href="javascript:history.go(-1)" id="js-back-path" class="u-text-size-large-fixed") &#171; Back
@@ -42,13 +37,6 @@ block main
 
                 div.c-search-box
                     gcse:searchbox-only
-
-        footer.t-footer.u-flex-none.u-background-neutral-40.u-padding-top-xl.u-padding-bottom-xl
-            div.c-contain
-                if footerInfo
-                    p.u-margin-bottom #{footerInfo}
-                if footerButton
-                    a.c-button.c--primary(href='/') #{footerButton}
 
         script.
             // if history length return to 2 which means user open 404 page on new request 
