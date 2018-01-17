@@ -1,6 +1,6 @@
 function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
     // remove version # from path and then create the path string
-    var absoluteUrl = pathArray.split(',').slice(1).join('/');
+    var absoluteUrl = pathArray.split(',').slice(1).join('/').replace('index', '');
     var versionsJsonUrl = baseUrl + 'versions.json';
 
     var $versionPickerButton = $('button#version-picker');
