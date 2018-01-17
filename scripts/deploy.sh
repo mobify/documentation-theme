@@ -105,6 +105,8 @@ read -p "DEV MODE: Please verify the above is correct and press [Enter]..."
 set -e # Abort script if `aws` returns a non-zero exit code
 s3_operation cp "$WWW_ROOT/index.html" "s3://${S3_BUCKET}/${PROJECT}/index.html"
 s3_operation cp "$WWW_ROOT/404.html" "s3://${S3_BUCKET}/${PROJECT}/404.html"
+s3_operation cp "$WWW_ROOT/versions.json" "s3://${S3_BUCKET}/${PROJECT}/versions.json"
+s3_operation cp "$WWW_ROOT/sitemap.xml" "s3://${S3_BUCKET}/${PROJECT}/sitemap.xml"
 
 # AWS is just an object store and does not support anything like symbollic links.
 # We must sync to both the version # + latest

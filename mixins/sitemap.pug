@@ -2,8 +2,6 @@ doctype xml
 
 - var DOCS_ROOT = `https://docs.mobify.com${PROD_ROOT}`
 - var COMPONENTS_LIST_SLUG = '_componentsList'
-- var path = [].concat(current.path)
-- var version = path[0]
 
 mixin renderComponentLink(slug, path)
     url
@@ -20,7 +18,7 @@ mixin renderMenu(level, path, node)
         //- Ignore special slugs
         //- The COMPONENTS_LIST_SLUG has to start with '_' so that it is skipped in the sidebar,
         //- however, it's prime purpose is for use in the sitemap, so we better not skip it here.
-        if ((slug.startsWith('_') && slug !== COMPONENTS_LIST_SLUG) || slug === "styleguidist" || slug === "index" || slug === "sitemap.xml")
+        if ((slug.startsWith('_') && slug !== COMPONENTS_LIST_SLUG) || slug === "styleguidist" || slug === "index")
             - continue;
 
         - var hasChildren = node[slug] && node[slug]._data
@@ -34,5 +32,5 @@ mixin renderMenu(level, path, node)
             +renderMenu(level + 1, path + '/' + slug, node[slug])
 
 urlset(xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
-    if version && public[version] && public[version]._data
-        +renderMenu(1, DOCS_ROOT + version, public[version])
+    if public['latest'] && public['latest']._data
+        +renderMenu(1, DOCS_ROOT + 'latest', public['latest'])
