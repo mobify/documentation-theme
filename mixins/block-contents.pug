@@ -1,10 +1,44 @@
+//- This mixin is typically used on a product page, and is concerned with the
+//- _homepage key of _data.json files.
+
 include documentation-theme/mixins/card
+
+//- We care about when the key name is 'components' or 'overview'
+    - In the case of 'components', we want a grid size of 4
+    - In the case of 'overview', we don't want a grid and we'll prefix the title
+      with "Overview: "
+//- We also care about the number of sections - if there's only three, use a grid
+    size of 3
+mixin renderCards(section, sectionName)
+    - var isComponentBlock = sectionName === 'components'
+    - var isOverview = sectionName === 'overview'
+
+    - var gridSize = 2
+    - if (isComponentBlock) {
+        - gridSize = 4
+    - } else if (section.blocks.length === 3) {
+        - gridSize = 3
+    - }
+
+    - var classes = isOverview ? null : ["c-grid", `c--${gridSize}up`]
+
+    div(class=classes)
+        each block in section.blocks
+            - var title = isOverview ? `Overview: ${block.title}` : block.title
+            +card(block.href, title, block.info, block.button, block.image, isComponentBlock)
+        if isOverview
+            hr
 
 mixin blockContents
     - var version = current.path[0]
-    - var homepageData = public[version]._data._homepage
+    //- In the case of the homepage of a docs project
+    - if (version === 'index') {
+        - var data = public._data
+    - } else {
+        - var data = public[version]._data
+    - }
 
-    each section, sectionName in homepageData
+    each section, sectionName in data._homepage
         if section.title
             h2.u-text-size-larger #{section.title}
         if section.intro
@@ -14,14 +48,11 @@ mixin blockContents
                 div.mt2
                     a.no-underline.util-block(href=`./${question.href}`) #{question.question}
         if section.blocks
-            - var gridSize = 2
-            - var isComponentBlock = sectionName === 'components'
-
-            - if (isComponentBlock) {
-                - gridSize = 4
-            - } else if (section.blocks.length === 3) {
-                - gridSize = 3
-            - }
-            div(class=["c-grid", `c--${gridSize}up`])
-                each block in section.blocks
-                    +card(block.href, block.title, block.info, block.button, block.image, isComponentBlock)
+            +renderCards(section, sectionName)
+        else if sectionName === 'categories' && section.useCategoryList === true
+            - var availableCategories = _.pickBy(data, function(value, key) {
+                - return !key.startsWith('_') && key !== 'index' && key !== 'styleguidist' && key !== 'overview'
+            - })
+            .c-grid.c--2up
+                each category, categoryName in availableCategories
+                    +card(categoryName, category.title, category.intro, category.title)
