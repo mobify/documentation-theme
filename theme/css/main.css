@@ -1531,7 +1531,7 @@ a {
   position: relative;
   min-height: 300px; }
   /* line 27, styles/components/_search-results.scss */
-  .c-search-results #___gcse_1 {
+  .c-search-results #custom-search-results {
     position: relative;
     z-index: 10;
     background-color: #f7f7f7; }
