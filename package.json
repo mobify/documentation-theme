@@ -6,7 +6,8 @@
   "bin": {
     "theme-deploy": "scripts/deploy.sh",
     "theme-copy-files": "scripts/copy.js",
-    "theme-list-components": "scripts/generate-components-list.js"
+    "theme-list-components": "scripts/generate-components-list.js",
+    "theme-create-version-link": "scripts/create-version-link.js"
   },
   "files": [
     "theme",

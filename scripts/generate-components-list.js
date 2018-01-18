@@ -41,7 +41,7 @@ const componentsJSON = JSON.stringify({
     _componentsList: componentList
 })
 
-fs.writeFile(path.join('docs', 'public', 'dev', 'components', '_data.json'),
+fs.writeFile(path.join('docs', 'public', 'latest', 'components', '_data.json'),
     componentsJSON,
     {},
     (e) => {

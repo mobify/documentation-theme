@@ -6,13 +6,11 @@ MYPATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 ROOT="$MYPATH/../.."
 WWW_ROOT="$ROOT/docs/www"
 
-ENVIRONMENT="staging" # or production
-VERSION=""
-DOCS_DIR=""
+ENVIRONMENT="testing" # or production
 PROJECT=""
 
 function usage() {
-    echo "usage: $0 -e (production|staging) -v version -p (progressive-web|amp-sdk)"
+    echo "usage: $0 -e (production|staging|testing) -p (progressive-web|amp-sdk)"
 }
 
 function s3_operation() {
@@ -46,22 +44,19 @@ function s3_sync() {
     s3_operation sync $1 $2 --delete --size-only
 }
 
-while getopts e:v:p: opt; do
+while getopts e:p: opt; do
     case $opt in
         e)
-            if [[ "$OPTARG" != "production" && "$OPTARG" != "staging" ]]; then
+            if [[ "$OPTARG" != "production" && "$OPTARG" != "staging" && "$OPTARG" != "testing" ]]; then
                 echo "Error: Unsupported environment ('-e') option: $OPTARG"
                 usage
                 exit 1
             fi
             ENVIRONMENT="$OPTARG"
             ;;
-        v)
-            VERSION="$OPTARG"
-            ;;
         p)
             if [[ "$OPTARG" != "progressive-web" && "$OPTARG" != "amp-sdk" ]]; then
-                echo "#rror: Unsupported project ('-p') option: $OPTARG"
+                echo "Error: Unsupported project ('-p') option: $OPTARG"
                 usage
                 exit 1
             fi
@@ -74,16 +69,15 @@ while getopts e:v:p: opt; do
     esac
 done
 
-if [[ "$ENVIRONMENT" == "" || "$VERSION" == "" || "$PROJECT" == "" ]]; then
+if [[ "$ENVIRONMENT" == "" || "$PROJECT" == "" ]]; then
     usage
     exit 1
 fi
 
-DOCS_DIR="$WWW_ROOT/latest"
-ASSET_DIR="$WWW_ROOT/assets"
-THEME_DIR="$WWW_ROOT/theme"
-
-if [ "$ENVIRONMENT" == "staging" ]; then
+if [ "$ENVIRONMENT" == "testing" ]; then
+    S3_BUCKET="docs-testing.mobify.com"
+    URL="docs-testing.mobify.com"
+elif [ "$ENVIRONMENT" == "staging" ]; then
     S3_BUCKET="docs-staging.mobify.com"
     URL="docs-staging.mobify.com"
 elif [ "$ENVIRONMENT" = "production" ]; then
@@ -91,31 +85,19 @@ elif [ "$ENVIRONMENT" = "production" ]; then
     URL="docs.mobify.com"
 fi
 
-if [[ ! -d "$DOCS_DIR" ]]; then
+if [[ ! -d "$WWW_ROOT" ]]; then
     echo "** ERROR **"
-    echo "  No documentation exists at $DOCS_DIR."
+    echo "  No documentation exists at $WWW_ROOT."
     exit 1
 fi
 
-echo "Deploying ${PROJECT} docs to: s3://${S3_BUCKET}/${PROJECT}/${VERSION}"
+echo "Deploying ${PROJECT} docs to: s3://${S3_BUCKET}/${PROJECT}"
 
 # TODO: Comment out before merge
 # read -p "DEV MODE: Please verify the above is correct and press [Enter]..."
 
 set -e # Abort script if `aws` returns a non-zero exit code
-s3_operation cp "$WWW_ROOT/index.html" "s3://${S3_BUCKET}/${PROJECT}/index.html"
-s3_operation cp "$WWW_ROOT/404.html" "s3://${S3_BUCKET}/${PROJECT}/404.html"
-s3_operation cp "$WWW_ROOT/versions.json" "s3://${S3_BUCKET}/${PROJECT}/versions.json"
-s3_operation cp "$WWW_ROOT/sitemap.xml" "s3://${S3_BUCKET}/${PROJECT}/sitemap.xml"
-
-# AWS is just an object store and does not support anything like symbollic links.
-# We must sync to both the version # + latest
-s3_sync "$DOCS_DIR"  "s3://${S3_BUCKET}/${PROJECT}/${VERSION}"
-s3_sync "$DOCS_DIR"  "s3://${S3_BUCKET}/${PROJECT}/latest"
-
-# TODO jason - does this need to change... I think we want assets to be versioned (now? future?)
-s3_sync "$ASSET_DIR" "s3://${S3_BUCKET}/${PROJECT}/assets"
-s3_sync "$THEME_DIR" "s3://${S3_BUCKET}/${PROJECT}/theme"
+s3_sync "$WWW_ROOT" "s3://${S3_BUCKET}/${PROJECT}"
 
 echo ""
-echo "Documentation available at: http://${URL}/${PROJECT}/${VERSION} AND http://${URL}/${PROJECT}/latest"
+echo "Documentation available at: http://${URL}/${PROJECT}"
