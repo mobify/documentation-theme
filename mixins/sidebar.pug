@@ -3,9 +3,6 @@ include ./logo
 - var path = [].concat(current.path)
 //- This is a "version" for some projects, and a "product" for others
 - var version = path[0]
-- var category = path[1]
-- var document = path[2]
-- var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
 
 mixin buildMenu
     //- We're looking for defined categories - keys with an underscore and other
@@ -22,7 +19,7 @@ mixin buildMenu
             //- No defined data for a given category means there are no child
                 documents
             if typeof documents === 'undefined' || documents._excludeFromMenu
-                a.sdk-sidebar__link.u-text-medium(href=`/${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
+                a.sdk-sidebar__link.u-text-medium(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
                     .sdk-sidebar__accordion-title= category.title
             else
                 -
@@ -34,9 +31,11 @@ mixin buildMenu
                     .sdk-sidebar__accordion-title= category.title
                 ul.sdk-sidebar__accordion-item.u-list-style-none(style={ 'max-height': isActiveCategory ? 'initial': '' })
                     for document, documentSlug in documents
-                        a.sdk-sidebar__list-link(href=`/${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
+                        a.sdk-sidebar__list-link(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
 
 mixin sidebar
+    - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
+
     nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent(role='navigation' id='navigation')
         h2.u-visually-hidden Menu
 
@@ -69,7 +68,7 @@ mixin sidebar
         if isDocumentationHub
             - var productName = public[version]._data.index.name
             h3
-                a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium(href=`/${version}/`)= productName
+                a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium(href=`${DOCS_ROOT}${version}/`)= productName
 
         //- The accordion menus
         div.u-flex.u-context.u-background-accent
