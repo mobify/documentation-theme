@@ -1,7 +1,7 @@
 include ./top-nav
 include ./version-picker
 
-mixin header(title, intro)
+mixin header(title, intro, hasPicker)
     - title = title || SITE_TITLE
     header.t-header-layout.u-flex-none.u-margin-bottom-xl.u-background-neutral-10.u-small-shadow
         +top-nav
@@ -14,6 +14,7 @@ mixin header(title, intro)
                     if intro
                         p.u-margin-top-sm.u-neutral-50 #{intro}
                 div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
-                    +versionPicker
+                    if hasPicker
+                        +versionPicker
                     div.c-search-box
                         gcse:searchbox-only

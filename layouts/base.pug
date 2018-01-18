@@ -10,11 +10,14 @@ block config
     - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
     - var metaData = {}
     +injectMetadata
-    - var version = current.path[0];
     - var localPath = current.path
+    - var version = localPath[0]
     - var fullProdUrl = "https://docs.mobify.com" + PROD_ROOT + localPath.slice(0, localPath.length - 1).join("/")
-    - var title = `${metaData.title} | ${SITE_TITLE}` || SITE_TITLE
-    - var description = `${metaData.description}` || SITE_DESCRIPTION
+    - var title = metaData.title ? `${metaData.title} | ${SITE_TITLE}` : SITE_TITLE
+    - var description = metaData.intro ? metaData.intro : SITE_DESCRIPTION
+    - var hasPicker = true
+    - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
+    - var themePath = `${DOCS_ROOT}${isDocumentationHub ? '' : `${version}/`}theme/`
 
 doctype html
 html(lang='en')
@@ -49,13 +52,13 @@ html(lang='en')
             meta(property='og:url' content=fullProdUrl)
             meta(name='twitter:description' content=description)
             meta(property='og:description' content=description)
-            // TODO should this be a Mobify logo???
+            //- TODO should this be a Mobify logo???
             meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
 
-        link(rel='icon' href=`${DOCS_ROOT}theme/img/favicon.ico`)
+        link(rel='icon' href=`${themePath}img/favicon.ico`)
 
         //- 👉 Stylesheet
-        link(rel="stylesheet" href=`${DOCS_ROOT}theme/css/main.css`)
+        link(rel="stylesheet" href=`${themePath}css/main.css`)
 
         //- 👉 Typography.com font
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
@@ -74,7 +77,7 @@ html(lang='en')
 
             article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-20
                 block header
-                    +header(metaData.title, metaData.intro)
+                    +header(metaData.title, metaData.intro, hasPicker)
 
                 .c-contain.c-text-content.u-margin-bottom-xl.u-flex
                     block content
@@ -97,7 +100,7 @@ html(lang='en')
                     var products = document.querySelector('.c-sidebar__product-picker-item');
                     var chevron = document.querySelector('.c-sidebar__product-picker-chevron')
 
-                    productPicker.addEventListener('click', function() {
+                    productPicker && productPicker.addEventListener('click', function() {
                         var isActive = products.classList.toggle("c--active");
 
                         if (isActive) {
@@ -111,9 +114,9 @@ html(lang='en')
                 })()
 
             //- 👉 Syntax highlighter
-            script(src=`${DOCS_ROOT}theme/js/prism.js`)
-            script(src=`${DOCS_ROOT}theme/js/jquery.min.js`)
-            script(src=`${DOCS_ROOT}theme/js/version-picker.js`)
+            script(src=`${themePath}js/prism.js`)
+            script(src=`${themePath}js/jquery.min.js`)
+            script(src=`${themePath}js/version-picker.js`)
             script.
                 versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
 
@@ -197,7 +200,12 @@ html(lang='en')
                 4. Prevent from scrolling when menu is open
                 5. Improve a11y to focus on menu when its open
             script.
-                document.getElementById('js-nav-toggle').onclick = function() {
+                var navToggle = document.getElementById('js-nav-toggle')
+                var menuSheet = document.getElementById('js-menu-sheet')
+                var closeMenu = document.getElementById('js-close-menu')
+                var searchToggle = document.getElementById('js-search-toggle')
+
+                navToggle && navToggle.addEventListener('click', function() {
                     document.getElementsByClassName('c-article')[0].classList.add('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.remove('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.add('u-hidden'); // 2
@@ -213,9 +221,9 @@ html(lang='en')
                     document.getElementsByClassName('c-search-sheet')[0].classList.remove('c--active');
                     document.getElementsByClassName('js-search-input')[0].classList.add('u-hidden--for-phone-only');
                     document.getElementsByClassName('js-search-input')[0].classList.add('u-hidden--for-tablet-only');
-                }
+                })
 
-                document.getElementById('js-menu-sheet').onclick = function() {
+                menuSheet && menuSheet.addEventListener('click', function() {
                     document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
@@ -225,9 +233,9 @@ html(lang='en')
                     document.getElementsByClassName('c-sidebar')[0].setAttribute('tabindex', '0'); // 5
                     document.getElementsByClassName('c-article')[0].setAttribute('tabindex', '1'); // 5
                     document.getElementById('js-nav-toggle').focus(); // 5
-                }
+                })
 
-                document.getElementById('js-close-menu').onclick = function() {
+                closeMenu && closeMenu.addEventListener('click', function() {
                     document.getElementsByClassName('c-article')[0].classList.remove('c--sidebar-open');
                     document.getElementsByClassName('c-menu__close-icon')[0].classList.add('u-hidden'); // 2
                     document.getElementsByClassName('c-menu__menu-icon')[0].classList.remove('u-hidden'); // 2
@@ -236,16 +244,16 @@ html(lang='en')
                     document.getElementsByClassName('c-sidebar')[0].setAttribute('tabindex', '0'); // 5
                     document.getElementsByClassName('c-article')[0].setAttribute('tabindex', '1'); // 5
                     document.getElementById('js-nav-toggle').focus(); // 5
-                }
+                })
 
-                document.getElementById('js-search-toggle').onclick = function() {
+                searchToggle && searchToggle.addEventListener('click', function() {
                     document.getElementsByClassName('c-search-button__close-icon')[0].classList.toggle('u-hidden');
                     document.getElementsByClassName('c-search-button__search-icon')[0].classList.toggle('u-hidden');
                     document.getElementsByClassName('c-search-sheet')[0].classList.toggle('c--active');
                     document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-phone-only');
                     document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-tablet-only');
                     document.querySelector('.gsc-input-box input.gsc-input').focus(); // 5
-                }
+                })
 
             div(data-pp-cfiw-widget='e5ac626a-6d54-11e7-b57b-22000a2145da', data-env='prod', data-static='')
             script(async, type='text/javascript').

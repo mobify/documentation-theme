@@ -1,60 +1,49 @@
 include ./logo
 
-//- All of our articles are nested in a folder matching the article "short name"
-//- and then contain a file name `index.md` that hosts the actual content
-
 - var path = [].concat(current.path)
+//- This is a "version" for some projects, and a "product" for others
 - var version = path[0]
-- var tabIndex = 0
-- var currentDoc = path[path.length - 2]
 
-mixin renderMenuLink(level, slug, path, data, children, renderChildren)
-    -
-        var isActiveDoc = slug === currentDoc ? "c--active" : ""
-        var title = ((data && data.title) || "** MISSING TITLE **")
-        var accordionIsActive = children && currentDoc in children
-        var accordionClasses = {
-            "sdk--active": accordionIsActive,
-            "sdk--remove-transition": accordionIsActive
-        }
-        var href = `${path}/${slug}/`
+mixin buildMenu
+    //- We're looking for defined categories - keys with an underscore and other
+        specific keys are not valid here
+    - var categories = _.pickBy(public[version]._data, function(value, key) {
+        - return !key.startsWith('_') && key !== 'styleguidist' && key !== 'index' && key !== 'sitemap.xml'
+    - })
 
-    //- Top-level category; accordion button
-    if (level === 1 && renderChildren)
-        button.sdk-sidebar__accordion.u-text-medium(class=[accordionClasses, isActiveDoc])
-            .sdk-sidebar__accordion-title= title
-    //- Top-level category; just a link
-    if (level === 1 && !renderChildren)
-        a.sdk-sidebar__link.u-text-medium(href=href tabindex=tabIndex++ class=isActiveDoc)
-            span.sdk-sidebar__accordion-title= title
-    //- Document link (inside accordion)
-    if (level > 1)
-        a.sdk-sidebar__list-link(href=href class=isActiveDoc)= title
-
-mixin renderMenu(level, path, node)
-    each item, slug in node._data
-        //- Ignore special slugs
-        if (slug.startsWith('_') || slug === "styleguidist" || slug === "index")
-            - continue;
+    for category, categorySlug in categories
+        - var isActiveCategory = path[1] === categorySlug
+        - var documents = public[version][categorySlug]._data
 
         li
-            - var renderChildren = node[slug] && node[slug]._data && !node[slug]._data._excludeFromMenu || false
-            - var children = node[slug] && node[slug]._data
-            - var accordionIsActive = renderChildren && currentDoc in node[slug]._data
-            - var accordionInlineStyles = (accordionIsActive ? "max-height: initial;" : "")
-            +renderMenuLink(level, slug, path, node._data[slug], children, renderChildren)
-            if (level === 1 && renderChildren)
-                ul.sdk-sidebar__accordion-item.u-list-style-none(style=accordionInlineStyles)
-                    +renderMenu(level + 1, path + '/' + slug, node[slug])
+            //- No defined data for a given category means there are no child
+                documents
+            if typeof documents === 'undefined' || documents._excludeFromMenu
+                a.sdk-sidebar__link.u-text-medium(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
+                    .sdk-sidebar__accordion-title= category.title
+            else
+                -
+                    var accordionClasses = {
+                        'sdk--active': isActiveCategory,
+                        'sdk--remove-transition': isActiveCategory
+                    }
+                button.sdk-sidebar__accordion.u-text-medium(class=accordionClasses)
+                    .sdk-sidebar__accordion-title= category.title
+                ul.sdk-sidebar__accordion-item.u-list-style-none(style={ 'max-height': isActiveCategory ? 'initial': '' })
+                    for document, documentSlug in documents
+                        a.sdk-sidebar__list-link(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
 
 mixin sidebar
+    - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
+
     nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent(role='navigation' id='navigation')
         h2.u-visually-hidden Menu
 
         //- Logo and support link
+        - var homepageHref = isDocumentationHub ? `${DOCS_ROOT}` : `${DOCS_ROOT}${version}/`
         div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
             div.u-flexbox.u-align-center.u-justify-between
-                a#js-menu-first-focus.u-neutral-10(href=`${DOCS_ROOT}${version}/`)
+                a#js-menu-first-focus.u-neutral-10(href=homepageHref)
                     div.c-logo
                         +logo
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
@@ -63,7 +52,7 @@ mixin sidebar
         //- Product picker
         div.u-background-accent-dark
             div.c-sidebar__product-picker.u-flexbox.u-justify-between.u-align-center.u-margin-top-md.u-margin-bottom-md.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium
-                button.c-sidebar__product-picker-button.u-background-accent-dark #{PROJECT_NAME}
+                button.c-sidebar__product-picker-button.u-background-accent-dark= PROJECT_NAME
                 span.c-sidebar__product-picker-chevron
                     include ../theme/icons/icon-chevron-down.svg
             ul.c-sidebar__product-picker-item.u-text-size-medium
@@ -73,12 +62,17 @@ mixin sidebar
                 each href, name in { 'Progressive Web SDK': '/progressive-web', 'AMP SDK': '/amp-sdk', 'Documentation Home': '/' }
                     if PROJECT_NAME !== name
                         li
-                            a.c-sidebar__product-picker-link.u-padding(href=href) #{name}
+                            a.c-sidebar__product-picker-link.u-padding(href=href)= name
+
+        //- Documentation Hub: Product type (i.e. Engagement Engine, Connection Center, etc.)
+        if isDocumentationHub
+            - var productName = public[version]._data.index.name
+            h3
+                a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium(href=`${DOCS_ROOT}${version}/`)= productName
 
         //- The accordion menus
         div.u-flex.u-context.u-background-accent
             div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
                 ul#sidebar-links.u-list-style-none.u-background-accent
-                    if version && public[version] && public[version]._data
-                        +renderMenu(1, DOCS_ROOT + version, public[version])
+                    +buildMenu
                 button#js-close-menu.u-visually-hidden Close Menu
