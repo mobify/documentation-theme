@@ -10,9 +10,13 @@ var args = process.argv.slice(2);
 
 var copyFolder = path.join('docs', 'public', COPY_FOLDER)
 
-if (args.length > 0) {
-    copyFolder = args[0]
-    console.log('Using custom destination for theme files:', copyFolder)
+if (args.length < 1) {
+    console.error('usage: theme-copy-files destination/folder')
+    console.error('The destination folder should be the path to your documentation version folder, e.g. "public/docs/dev"');
+    process.exit(1);
+} else {
+    copyFolder = path.join(args[0], COPY_FOLDER)
+    console.log('Copying theme files to:', copyFolder)
 }
 
 fs.copy(
