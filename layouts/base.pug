@@ -16,6 +16,8 @@ block config
     - var title = metaData.title ? `${metaData.title} | ${SITE_TITLE}` : SITE_TITLE
     - var description = metaData.intro ? metaData.intro : SITE_DESCRIPTION
     - var hasPicker = true
+    - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
+    - var themePath = `${DOCS_ROOT}${isDocumentationHub ? '' : `${version}/`}theme/`
 
 doctype html
 html(lang='en')
@@ -53,10 +55,10 @@ html(lang='en')
             //- TODO should this be a Mobify logo???
             meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
 
-        link(rel='icon' href=`${DOCS_ROOT}theme/img/favicon.ico`)
+        link(rel='icon' href=`${themePath}img/favicon.ico`)
 
         //- 👉 Stylesheet
-        link(rel="stylesheet" href=`${DOCS_ROOT}theme/css/main.css`)
+        link(rel="stylesheet" href=`${themePath}css/main.css`)
 
         //- 👉 Typography.com font
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
@@ -112,9 +114,9 @@ html(lang='en')
                 })()
 
             //- 👉 Syntax highlighter
-            script(src=`${DOCS_ROOT}theme/js/prism.js`)
-            script(src=`${DOCS_ROOT}theme/js/jquery.min.js`)
-            script(src=`${DOCS_ROOT}theme/js/version-picker.js`)
+            script(src=`${themePath}js/prism.js`)
+            script(src=`${themePath}js/jquery.min.js`)
+            script(src=`${themePath}js/version-picker.js`)
             script.
                 versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
 
