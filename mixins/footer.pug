@@ -5,7 +5,7 @@ mixin footer
 
     //- Get an array of child slugs for a given section's `_data` object
     - var getNames = function(data) {
-        - if (!data) return []
+        - if (!data || data._excludeFromMenu ) return []
 
         - return Object.keys(data).filter(function(name) {
             - return !name.startsWith('_') && name !== "styleguidist" && name !== "index"
@@ -14,7 +14,9 @@ mixin footer
 
     //- Given a unique slug, representing a previous or next landing page/article,
     //- traverse the data tree and build the path for it and return the metadata title
-    - var getNavigationLink = function(slug, node, path, getLastChild) {
+    //- getLastChild flag means we should grab the last child document of a section
+    //- and use it instead
+    - var getFooterLink = function(slug, node, path, getLastChild) {
         - var linkPath = []
 
         - var _getLink = function(slug, node, path, getLastChild) {
@@ -23,8 +25,9 @@ mixin footer
             - }
 
             //- getLastChild relevant only in a previous link search
-            - if (getLastChild && node[slug] && node[slug]._data) {
-                - var names = getNames(node[slug]._data)
+            - var data = node[slug] && node[slug]._data
+            - if (getLastChild && data && !data._excludeFromMenu) {
+                - var names = getNames(data)
                 - var newSlug = names[names.length - 1]
 
                 - linkPath.push(slug)
@@ -77,18 +80,20 @@ mixin footer
 
     //- If the last 'tree' has children, then use it's first child slug as the
     //- next link instead
-    - if (tree && tree._data) nextSlug = getNames(tree._data)[0]
+    //- Specifically avoid _data objects with _excludeFromMenu present - these
+    //- won't have children for us to use
+    - if (tree && tree._data && !tree._data._excludeFromMenu) nextSlug = getNames(tree._data)[0]
 
     footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
         div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
             - var version = current.path[0]
             div.u-flex-shrink
                 if prevSlug
-                    - var previous = getNavigationLink(prevSlug, root, path, getLastChild)
+                    - var previous = getFooterLink(prevSlug, root, path, getLastChild)
                     span.u-text-uppercase Prev—
                     a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
             div.u-flex-shrink
                 if nextSlug
-                    - var next = getNavigationLink(nextSlug, root, path)
+                    - var next = getFooterLink(nextSlug, root, path)
                     span.u-text-uppercase Next—
                     a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
