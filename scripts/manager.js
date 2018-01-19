@@ -4,45 +4,51 @@ const commander = require('commander');
 const exec = require('child_process').execSync
 const harp = require('harp')
 const path = require('path')
+
+const { logAndExit, remove, docsDirInfo } = require('./utils.js')
 const copy = require('./copy.js')
 const generateComponentsList = require('./generate-components-list.js')
 const createSymlink = require('./create-version-link.js')
+
+const BUILD_FOLDER_NAME = 'www'
+
+// Helper method since these two functions occur together
+const copyAndGenerate = (dir) => {
+    const docsDir = docsDirInfo(dir)
+
+    return generateComponentsList()
+        .then(() => copy(docsDir.absPath))
+        .then(() => docsDir)
+}
 
 commander
     .command('preview <dir>')
     .description('preview the docs')
     .option('-p, --port [port]', 'optional port number', 9000)
     .action((dir, cmd) => {
-        const docsPath = dir.split('/');
-        const harpRoot = docsPath[docsPath.indexOf('public') - 1] || '';
-        const docsDir = path.resolve(process.cwd(), harpRoot);
-
-        generateComponentsList(() => {
-            copy(dir).then(() => {
-                harp.server(docsDir, { port: cmd.port }, function(){
-                    var hostUrl = "http://localhost" + cmd.port + "/"
-                    console.log("Your server is listening at " + hostUrl)
-                  })
+        copyAndGenerate(dir).then((docsDir) => {
+            harp.server(docsDir.absRoot, { port: cmd.port }, () => {
+                var hostUrl = "http://localhost:" + cmd.port + "/"
+                console.log("Your server is listening at " + hostUrl)
             })
         })
-
     })
 
 commander
     .command('compile <dir>')
     .description('compile the docs')
     .action((dir) => {
-        const docsPath = dir.split('/');
-        const harpRoot = docsPath[docsPath.indexOf('public') - 1] || '';
-        const docsDir = path.resolve(process.cwd(), harpRoot);
+        const docsDir = docsDirInfo(dir)
+        const buildFolder = path.join(docsDir.absRoot, BUILD_FOLDER_NAME)
 
-        generateComponentsList(() => {
-            copy(dir).then(() => {
-                harp.compile(docsDir, function(){
-                    console.log("Docs compile successful")
-                  })
+        copyAndGenerate(dir)
+            .then(() => remove(buildFolder))
+            .then(() => {
+                console.log(`Starting Harp compilation of documentation at ${docsDir.absRoot}`)
+                harp.compile(docsDir.absRoot, () => {
+                    console.log('Docs compilation successful')
+                })
             })
-        })
     })
 
 commander
@@ -52,26 +58,28 @@ commander
     .option('-p, --project <project>', /^(progressive-web|amp-sdk)$/)
     .option('-e, --env [env]', 'environment', /^(testing|staging|production)$/, 'testing')
     .action((dir, cmd) => {
-        const docsPath = dir.split('/');
-        const harpRoot = docsPath[docsPath.indexOf('public') - 1] || '';
-        const docsDir = path.resolve(process.cwd(), harpRoot);
+        const docsDir = docsDirInfo(dir)
+        const buildFolder = path.join(docsDir.absRoot, BUILD_FOLDER_NAME)
 
-        generateComponentsList(() => {
-            copy(dir).then(() => {
-                const symLinkPath = docsPath.slice(0, docsPath.indexOf('public') + 1).join('/')
-                createSymlink('latest', symLinkPath, cmd.version, () => {
-                    harp.compile(docsDir, function(err){
-                        if (err) {
-                            console.error(JSON.stringify(err))
-                            process.exit(1)
-                        }
-                        console.log("Docs compile successful")
-                        console.log("TODO: Failed to deploy")
-                        // exec(`./node_modules/documentation-theme/scripts/deploy.sh -p ${cmd.project} -e ${cmd.env}`)
-                      })
+        copyAndGenerate(dir)
+            .then(() => remove(buildFolder))
+            .then(() => {
+                const split = docsDir.split
+                const linkPath = path.join(split.slice(0, split.indexOf(docsDir.version)))
+                return createSymLink(cmd.version, linkPath)
+            })
+            .then(() => {
+                harp.compile(docsDir.absRoot, function (err) {
+                    if (err) {
+                        console.log('Failed to compile documentation:')
+                        console.error(JSON.stringify(err), null, 2)
+                        process.exit(1)
+                    }
+                    console.log('Docs compile successful')
                 })
             })
-        })
+            // TODO: Deploy to S3
+            .catch(logAndExit())
     })
 
 commander.parse(process.argv)

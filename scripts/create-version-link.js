@@ -1,18 +1,19 @@
-var fs = require('fs-extra');
-var path = require('path');
+const fs = require('fs-extra')
+const path = require('path')
 
-const symlink = (target, dir, version, callback) => {
-    const linkPath = path.resolve(dir, version);
-    console.log('linkpath', linkPath);
-    fs.symlink(target, linkPath, 'dir', function(err) {
-        if (err) {
-            console.error('Failed to create symlink', err);
-            process.exit(1);
-        }
+const logAndExit = require('./utils.js').logAndExit
 
-        console.log('Symlink creation successful.');
-        callback();
-    });
+/**
+ * @param {string} target - The folder to create a symlink to, normally "latest"
+ * @param {string} linkPath - The full path (including name) where the symlink should be made
+ */
+const symlink = (target, linkPath) => {
+    return fs
+        .symlink(target, linkPath, 'dir')
+        .then(() => {
+            console.log(`Created symlink to ${target} at ${dir}.`)
+        })
+        .catch(logAndExit('Failed to create symlink:'))
 }
 
 module.exports = symlink

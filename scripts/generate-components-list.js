@@ -1,18 +1,26 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const glob = require('glob')
 const path = require('path')
+
+const logAndExit = require('./utils.js').logAndExit
 
 const formatComponentName = (component) => {
     const lastSlash = component.lastIndexOf('/')
     const removedDir = component.slice(lastSlash + 1)
     const firstCharRegex = /\b([a-z])/g
     const capitalized = removedDir.replace(firstCharRegex, (x) => x.toUpperCase())
+
     return capitalized.replace(/-/g, '')
 }
 
-const generate = (callback) => {
+const generate = () => {
     const componentList = []
     const componentsPath = path.join('src', 'components')
+
+    if (!fs.pathExistsSync(path.resolve(componentsPath))) {
+        return Promise.resolve()
+    }
+
     const folders = glob.sync(path.resolve(`${componentsPath}/*`))
 
     folders.forEach((folder) => {
@@ -40,19 +48,15 @@ const generate = (callback) => {
         _componentsList: componentList
     })
 
-    fs.writeFile(path.join('docs', 'public', 'latest', 'components', '_data.json'),
-        componentsJSON,
-        {},
-        (e) => {
-            if (e) {
-                console.error('Failed to generate components list')
-                console.error(e)
-                process.exit(1)
-            } else {
-                console.log('Successfully generated components JSON data')
-                callback()
-            }
+    return fs
+        .writeFile(
+            path.join('docs', 'public', 'latest', 'components', '_data.json'),
+            componentsJSON
+        )
+        .then(() => {
+            console.log('Successfully generated components JSON data')
         })
+        .catch(logAndExit('Failed to generate components list:'))
 }
 
 module.exports = generate
