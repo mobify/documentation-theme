@@ -41,7 +41,8 @@ function s3_operation() {
 }
 
 function s3_sync() {
-    s3_operation sync $1 $2 --delete --size-only
+    # s3_operation sync $1 $2 --delete --size-only
+    s3_operation sync $1 $2 --size-only
 }
 
 while getopts e:p: opt; do
