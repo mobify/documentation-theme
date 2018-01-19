@@ -1,12 +1,18 @@
-#!/usr/bin/env node
-
 var fs = require('fs-extra');
 var path = require('path');
 
-var args = process.argv.slice(2);
+const symlink = (target, dir, version, callback) => {
+    const linkPath = path.resolve(dir, version);
+    console.log('linkpath', linkPath);
+    fs.symlink(target, linkPath, 'dir', function(err) {
+        if (err) {
+            console.error('Failed to create symlink', err);
+            process.exit(1);
+        }
 
-fs.symlink('latest', `./docs/public/${args[0]}`, 'dir', function(err) {
-    if (err) console.error(err);
+        console.log('Symlink creation successful.');
+        callback();
+    });
+}
 
-    console.log('Symlink creation successful.');
-});
+module.exports = symlink

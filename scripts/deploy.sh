@@ -94,7 +94,7 @@ fi
 echo "Deploying ${PROJECT} docs to: s3://${S3_BUCKET}/${PROJECT}"
 
 # TODO: Comment out before merge
-# read -p "DEV MODE: Please verify the above is correct and press [Enter]..."
+read -p "DEV MODE: Please verify the above is correct and press [Enter]..."
 
 set -e # Abort script if `aws` returns a non-zero exit code
 s3_sync "$WWW_ROOT" "s3://${S3_BUCKET}/${PROJECT}"
