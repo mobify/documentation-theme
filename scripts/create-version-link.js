@@ -4,14 +4,22 @@ const path = require('path')
 const logAndExit = require('./utils.js').logAndExit
 
 /**
- * @param {string} target - The folder to create a symlink to, normally "latest"
- * @param {string} linkPath - The full path (including name) where the symlink should be made
+ * @param {string} newVersion - The new version number for this deployment
+ * @param {object} docsDir - The object from Utils.docsDirInfo
+ 
+ * @returns {string} - The absolute path to the created symlink, for removal after compilation
  */
-const symlink = (target, linkPath) => {
+const symlink = (newVersion, docsDir) => {
+    const split = docsDir.split
+    const linkLocation = split.slice(0, split.indexOf(docsDir.version))
+    const linkPath = path.join(...linkLocation, newVersion)
+
+    console.log(`Creating symlink to ${docsDir.version} at ${linkPath}`)
     return fs
-        .symlink(target, linkPath, 'dir')
+        .symlink(docsDir.version, linkPath, 'dir')
         .then(() => {
-            console.log(`Created symlink to ${target} at ${dir}.`)
+            console.log(`Symlink successful`)
+            return path.resolve(linkPath)
         })
         .catch(logAndExit('Failed to create symlink:'))
 }
