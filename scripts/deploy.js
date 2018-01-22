@@ -1,6 +1,6 @@
 const { exec } = require('child_process')
 
-const getBucket = (env) => `docs-${env}.mobify.com`
+const getBucket = (env) => env === 'production' ? 'docs.mobify.com' : `docs-${env}.mobify.com`
 const getUrl = (env) => {
     // Testing environment doesn't have a domain name set
     if (env === 'testing') return `docs-${env}.mobify.com.s3-website-us-east-1.amazonaws.com`
@@ -8,7 +8,7 @@ const getUrl = (env) => {
     return `https://${getBucket(env)}`
 }
 
-const deploy = (folder, project, version, env) => {
+const deploy = (folder, project, env) => {
     const projectName = project !== 'docs-hub' ? project : ''
     const s3Bucket = getBucket(env)
     const s3Location = `${s3Bucket}/${projectName}`

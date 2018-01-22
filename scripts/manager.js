@@ -58,37 +58,42 @@ commander
 commander
     .command('compile <dir>')
     .description('compile the docs')
-    .action((dir) => compileStep)
+    .action((dir) => compileStep(dir))
 
 commander
     .command('deploy <dir>')
     .description('deploy the docs')
-    .option('-v, --version [ver]', 'project version number')
+    .option('-v, --version [version]', 'project version number')
+    .option('--no_version', 'deploy without a version, otherwise version is required')
     .option('-p, --project <project>', /^(progressive-web|amp-sdk|docs-hub)$/)
     .option('-e, --env [env]', 'environment', /^(testing|staging|production)$/, 'testing')
-    .action((dir, cmd) => {
+    .action((dir, cmd, options) => {
         const docsDir = docsDirInfo(dir)
         const buildFolder = path.join(docsDir.absRoot, BUILD_FOLDER_NAME)
 
-        const prom = Promise.resolve()
-
-        if (cmd.vers) {
-            let symlinkPath
-            prom
-                .then(() => createSymlink(cmd.vers, docsDir))
-                .catch(logAndExit('Error during symlink creation:'))
-                .then((s) => {
-                    symlinkPath = s
-                    return compileStep(dir)
-                })
-                .then(() => remove(symlinkPath))
-        } else {
-            prom.then(() => compileStep(dir))
+        if (!cmd.no_version && !cmd.version) {
+            logAndExit('Either supply a version with --version or use the --no_version flag')('No version # supplied')
         }
 
-            prom
-                .then(() => deploy(buildFolder, cmd.project, cmd.ver, cmd.env))
-                .catch(logAndExit('Error during deployment:'))
+        return Promise.resolve()
+            .then(() => {
+                if (cmd.version) {
+                    let symlinkPath
+                    return Promise.resolve()
+                        .then(() => createSymlink(cmd.version, docsDir))
+                        .catch(logAndExit('Error during symlink creation:'))
+                        .then((s) => {
+                            symlinkPath = s
+                            return compileStep(dir)
+                        })
+                        .then(() => remove(symlinkPath))
+                } else {
+                    return Promise.resolve()
+                        .then(() => compileStep(dir))
+                }
+            })
+            .then(() => deploy(buildFolder, cmd.project, cmd.env))
+            .catch(logAndExit('Error during deployment:'))
     })
 
 commander.parse(process.argv)
