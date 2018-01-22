@@ -114,7 +114,7 @@
 
     .gsib_a .gsc-input {
         width: 100% !important; // 1
-        height: $search-input-height - 2 !important; // 1, 3
+        height: $search-input-height - 2 !important; // 1, 2
         margin-left: $large-space !important;
         padding: 0;
 
@@ -160,5 +160,13 @@
         .gscb_a {
             visibility: hidden;
         }
+    }
+
+    .gssb_a img {
+        display: none !important; // 1
+    }
+
+    .gssb_a img ~ span {
+        display: none !important; // 1
     }
 }
