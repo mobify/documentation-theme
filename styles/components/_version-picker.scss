@@ -47,7 +47,7 @@ $list-min-width: 152px;
         border-radius: $picker-icon-size/2;
         background-color: $green-circle-color;
 
-        transform: translate(-$very-small-space, -$very-small-space);
+        transform: translate(-($picker-icon-size - 1), -$picker-icon-size/2); // 1
     }
 
     &::after {
@@ -97,11 +97,12 @@ $list-min-width: 152px;
 // ---
 //
 // 1. absolute positioned relative to c-version-picker__item
+// 2. To align list item to picker button
 
 .c-version-picker__item {
     position: relative;
 
-    padding: $very-small-space $smallish-space;
+    padding: $very-small-space $large-space;
 
     border-radius: $border-radius*2;
     background: $white;
@@ -142,7 +143,8 @@ $list-min-width: 152px;
     }
 
     &:first-child {
-        padding-top: $base-space;
+        padding-top: $base-space - 1; // 2
+        padding-left: $large-space;
     }
     &:last-child {
         padding-bottom: $base-space;
