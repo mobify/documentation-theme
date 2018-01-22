@@ -5,8 +5,7 @@
 // to add our own styles and override their styles to match our design.
 //
 // 1. Override inline styles
-// 2. Magic number to align icon
-// 3. Subtract by 2 so wont be jumpy on load
+// 2. Subtract by 2 so wont be jumpy on load
 
 .c-search-box {
     @include for-phone-only {
@@ -27,7 +26,7 @@
     .gsc-input-box {
         position: relative;
 
-        height: $search-input-height - 2; // 3
+        height: $search-input-height - 2; // 2
         border: 0;
 
         border-radius: 1px;
@@ -148,11 +147,11 @@
             content: '';
 
             position: absolute;
-            top: 9px; // 2
+            top: 50%;
             left: 0;
 
-            width: 18px;
-            height: 18px;
+            width: 10px;
+            height: 10px;
 
             background-image: url('../icons/icon-search-clear.svg');
             background-size: contain;
