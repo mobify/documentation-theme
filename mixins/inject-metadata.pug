@@ -14,8 +14,9 @@ mixin injectMetadata
     //- current.path looks like:
         ['latest', 'index']
         ['latest', 'getting-started', 'quick-start', 'index']
+    - var devMode = environment === 'development'
     - var path = [].concat(current.path)
-    - console.log('Path:', path)
+    - devMode && console.log('Path:', path)
 
     //- public contains all the metadata from _data.json files
         public = {
@@ -42,7 +43,7 @@ mixin injectMetadata
     -
         var findData = function(slug, node, path) {
             if (!node || !node._data) {
-                console.log(`No Metadata found for`, slug)
+                devMode && console.log(`No Metadata found for`, slug)
                 return {}
             }
 

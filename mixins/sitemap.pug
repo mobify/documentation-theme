@@ -23,7 +23,7 @@ mixin renderMenu(level, path, node)
 
         - var hasChildren = node[slug] && node[slug]._data
         if (slug === COMPONENTS_LIST_SLUG)
-            each componentSlug in public.dev.components._data[COMPONENTS_LIST_SLUG]
+            each componentSlug in public.latest.components._data[COMPONENTS_LIST_SLUG]
                 +renderComponentLink(componentSlug, path)
         else
             +renderMenuLink(slug, path, node._data[slug])
