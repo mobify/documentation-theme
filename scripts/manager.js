@@ -63,7 +63,9 @@ commander
 commander
     .command('deploy <dir>')
     .description('deploy the docs')
-    .option('-v, --version [version]', 'project version number')
+    // Note: we cannot use `--version` here, commander has assigned a function to cmd.version
+    // so even if it isn't supplied by the user, `version` will be set to something.
+    .option('-v, --version_num [version]', 'project version number')
     .option('--no_version', 'deploy without a version, otherwise version is required')
     .option('-p, --project <project>', /^(progressive-web|amp-sdk|docs-hub)$/)
     .option('-e, --env [env]', 'environment', /^(testing|staging|production)$/, 'testing')
@@ -71,16 +73,16 @@ commander
         const docsDir = docsDirInfo(dir)
         const buildFolder = path.join(docsDir.absRoot, BUILD_FOLDER_NAME)
 
-        if (!cmd.no_version && !cmd.version) {
-            logAndExit('Either supply a version with --version or use the --no_version flag')('No version # supplied')
+        if (!cmd.no_version && !cmd.version_num) {
+            logAndExit('Either supply a version with --version_num or use the --no_version flag')('No version # supplied')
         }
 
         return Promise.resolve()
             .then(() => {
-                if (cmd.version) {
+                if (cmd.version_num) {
                     let symlinkPath
                     return Promise.resolve()
-                        .then(() => createSymlink(cmd.version, docsDir))
+                        .then(() => createSymlink(cmd.version_num, docsDir))
                         .catch(logAndExit('Error during symlink creation:'))
                         .then((s) => {
                             symlinkPath = s
