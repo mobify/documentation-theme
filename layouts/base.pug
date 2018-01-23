@@ -8,6 +8,9 @@ include ../mixins/footer
 //- 👉 Just a nice location to place variables for use within the template.
 block config
     - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
+    //- This determines which domain to direct search requests to!
+    - var CSE_ID = environment === 'production' ? 'qko7xrhe0k4' : '5kfskqeb_xm'
+
     - var metaData = {}
     +injectMetadata
     - var localPath = current.path
@@ -132,7 +135,7 @@ html(lang='en')
             //- 🔎 Google Custom Search Engine (more details in README.md)
             script.
                 (function() {
-                    var cseId = /docs.mobify.com/.test(window.location.hostname) ? 'qko7xrhe0k4' : '5kfskqeb_xm';
+                    var cseId = "#{CSE_ID}";
                     var gcse = document.createElement('script');
                     gcse.type = 'text/javascript';
                     gcse.async = true;
