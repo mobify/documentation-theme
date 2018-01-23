@@ -161,12 +161,16 @@
             visibility: hidden;
         }
     }
+}
 
-    .gssb_a img {
-        display: none !important; // 1
-    }
+.gssb_a img {
+    display: none !important; // 1
+}
 
-    .gssb_a img ~ span {
-        display: none !important; // 1
-    }
+.gssb_a img ~ span {
+    display: none !important; // 1
+}
+
+.gsc-completion-selected {
+    background: $mobify-light-blue-bg !important; // 1
 }
