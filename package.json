@@ -4,10 +4,7 @@
   "description": "Jade template theme for Mobify documentation",
   "main": "index.js",
   "bin": {
-    "theme-deploy": "scripts/deploy.sh",
-    "theme-copy-files": "scripts/copy.js",
-    "theme-list-components": "scripts/generate-components-list.js",
-    "theme-create-version-link": "scripts/create-version-link.js"
+    "mobify-docs": "scripts/manager.js"
   },
   "files": [
     "theme",
@@ -25,7 +22,9 @@
     "prismjs": "1.8.4"
   },
   "dependencies": {
+    "commander": "^2.13.0",
     "fs-extra": "5.0.0",
-    "glob": "7.1.2"
+    "glob": "7.1.2",
+    "harp": "mobify/harp#update-to-pug"
   }
 }

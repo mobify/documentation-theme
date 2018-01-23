@@ -1,12 +1,27 @@
-#!/usr/bin/env node
+const fs = require('fs-extra')
+const path = require('path')
 
-var fs = require('fs-extra');
-var path = require('path');
+const logAndExit = require('./utils.js').logAndExit
 
-var args = process.argv.slice(2);
+/**
+ * @param {string} newVersion - The new version number for this deployment
+ * @param {object} docsDir - The object from Utils.docsDirInfo
+ 
+ * @returns {string} - The absolute path to the created symlink, for removal after compilation
+ */
+const symlink = (newVersion, docsDir) => {
+    const split = docsDir.split
+    const linkLocation = split.slice(0, split.indexOf(docsDir.version))
+    const linkPath = path.join(...linkLocation, newVersion)
 
-fs.symlink('latest', `./docs/public/${args[0]}`, 'dir', function(err) {
-    if (err) console.error(err);
+    console.log(`Creating symlink to ${docsDir.version} at ${linkPath}`)
+    return fs
+        .symlink(docsDir.version, linkPath, 'dir')
+        .then(() => {
+            console.log(`Symlink successful`)
+            return path.resolve(linkPath)
+        })
+        .catch(logAndExit('Failed to create symlink:'))
+}
 
-    console.log('Symlink creation successful.');
-});
+module.exports = symlink
