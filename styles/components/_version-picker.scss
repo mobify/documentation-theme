@@ -3,7 +3,7 @@
 $picker-font-size: 14px;
 $picker-icon-size: 6px;
 $green-circle-color: #4cb944;
-$list-min-width: 152px;
+$list-min-width: 140px;
 $button-min-width: 125px;
 
 // Version Picker
@@ -20,13 +20,15 @@ $button-min-width: 125px;
 // Version Picker Button
 // ---
 //
-// 1. Magic number to match the position of the button with the first item in the version list
 
 .c-version-picker__button {
     position: relative;
 
     min-width: $button-min-width;
-    padding: $base-space;
+    padding-top: $base-space;
+    padding-right: $base-space - 2;
+    padding-bottom: $base-space;
+    padding-left: $base-space;
     border: none;
 
     background: none;
@@ -50,7 +52,7 @@ $button-min-width: 125px;
         border-radius: $picker-icon-size/2;
         background-color: $green-circle-color;
 
-        transform: translate(-($picker-icon-size - 1), -$picker-icon-size/2); // 1
+        transform: translate(-($very-small-space + 1), -$very-small-space);
     }
 
     &::after {
@@ -103,7 +105,7 @@ $button-min-width: 125px;
 .c-version-picker__item {
     position: relative;
 
-    padding: $very-small-space $large-space;
+    padding: $very-small-space $smallish-space;
 
     border-radius: $border-radius*2;
     background: $white;
@@ -145,7 +147,7 @@ $button-min-width: 125px;
 
     &:first-child {
         padding-top: $base-space - 1; // 2
-        padding-left: $large-space;
+        padding-left: $smallish-space;
     }
     &:last-child {
         padding-bottom: $base-space;
