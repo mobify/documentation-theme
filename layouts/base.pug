@@ -155,6 +155,7 @@ html(lang='en')
                         var searchInput = document.getElementById('gsc-i-id1');
                         if(e.keyCode === 70 && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA' ){
                             searchInput.focus();
+                            document.getElementsByClassName('c-search-box')[0].classList.add('c--focused');
                         }
                     })
                 })();
@@ -208,6 +209,7 @@ html(lang='en')
                 var menuSheet = document.getElementById('js-menu-sheet')
                 var closeMenu = document.getElementById('js-close-menu')
                 var searchToggle = document.getElementById('js-search-toggle')
+                var pageContainer = document.body
 
                 navToggle && navToggle.addEventListener('click', function() {
                     document.getElementsByClassName('c-article')[0].classList.add('c--sidebar-open');
@@ -257,6 +259,16 @@ html(lang='en')
                     document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-phone-only');
                     document.getElementsByClassName('js-search-input')[0].classList.toggle('u-hidden--for-tablet-only');
                     document.querySelector('.gsc-input-box input.gsc-input').focus(); // 5
+                })
+
+                pageContainer && pageContainer.addEventListener('click', function(e) {
+                    var input = document.getElementsByClassName('gsc-input-box')[0]
+                    if(input.classList.contains('gsc-input-box-focus')) {
+                        document.getElementsByClassName('c-search-box')[0].classList.add('c--focused');
+                    }
+                    else {
+                        document.getElementsByClassName('c-search-box')[0].classList.remove('c--focused');
+                    }
                 })
 
             div(data-pp-cfiw-widget='e5ac626a-6d54-11e7-b57b-22000a2145da', data-env='prod', data-static='')

@@ -9,15 +9,24 @@
 
 .c-search-box {
     @include for-phone-only {
-        min-width: inherit;
+        width: 100%;
     }
 
-    width: 100%;
-    min-width: $unit*36;
+    @include for-tablet-only {
+        width: 100%;
+    }
+
+    width: 60%;
+    float: right;
     min-height: $search-input-height;
     border: 1px solid $border-color;
 
     background-color: $white;
+    transition: width 0.3s ease-out;
+
+    &.c--focused {
+        width: 100%;
+    }
 
     .gsc-branding {
         display: none !important; // Remove "Powered by Google"
