@@ -14,7 +14,7 @@ function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
     $versionPickerButton.click(function() {
         $versionPickerButton.toggleClass('active');
         $versionPickerCaret.toggleClass('active');
-        $versionPickerList.slideToggle(200);
+        $versionPickerList.slideToggle(300, "easeInOutExpo");
     });
 
     $versionPickerList.click(function() {
