@@ -7,6 +7,7 @@
             max-width: calc(#{$narrow-content-width} + #{$xlarge-space * 2}); // 2
             margin-right: auto;
             margin-left: auto;
+            float: none;
         }
 
         max-width: auto;
