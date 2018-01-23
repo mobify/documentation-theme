@@ -12,13 +12,15 @@ function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
     }
 
     $versionPickerButton.click(function() {
-        $versionPickerButton.toggleClass('active');
-        $versionPickerCaret.toggleClass('active');
-        $versionPickerList.slideToggle(300, "easeInOutExpo");
+        $versionPickerButton.addClass('active');
+        $versionPickerCaret.addClass('active');
+        $versionPickerList.slideDown(300, "easeInOutExpo");
     });
 
     $versionPickerList.click(function() {
-        $versionPickerButton.click();
+        $versionPickerList.slideUp(300, "easeInOutExpo");
+        $versionPickerButton.removeClass('active');
+        $versionPickerCaret.removeClass('active');
     });
 
     var createItem = function(label, link, isSelected) {

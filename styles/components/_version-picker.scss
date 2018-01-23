@@ -4,6 +4,7 @@ $picker-font-size: 14px;
 $picker-icon-size: 6px;
 $green-circle-color: #4cb944;
 $list-min-width: 152px;
+$button-min-width: 125px;
 
 // Version Picker
 // ===
@@ -24,9 +25,11 @@ $list-min-width: 152px;
 .c-version-picker__button {
     position: relative;
 
+    min-width: $button-min-width;
     padding: $base-space;
     border: none;
 
+    background: none;
     outline: none;
 
     font-weight: $medium-font-weight;
