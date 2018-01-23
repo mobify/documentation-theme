@@ -3,8 +3,6 @@
 $picker-font-size: 14px;
 $picker-icon-size: 6px;
 $green-circle-color: #4cb944;
-$list-min-width: 140px;
-$button-min-width: 125px;
 
 // Version Picker
 // ===
@@ -24,11 +22,7 @@ $button-min-width: 125px;
 .c-version-picker__button {
     position: relative;
 
-    min-width: $button-min-width;
-    padding-top: $base-space;
-    padding-right: $base-space - 2;
-    padding-bottom: $base-space;
-    padding-left: $base-space;
+    padding: $base-space;
     border: none;
 
     background: none;
@@ -36,6 +30,7 @@ $button-min-width: 125px;
 
     font-weight: $medium-font-weight;
     font-size: $picker-font-size;
+    text-align: left;
 
     cursor: pointer;
 
@@ -52,7 +47,7 @@ $button-min-width: 125px;
         border-radius: $picker-icon-size/2;
         background-color: $green-circle-color;
 
-        transform: translate(-($very-small-space + 1), -$very-small-space);
+        transform: translate(-($very-small-space + 1), -($very-small-space - 1));
     }
 
     &::after {
@@ -83,7 +78,6 @@ $button-min-width: 125px;
     top: 0;
 
     display: none;
-    min-width: $list-min-width;
     margin: 0;
     padding: 0;
     border: 1px solid $border-color;
@@ -147,7 +141,7 @@ $button-min-width: 125px;
 
     &:first-child {
         padding-top: $base-space - 1; // 2
-        padding-left: $smallish-space;
+        padding-right: $xlarge-space + 3; // 2
     }
     &:last-child {
         padding-bottom: $base-space;
