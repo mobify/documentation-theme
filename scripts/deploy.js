@@ -79,7 +79,7 @@ const deploy = (folder, project, env) => {
         console.log(`Invalidating CloudFront distribution "${distId}" (${env})`)
 
         exec(
-            `aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths "/*"`,
+            `aws cloudfront create-invalidation --distribution-id ${distId} --paths "/*"`,
             (e, stdout, stderr) => {
                 if (e) {
                     errorAndFail(e, stderr, 'Error occurred during CloudFront invalidation:')
