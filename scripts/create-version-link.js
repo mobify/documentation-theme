@@ -7,7 +7,7 @@ const logAndExit = require('./utils.js').logAndExit
  * @param {string} newVersion - The new version number for this deployment
  * @param {object} docsDir - The object from Utils.docsDirInfo
  
- * @returns {string} - The absolute path to the created symlink, for removal after compilation
+ * @returns {Promise} - resolves to absolute path to the created symlink
  */
 const symlink = (newVersion, docsDir) => {
     const split = docsDir.split
