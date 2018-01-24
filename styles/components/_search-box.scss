@@ -11,17 +11,20 @@
     @include for-phone-only {
         width: 100%;
     }
-
     @include for-tablet-only {
         width: 100%;
     }
 
-    width: 60%;
     float: right;
+
+    overflow: hidden;
+    width: 60%;
     min-height: $search-input-height;
     border: 1px solid $border-color;
 
+    border-radius: $unit;
     background-color: $white;
+
     transition: width 0.3s ease-out;
 
     &.c--focused {
@@ -172,6 +175,11 @@
     }
 }
 
+.gssb_a {
+    padding-top: $very-small-space !important; // 1
+    padding-bottom: $very-small-space !important; // 1
+}
+
 .gssb_a img {
     display: none !important; // 1
 }
@@ -182,4 +190,15 @@
 
 .gsc-completion-selected {
     background: $mobify-light-blue-bg !important; // 1
+}
+
+.gssb_e {
+    box-shadow: none !important; // 1
+}
+
+.gsc-completion-container {
+    border-collapse: initial !important;
+
+    border-radius: $unit;
+    box-shadow: none;
 }
