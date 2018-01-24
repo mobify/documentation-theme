@@ -81,8 +81,7 @@ commander
             .then(() => {
                 if (cmd.version_num) {
                     let symlinkPath
-                    return Promise.resolve()
-                        .then(() => createSymlink(cmd.version_num, docsDir))
+                    return createSymlink(cmd.version_num, docsDir)
                         .catch(logAndExit('Error during symlink creation:'))
                         .then((s) => {
                             symlinkPath = s
@@ -90,8 +89,7 @@ commander
                         })
                         .then(() => remove(symlinkPath))
                 } else {
-                    return Promise.resolve()
-                        .then(() => compileStep(dir))
+                    return compileStep(dir)
                 }
             })
             .then(() => deploy(buildFolder, cmd.project, cmd.env))
