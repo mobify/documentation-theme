@@ -7,8 +7,28 @@ const getUrl = (env) => {
 
     return `https://${getBucket(env)}`
 }
+const getCloudFrontDistributionId = (env) => {
+    switch (env) {
+        case 'production':
+            return 'EWTUW3ELN40OC'
+        case 'staging':
+            return 'E1MKZCJ6791YMP'
+        default:
+            return false
+    }
+}
+const errorAndFail = (errorObject, stdErr, message) => {
+    console.log(message)
+    console.error(errorObject)
+    console.log('====== stderr ======')
+    console.log(stdErr)
+    console.log('====== stderr ======')
+    process.exit(1)
+}
 
 const deploy = (folder, project, env) => {
+    // Documentation-hub is uploaded to the root of the docs S3 bucket, so it
+    // doesn't need a project foldre name
     const projectName = project !== 'docs-hub' ? project : ''
     const s3Bucket = getBucket(env)
     const s3Location = `${s3Bucket}/${projectName}`
@@ -39,14 +59,33 @@ const deploy = (folder, project, env) => {
             ${folder} s3://${s3Location}`,
             (e, stdout, stderr) => {
                 if (e) {
-                    console.log(stderr);
-                    console.error(e);
-                    process.exit(1);
+                    errorAndFail(e, stderr, 'Error occurred during deployment to S3:')
                 }
 
                 console.log('Deployment successful')
                 console.log(`Documentation available at: ${getUrl(env)}/${projectName}`)
                 resolve()
+            }
+        )
+    })
+    .then(() => {
+        // Returns `false` if environment has no CloudFront distribution
+        var distId = getCloudFrontDistributionId(env)
+
+        if (!distId) {
+            return
+        }
+
+        console.log(`Invalidating CloudFront distribution "${distId}" (${env})`)
+
+        exec(
+            `aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION} --paths "/*"`,
+            (e, stdout, stderr) => {
+                if (e) {
+                    errorAndFail(e, stderr, 'Error occurred during CloudFront invalidation:')
+                }
+
+                console.log(`CloudFront distribution "${distId}" (${env}) invalidation in progress`)
             }
         )
     })
