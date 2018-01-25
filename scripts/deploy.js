@@ -17,12 +17,9 @@ const getCloudFrontDistributionId = (env) => {
             return false
     }
 }
-const errorAndFail = (errorObject, stdErr, message) => {
+const errorAndFail = (errorObject, message) => {
     console.log(message)
     console.error(errorObject)
-    console.log('====== stderr ======')
-    console.log(stdErr)
-    console.log('====== stderr ======')
     process.exit(1)
 }
 
@@ -59,7 +56,7 @@ const deploy = (folder, project, env) => {
             ${folder} s3://${s3Location}`,
             (e, stdout, stderr) => {
                 if (e) {
-                    errorAndFail(e, stderr, 'Error occurred during deployment to S3:')
+                    errorAndFail(e, 'Error occurred during deployment to S3:')
                 }
 
                 console.log('Deployment successful')
@@ -78,11 +75,12 @@ const deploy = (folder, project, env) => {
 
         console.log(`Invalidating CloudFront distribution "${distId}" (${env})`)
 
+        exec('aws configure set preview.cloudfront true')
         exec(
             `aws cloudfront create-invalidation --distribution-id ${distId} --paths "/*"`,
             (e, stdout, stderr) => {
                 if (e) {
-                    errorAndFail(e, stderr, 'Error occurred during CloudFront invalidation:')
+                    errorAndFail(e, 'Error occurred during CloudFront invalidation:')
                 }
 
                 console.log(`CloudFront distribution "${distId}" (${env}) invalidation in progress`)
