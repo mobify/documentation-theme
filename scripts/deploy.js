@@ -1,4 +1,4 @@
-const { exec } = require('child_process')
+const { exec, execSync } = require('child_process')
 
 const getBucket = (env) => env === 'production' ? 'docs.mobify.com' : `docs-${env}.mobify.com`
 const getUrl = (env) => {
@@ -75,7 +75,9 @@ const deploy = (folder, project, env) => {
 
         console.log(`Invalidating CloudFront distribution "${distId}" (${env})`)
 
-        exec('aws configure set preview.cloudfront true')
+        // Running this synchronously since order is important and it carries out
+        // very little work (i.e. is just a configuration change)
+        execSync('aws configure set preview.cloudfront true')
         exec(
             `aws cloudfront create-invalidation --distribution-id ${distId} --paths "/*"`,
             (e, stdout, stderr) => {
