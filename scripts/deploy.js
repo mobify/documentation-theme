@@ -25,7 +25,7 @@ const errorAndFail = (errorObject, message) => {
 
 const deploy = (folder, project, env) => {
     // Documentation-hub is uploaded to the root of the docs S3 bucket, so it
-    // doesn't need a project foldre name
+    // doesn't need a project folder name
     const projectName = project !== 'docs-hub' ? project : ''
     const s3Bucket = getBucket(env)
     const s3Location = `${s3Bucket}/${projectName}`
@@ -78,6 +78,7 @@ const deploy = (folder, project, env) => {
         // Running this synchronously since order is important and it carries out
         // very little work (i.e. is just a configuration change)
         execSync('aws configure set preview.cloudfront true')
+
         exec(
             `aws cloudfront create-invalidation --distribution-id ${distId} --paths "/*"`,
             (e, stdout, stderr) => {
@@ -85,7 +86,8 @@ const deploy = (folder, project, env) => {
                     errorAndFail(e, 'Error occurred during CloudFront invalidation:')
                 }
 
-                console.log(`CloudFront distribution "${distId}" (${env}) invalidation in progress`)
+                // Invalidation takes some time so messaging that it's done here
+                // would be inaccurate
             }
         )
     })
