@@ -1,4 +1,4 @@
-const { exec } = require('child_process')
+const { exec, execSync } = require('child_process')
 
 const getBucket = (env) => env === 'production' ? 'docs.mobify.com' : `docs-${env}.mobify.com`
 const getUrl = (env) => {
@@ -7,8 +7,25 @@ const getUrl = (env) => {
 
     return `https://${getBucket(env)}`
 }
+const getCloudFrontDistributionId = (env) => {
+    switch (env) {
+        case 'production':
+            return 'EWTUW3ELN40OC'
+        case 'staging':
+            return 'E1MKZCJ6791YMP'
+        default:
+            return false
+    }
+}
+const errorAndFail = (errorObject, message) => {
+    console.log(message)
+    console.error(errorObject)
+    process.exit(1)
+}
 
 const deploy = (folder, project, env) => {
+    // Documentation-hub is uploaded to the root of the docs S3 bucket, so it
+    // doesn't need a project folder name
     const projectName = project !== 'docs-hub' ? project : ''
     const s3Bucket = getBucket(env)
     const s3Location = `${s3Bucket}/${projectName}`
@@ -39,14 +56,38 @@ const deploy = (folder, project, env) => {
             ${folder} s3://${s3Location}`,
             (e, stdout, stderr) => {
                 if (e) {
-                    console.log(stderr);
-                    console.error(e);
-                    process.exit(1);
+                    errorAndFail(e, 'Error occurred during deployment to S3:')
                 }
 
                 console.log('Deployment successful')
                 console.log(`Documentation available at: ${getUrl(env)}/${projectName}`)
                 resolve()
+            }
+        )
+    })
+    .then(() => {
+        // Returns `false` if environment has no CloudFront distribution
+        var distId = getCloudFrontDistributionId(env)
+
+        if (!distId) {
+            return
+        }
+
+        console.log(`Invalidating CloudFront distribution "${distId}" (${env})`)
+
+        // Running this synchronously since order is important and it carries out
+        // very little work (i.e. is just a configuration change)
+        execSync('aws configure set preview.cloudfront true')
+
+        exec(
+            `aws cloudfront create-invalidation --distribution-id ${distId} --paths "/*"`,
+            (e, stdout, stderr) => {
+                if (e) {
+                    errorAndFail(e, 'Error occurred during CloudFront invalidation:')
+                }
+
+                // Invalidation takes some time so messaging that it's done here
+                // would be inaccurate
             }
         )
     })
