@@ -27,7 +27,7 @@ cd documentation-theme
 npm i
 npm link
 cd ../<project-that-uses-theme>
-npm link documentation-theme
+npm link @mobify/documentation-theme
 npm run docs:dev
 ```
 
