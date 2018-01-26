@@ -7,8 +7,8 @@ following projects:
 * [Docs Hub](https://github.com/mobify/documentation-hub)
 
 # Requirements
-- Node ^6.9.x [LTS](https://github.com/nodejs/LTS#lts-schedule)
-- npm ^3.10.8
+- Node ^8.9.x [LTS](https://github.com/nodejs/LTS#lts-schedule)
+- npm ^5.5.x
 
 # Setup
 The theme is distributed via the [@mobify/documentation-theme](https://www.npmjs.com/package/@mobify/documentation-theme)
