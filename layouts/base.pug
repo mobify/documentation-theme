@@ -68,8 +68,7 @@ html(lang='en')
             meta(property='og:url' content=fullProdUrl)
             meta(name='twitter:description' content=description)
             meta(property='og:description' content=description)
-            //- TODO should this be a Mobify logo???
-            meta(property='og:image' content='http://www.mobify.com/static/i/thumb/new-social-thumbnail.png')
+            meta(property='og:image' content=`${themePath}img/share-thumbnail.png`)
 
         link(rel='icon' href=`${themePath}img/favicon.ico`)
 
@@ -133,9 +132,12 @@ html(lang='en')
             script(src=`${themePath}js/prism.js`)
             script(src=`${themePath}js/jquery.min.js`)
             script(src=`${themePath}js/jquery-ui.min.js`)
-            script(src=`${themePath}js/version-picker.js`)
-            script.
-                versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
+
+            //- Version picker
+            if hasPicker
+                script(src=`${themePath}js/version-picker.js`)
+                script.
+                    versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
 
             //- 📈 Google Tag Manager
             script.
