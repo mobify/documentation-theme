@@ -3,7 +3,7 @@ const path = require('path')
 
 const logAndExit = require('./utils.js').logAndExit
 
-const PACKAGE_NAME = 'documentation-theme'
+const PACKAGE_NAME = '@mobify/documentation-theme'
 const COPY_FOLDER = 'theme'
 
 const copy = (absPath) => {
