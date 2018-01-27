@@ -7,6 +7,20 @@ include ../mixins/footer
 
 //- 👉 Just a nice location to place variables for use within the template.
 block config
+    - var rootPageRegEx = /(?:index|404|search)/i
+    - var getThemePath = function(rootPath, ver) {
+        - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
+
+        - if (isDocumentationHub) {
+            - ver = ''
+        - } else {
+            - var isRootPage = rootPageRegEx.test(ver)
+            - ver = isRootPage ? 'latest/' : `${ver}/`
+        - }
+
+        - return `${DOCS_ROOT}${ver}theme/`
+    - }
+
     - var DOCS_ROOT = environment === 'production' ? PROD_ROOT : DEV_ROOT
     //- This determines which domain to direct search requests to!
     - var CSE_ID = environment === 'production' ? 'qko7xrhe0k4' : '5kfskqeb_xm'
@@ -19,8 +33,7 @@ block config
     - var title = metaData.title ? `${metaData.title} | ${SITE_TITLE}` : SITE_TITLE
     - var description = metaData.intro ? metaData.intro : SITE_DESCRIPTION
     - var hasPicker = true
-    - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
-    - var themePath = `${DOCS_ROOT}${isDocumentationHub ? '' : `${version}/`}theme/`
+    - var themePath = getThemePath(DOCS_ROOT, version)
 
 doctype html
 html(lang='en')

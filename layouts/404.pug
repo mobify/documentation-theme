@@ -38,9 +38,9 @@ block main
                 div.c-search-box
                     gcse:searchbox-only
 
+        //- if history length return to 2 which means user open 404 page on new request 
+            rather than open 404 page from docs
         script.
-            // if history length return to 2 which means user open 404 page on new request 
-            // rather than open 404 page from docs
             if (history.length === 2) {
                 document.getElementById('js-back-path').setAttribute('href', '/')
             }

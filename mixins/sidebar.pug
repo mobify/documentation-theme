@@ -7,18 +7,19 @@ include ./logo
 mixin buildMenu
     //- We're looking for defined categories - keys with an underscore and other
         specific keys are not valid here
-    - var categories = _.pickBy(public[version]._data, function(value, key) {
+    - var filterMethod = function(value, key) {
         - return !key.startsWith('_') && key !== 'styleguidist' && key !== 'index' && key !== 'sitemap.xml'
-    - })
+    - }
+    - var categories = _.pickBy(public[version]._data, filterMethod)
 
     for category, categorySlug in categories
         - var isActiveCategory = path[1] === categorySlug
-        - var documents = public[version][categorySlug]._data
+        - var documents = _.pickBy(public[version][categorySlug]._data, filterMethod)
 
         li
             //- No defined data for a given category means there are no child
                 documents
-            if typeof documents === 'undefined' || documents._excludeFromMenu
+            if Object.keys(documents).length === 0 || documents._excludeFromMenu
                 a.sdk-sidebar__link.u-text-medium(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
                     .sdk-sidebar__accordion-title= category.title
             else
