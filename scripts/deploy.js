@@ -54,6 +54,7 @@ const deploy = (folder, project, env) => {
             --include "*.otf" \
             --include "*.ttf" \
             ${folder} s3://${s3Location}`,
+            { maxBuffer: 1024 * 2000 }, // 2MB maximum buffer, default is 1024 * 200 (i.e. 200KB)
             (e, stdout, stderr) => {
                 if (e) {
                     errorAndFail(e, 'Error occurred during deployment to S3:')
