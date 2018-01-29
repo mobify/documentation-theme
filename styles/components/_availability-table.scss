@@ -28,8 +28,9 @@
 
 .c-availability-table__slanted-header {
     width: 42px;
-    margin-bottom: 20px;
-    margin-left: -20px;
+    margin-bottom: $medium-space;
+    margin-left: -$medium-space;
+    margin-top: $very-large-space;
 
     transform: translate(25px, 51px) // 1
     rotate(315deg); // 2
