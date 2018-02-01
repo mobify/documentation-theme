@@ -3,12 +3,51 @@
 //
 // 1. To override styleguidist styles
 
-.rsg-components__search-header input[type="search"] {
+$rsgSearchHeaderWidth: 250px;
+
+.rsg-components__search-header {
+    position: absolute;
+    top: -40px;
+    bottom: 0;
+    left: 0;
+    z-index: $z2-depth - 1;
+
+    overflow: scroll;
+    flex: 0 0 auto;
+    width: $rsgSearchHeaderWidth;
+    padding: $xlarge-space $small-space;
+
+    background: #fff;
+}
+
+.rsg-components__component-section {
+    flex: 1 1 auto;
+    max-width: 100%;
+    padding-right: $xlarge-space;
+    padding-left: $rsgSearchHeaderWidth + $xlarge-space;
+}
+
+.rsg-components__search-header a {
+    color: $link-color;
+    font-size: $base-font-size;
+    text-decoration: none;
+}
+
+.rsg-components__search-header ul {
+    padding-right: $base-space;
+    padding-left: 0;
+}
+
+.rsg-components__search-header li {
+    list-style: none;
+}
+
+.rsg-components__search-header input {
     width: 100%;
     padding: $small-space;
     border: 1px solid $border-color;
 
-    border-radius: 0;
+    border-radius: 2px;
     background-color: $white;
     outline: none;
 
@@ -19,40 +58,65 @@
     }
 }
 
-.rsg-components.full-screen {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-
-    overflow: scroll;
-
-    background: $white;
+[class*="rsg--heading"]:nth-of-type(1n),
+[class*="rsg--heading"]:nth-of-type(1n) a {
+    font-family: $brand-font-family;
+    font-weight: 700;
+    letter-spacing: -.05rem;
+    text-decoration: none;
 }
 
-.rsg-components__plain-header {
-    border-bottom: 1px solid $border-color;
+[class*="rsg--preview"]:nth-of-type(1n) {
+    background: $neutral-10;
+}
 
-    text-align: right;
+[class*="rsg--pre"] {
+    overflow: scroll;
+    margin-bottom: $xlarge-space;
+}
 
-    a {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
+[class*="rsg--table-"]:nth-of-type(1n) {
+    background: transparent;
+}
+
+[class*="rsg--tableHead-"],
+[class*="rsg--thead-"],
+[class*="rsg--tr-"],
+[class*="rsg--table-"] tr {
+    &:nth-of-type(1n) {
+        border-bottom: 1px solid rgba(0,0,0,.03);
     }
 }
 
-.ReactStyleguidist-Markdown__h4 {
-    margin-top: $large-space;
+[class*="rsg--cellHeading-"],
+[class*="rsg--cell-"],
+[class*="rsg--th-"],
+[class*="rsg--td-"], {
+    &:nth-of-type(1n) {
+        border: none !important; // 1
+
+        color: $neutral-50;
+        font-size: $small-font-size;
+
+        [class*="rsg--para-"] {
+            color: $neutral-50;
+            font-size: $small-font-size;
+        }
+    }
 }
 
-.ReactStyleguidist-Markdown__th,
-.ReactStyleguidist-Markdown__td {
-    border: none !important; // 1
+[class*="rsg--cellHeading-"]:nth-of-type(1n) {
+    font-size: 10px;
+    text-transform: uppercase;
 }
 
-.ReactStyleguidist-Markdown__table {
-    color: $neutral-50;
+[class*="rsg--cell-"]:last-child:last-child {
+    width: initial;
+}
+
+[class*="rsg--name-"]:nth-of-type(1n) {
+    display: inline-block;
+    margin-bottom: $small-space;
+
+    color: $neutral-60;
 }

@@ -8,6 +8,7 @@
     min-height: 125px; // 1
     padding-top: $base-space;
     padding-bottom: $base-space;
+    z-index: $z2-depth;
 
     .c-search-box {
         float: right;

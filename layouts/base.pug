@@ -94,9 +94,10 @@ html(lang='en')
                 block header
                     +header(metaData.title, metaData.intro, hasPicker)
 
-                .c-contain.c-text-content.u-margin-bottom-xl.u-flex
-                    block content
-                        != yield
+                .u-context.u-flex
+                    .c-contain.c-text-content.u-margin-bottom-xl
+                        block content
+                            != yield
 
                 block footer
                     +footer
