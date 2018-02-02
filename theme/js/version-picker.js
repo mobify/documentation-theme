@@ -55,6 +55,11 @@ function versionPicker(baseUrl, pathArray, changelogPath, currentVersion) {
             }
         }
 
+        // Once we've built all the markup, show the caret icon
+        // This also means if the versions JSON fails to load - users won't see
+        // a broken version picker
+        $versionPickerButton.addClass('is--loaded');
+
         if (versions.length > 10) {
             createItem('Older versions', baseUrl + changelogPath);
         }
