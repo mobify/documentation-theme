@@ -5,15 +5,100 @@
 
 $rsgSearchHeaderWidth: 250px;
 
+
+// Global Styleguide Styles
+// ---
+
 .rsg-style-guide {
     display: flex;
 }
+
+@include for-phone-only {
+    .rsg-style-guide--is-top-level {
+        .rsg-components__search-nav {
+            display: block;
+            width: 100vw;
+
+            a {
+                display: inline-block;
+                padding: $small-space 2px;
+            }
+        }
+
+        .rsg-components__component-section {
+            display: none;
+        }
+
+        [class*="rsg--isChild-"] {
+            display: block;
+            margin: $small-space 0;
+        }
+    }
+
+    // Component view's first header wrapper
+    [id*="-container"] {
+        [class*="rsg--wrapper-"] {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-start;
+        }
+
+        // "Back to components" link
+        header [class*="rsg--toolbar-"] {
+            margin-bottom: $base-space;
+            margin-left: 0;
+
+            a {
+                color: $link-color;
+                font-weight: bold;
+
+                &::before {
+                    content: '\2190 \00A0 Back';
+                }
+
+                svg {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@include for-tablet-only {
+    .rsg-style-guide--is-top-level {
+        [class*="rsg--isChild-"] {
+            display: block;
+            margin: $small-space 0;
+        }
+    }
+}
+
+
+// "Get Started" Arrow
+// ---
+
+.rsg-style-guide__arrow {
+    p {
+        margin: $xlarge-space 0 $base-space;
+
+        color: $link-color;
+        font-weight: bold;
+    }
+}
+
+
+// Styleguidist "components" Wrapper
+// ---
 
 .rsg-components {
     display: flex;
 }
 
-.rsg-components__search-header {
+
+// Styleguidist "Search" and "Navigation"
+// ---
+
+.rsg-components__search-nav {
     z-index: $z2-depth - 1;
 
     overflow: scroll;
@@ -24,6 +109,36 @@ $rsgSearchHeaderWidth: 250px;
 
     background: #fff;
 
+    a {
+        color: $link-color;
+        font-size: $base-font-size;
+        text-decoration: none;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    input {
+        width: 100%;
+        padding: $small-space;
+        border: 1px solid $border-color;
+
+        border-radius: 2px;
+        background-color: $white;
+        outline: none;
+
+        transition: all .15s ease-in-out;
+
+        &:focus {
+            box-shadow: $small-box-shadow;
+        }
+    }
+
     .rsg-component-filter {
         margin-bottom: $base-space;
     }
@@ -33,82 +148,66 @@ $rsgSearchHeaderWidth: 250px;
     }
 }
 
-.rsg-components__search-header a {
-    color: $link-color;
-    font-size: $base-font-size;
-    text-decoration: none;
-}
-
-.rsg-components__search-header ul {
-    padding: 0;
-}
-
-.rsg-components__search-header li {
-    list-style: none;
-}
-
-.rsg-components__search-header input {
-    width: 100%;
-    padding: $small-space;
-    border: 1px solid $border-color;
-
-    border-radius: 2px;
-    background-color: $white;
-    outline: none;
-
-    transition: all .15s ease-in-out;
-
-    &:focus {
-        box-shadow: $small-box-shadow;
+@include for-phone-only {
+    .rsg-components__search-nav {
+        display: none;
     }
 }
+
+
+// List of Links (sidebar nav links)
+// ---
 
 .rsg-component-list .rsg-component-list {
     padding-bottom: $base-space;
 }
+
+
+// Styleguidist Components, Main Content Area
+// ---
 
 .rsg-components__component-section {
     flex: 1 1 auto;
     max-width: 100%;
     padding-right: $xlarge-space;
     padding-left: $xlarge-space;
-}
 
-[class*="rsg--heading"]:nth-of-type(1n),
-[class*="rsg--heading"]:nth-of-type(1n) a {
-    font-family: $brand-font-family;
-    font-weight: 700;
-    letter-spacing: -.05rem;
-    text-decoration: none;
-}
+    [class*="rsg--heading"],
+    [class*="rsg--heading"] a {
+        font-family: $brand-font-family;
+        font-weight: 700;
+        letter-spacing: -.05rem;
+        text-decoration: none;
+    }
 
-[class*="rsg--preview"]:nth-of-type(1n) {
-    background: $neutral-10;
-}
+    [class*="rsg--heading1-"] {
+        margin-top: $massive-space;
+    }
 
-[class*="rsg--pre"] {
-    overflow: scroll;
-    margin-bottom: $xlarge-space;
-}
+    [class*="rsg--preview"] {
+        background: $neutral-10;
+    }
 
-[class*="rsg--table-"]:nth-of-type(1n) {
-    background: transparent;
-}
+    [class*="rsg--pre"] {
+        overflow: scroll;
+        margin-bottom: $xlarge-space;
+    }
 
-[class*="rsg--tableHead-"],
-[class*="rsg--thead-"],
-[class*="rsg--tr-"],
-[class*="rsg--table-"] tr {
-    &:nth-of-type(1n) {
+    [class*="rsg--table-"] {
+        background: transparent;
+    }
+
+    [class*="rsg--tableHead-"],
+    [class*="rsg--thead-"],
+    [class*="rsg--tr-"],
+    [class*="rsg--table-"] tr {
         border-bottom: 1px solid rgba(0,0,0,.03);
     }
-}
 
-[class*="rsg--cellHeading-"],
-[class*="rsg--cell-"],
-[class*="rsg--th-"],
-[class*="rsg--td-"], {
-    &:nth-of-type(1n) {
+    [class*="rsg--cellHeading-"],
+    [class*="rsg--cell-"],
+    [class*="rsg--th-"],
+    [class*="rsg--td-"], {
         border: none !important; // 1
 
         color: $neutral-50;
@@ -119,20 +218,33 @@ $rsgSearchHeaderWidth: 250px;
             font-size: $small-font-size;
         }
     }
+
+    [class*="rsg--cellHeading-"] {
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+
+    [class*="rsg--cell-"]:last-child {
+        width: initial;
+    }
+
+    [class*="rsg--name-"] {
+        display: inline-block;
+        margin-bottom: $small-space;
+
+        color: $neutral-60;
+    }
 }
 
-[class*="rsg--cellHeading-"]:nth-of-type(1n) {
-    font-size: 10px;
-    text-transform: uppercase;
-}
 
-[class*="rsg--cell-"]:last-child:last-child {
-    width: initial;
-}
-
-[class*="rsg--name-"]:nth-of-type(1n) {
-    display: inline-block;
-    margin-bottom: $small-space;
-
-    color: $neutral-60;
+// Code Snippits
+//
+// 1. Fix a render bug where `white-space: pre;` elements overflow, and also
+//    force other parent elements to overflow as well. See example:
+//    @url: https://codepen.io/jeffkamo/pen/MQaxdz
+pre code[class*="rsg--code-"],
+code[class*="language-"],
+pre[class*="rsg--root-"] {
+    display: block;
+    width: 0; // 1
 }
