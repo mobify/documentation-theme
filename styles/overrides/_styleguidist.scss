@@ -11,6 +11,7 @@ $rsgSearchHeaderWidth: 250px;
 
 .rsg-style-guide {
     display: flex;
+    flex: 1 1 auto;
 }
 
 @include for-phone-only {
@@ -92,6 +93,7 @@ $rsgSearchHeaderWidth: 250px;
 
 .rsg-components {
     display: flex;
+    flex: 1 1 auto;
 }
 
 
