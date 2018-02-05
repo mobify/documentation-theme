@@ -22,7 +22,7 @@ $rsgSearchHeaderWidth: 250px;
 
             a {
                 display: inline-block;
-                padding: $small-space 2px;
+                padding: $small-space ($very-small-space/2);
             }
         }
 
