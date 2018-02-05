@@ -106,7 +106,7 @@ $rsgSearchHeaderWidth: 250px;
     overflow: scroll;
     flex: 0 0 auto;
     width: $rsgSearchHeaderWidth;
-    margin-top: -40px;
+    margin-top: -$very-large-space;
     padding: $xlarge-space $medium-space;
 
     background: #fff;
@@ -130,7 +130,7 @@ $rsgSearchHeaderWidth: 250px;
         padding: $small-space;
         border: 1px solid $border-color;
 
-        border-radius: 2px;
+        border-radius: $border-radius;
         background-color: $white;
         outline: none;
 
@@ -177,7 +177,7 @@ $rsgSearchHeaderWidth: 250px;
     [class*="rsg--heading"],
     [class*="rsg--heading"] a {
         font-family: $brand-font-family;
-        font-weight: 700;
+        font-weight: $heavy-font-weight;
         letter-spacing: -.05rem;
         text-decoration: none;
     }
@@ -222,7 +222,7 @@ $rsgSearchHeaderWidth: 250px;
     }
 
     [class*="rsg--cellHeading-"] {
-        font-size: 10px;
+        font-size: $tiny-font-size;
         text-transform: uppercase;
     }
 
