@@ -50,7 +50,7 @@ $green-circle-color: #4cb944;
         transform: translate(-($very-small-space + 1), -($very-small-space - 1));
     }
 
-    &::after {
+    &.is--loaded::after {
         content: '';
 
         position: absolute;
