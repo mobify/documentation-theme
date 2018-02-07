@@ -12,6 +12,10 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-style-guide {
     display: flex;
     flex: 1 1 auto;
+
+    .CodeMirror {
+        background-color: $neutral-10;
+    }
 }
 
 @include for-phone-only {
