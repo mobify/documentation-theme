@@ -12,17 +12,14 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-style-guide {
     display: flex;
     flex: 1 1 auto;
-
-    .CodeMirror {
-        background-color: $neutral-10;
-    }
 }
 
 @include for-phone-only {
     .rsg-style-guide--is-top-level {
         .rsg-components__search-nav {
             display: block;
-            width: 100vw;
+            width: 100%;
+            margin-right: 0;
 
             a {
                 display: inline-block;
@@ -54,8 +51,11 @@ $rsgSearchHeaderWidth: 250px;
             margin-left: 0;
 
             a {
+                display: inline-block;
+
                 color: $link-color;
                 font-weight: bold;
+                text-decoration: none;
 
                 &::before {
                     content: '\2190 \00A0 Back';
@@ -83,12 +83,7 @@ $rsgSearchHeaderWidth: 250px;
 // ---
 
 .rsg-style-guide__arrow {
-    p {
-        margin: $xlarge-space 0 $base-space;
-
-        color: $link-color;
-        font-weight: bold;
-    }
+    margin-top: $xlarge-space;
 }
 
 
@@ -98,6 +93,7 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-components {
     display: flex;
     flex: 1 1 auto;
+    max-width: 100%;
 }
 
 
@@ -110,8 +106,8 @@ $rsgSearchHeaderWidth: 250px;
     overflow: scroll;
     flex: 0 0 auto;
     width: $rsgSearchHeaderWidth;
-    margin-top: -$very-large-space;
-    padding: $xlarge-space $medium-space;
+    margin-right: $xlarge-space;
+    padding: $xlarge-space 0;
 
     background: #fff;
 
@@ -122,6 +118,7 @@ $rsgSearchHeaderWidth: 250px;
     }
 
     ul {
+        margin: 0;
         padding: 0;
     }
 
@@ -147,6 +144,14 @@ $rsgSearchHeaderWidth: 250px;
 
     .rsg-component-filter {
         margin-bottom: $base-space;
+    }
+
+    [class*="rsg--list-"] {
+        margin: 0;
+
+        [class*="rsg--list-"] {
+            margin-left: $large-space;
+        }
     }
 
     [class*="rsg--list-"] .rsg-component-filter {
@@ -175,8 +180,37 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-components__component-section {
     flex: 1 1 auto;
     max-width: 100%;
-    padding-right: $xlarge-space;
-    padding-left: $xlarge-space;
+    padding-top: $very-large-space;
+    padding-right: $base-space;
+    padding-left: $base-space;
+
+    // The component title. Emulate the appearance of an H1
+    [id][class*="rsg--heading2-"] {
+        font-size: $massive-font-size;
+    }
+
+    [class*="rsg--list-"] {
+        margin-left: 0;
+    }
+
+    [class*="rsg--tabs-"] {
+        margin-top: $xlarge-space;
+    }
+
+    // Code blocks
+    [class*="rsg--pre-"] {
+        overflow: scroll;
+        margin-bottom: $massive-space;
+
+        &.language-js {
+            margin-bottom: $very-large-space;
+        }
+    }
+
+    // Rendred examples
+    [class*="rsg--preview-"] {
+        margin-bottom: $smallish-space;
+    }
 
     [class*="rsg--heading"],
     [class*="rsg--heading"] a {
@@ -186,17 +220,12 @@ $rsgSearchHeaderWidth: 250px;
         text-decoration: none;
     }
 
-    [class*="rsg--heading1-"] {
-        margin-top: $massive-space;
+    [class*="rsg--root-"]:not(:last-of-type) {
+        margin-bottom: $massive-space;
     }
 
     [class*="rsg--preview"] {
         background: $neutral-10;
-    }
-
-    [class*="rsg--pre"] {
-        overflow: scroll;
-        margin-bottom: $xlarge-space;
     }
 
     [class*="rsg--table-"] {
@@ -240,6 +269,29 @@ $rsgSearchHeaderWidth: 250px;
 
         color: $neutral-60;
     }
+}
+
+// Tab Buttons
+[class*="rsg--tabButtons-"],
+[class*="rsg--controls-"] {
+    [class*="rsg--button-"] {
+        padding-right: $smallish-space;
+        padding-left: $smallish-space;
+
+        color: $link-color;
+        font-family: $base-font-family;
+        font-weight: bold;
+
+        &[class*="rsg--isActive-"] {
+            border-bottom: 3px solid $link-color;
+        }
+    }
+}
+
+
+// Isolation Buttons
+[class*="rsg--toolbar-"] [class*="rsg--button-"] {
+    display: none;
 }
 
 
