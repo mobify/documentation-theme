@@ -225,6 +225,8 @@ $rsgSearchHeaderWidth: 250px;
     }
 
     [class*="rsg--preview"] {
+        position: relative; // temporary fix for issue with Carousel's layout="fill" example
+
         background: $neutral-10;
     }
 
