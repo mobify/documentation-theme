@@ -33,10 +33,13 @@ npm run docs:dev
 
 # Release
 The release is currently done manually. Follow these steps:
-1. Increment the version number in `package.json`.
-2. `npm login`
-3. `npm publish`
-4. Tag a release on GitHub and add a couple notes about what has changed.
+1. Cut a release branch from `develop` called `release-vX.Y.Z`
+2. Increment the version number in `package.json` and commit that change to the release branch.
+3. `npm login`
+4. `npm publish`
+5. Merge `release-vX.Y.Z` to `master` (no PR review required).
+6. Tag a release on GitHub and add a couple notes about what has changed.
+7. Merge `master` to `develop` (no PR review required).
 
 # Google Search/SEO
 
