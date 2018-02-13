@@ -102,6 +102,12 @@ html(lang='en')
                     +footer
 
         block scripts
+            //- Expose version as a global so we can use it in JS (ex. styleguidist)
+            script.
+                window.Mobify = {
+                    version: "#{version}"
+                }
+
             //- Pretty section anchors and permalinks
             +markdownify
 
