@@ -1,6 +1,6 @@
 {
   "name": "@mobify/documentation-theme",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Jade template theme for Mobify documentation",
   "main": "index.js",
   "bin": {

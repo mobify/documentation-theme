@@ -17,12 +17,14 @@ mixin sectionContents
 
     - var docsRoot = environment === 'production' ? PROD_ROOT : DEV_ROOT
 
-    ul.c-section-contents.u-list-style-none
-        each childNode, slug in node._data
-            if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
-                - url = docsRoot + localPath.join('/') + '/' + slug
-                li
-                    a.c-card(href=url)
-                        h2.c-card__heading.c-heading.c--h3 #{childNode.title}
-                        if childNode.intro
-                            p.c-card__message #{childNode.intro}
+    // Render nothing and don't crash if we call this mixin on a section without children
+    if (node._data)
+        ul.c-section-contents.u-list-style-none
+            each childNode, slug in node._data
+                if (!(slug.startsWith('_') || slug === "styleguidist" || slug === "index"))
+                    - url = docsRoot + localPath.join('/') + '/' + slug
+                    li
+                        a.c-card(href=url)
+                            h2.c-card__heading.c-heading.c--h3 #{childNode.title}
+                            if childNode.intro
+                                p.c-card__message #{childNode.intro}
