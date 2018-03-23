@@ -197,6 +197,13 @@ $rsgSearchHeaderWidth: 250px;
         margin-top: $xlarge-space;
     }
 
+    [class*="rsg--tab-"] {
+        // Fix WEB-1861: fix scroller issue if long text that doesn't break
+        .CodeMirror-line {
+            word-break: break-word;
+        }
+    }
+
     // Code blocks
     [class*="rsg--pre-"] {
         overflow: scroll;
