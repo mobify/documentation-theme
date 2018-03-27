@@ -198,9 +198,12 @@ $rsgSearchHeaderWidth: 250px;
     }
 
     [class*="rsg--tab-"] {
-        // Fix WEB-1861: fix scroller issue if long text that doesn't break
+        // Fix WEB-1861: fix scroller issue that wont extend page length
         .CodeMirror-line {
-            word-break: break-word;
+            display: block;
+            width: 0;
+
+            white-space: pre;
         }
     }
 
