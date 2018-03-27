@@ -197,6 +197,20 @@ $rsgSearchHeaderWidth: 250px;
         margin-top: $xlarge-space;
     }
 
+    [class*="rsg--tab-"] {
+        // Fix WEB-1861: fix scroller issue that wont extend page length
+        .CodeMirror-line {
+            display: block;
+            width: 0;
+
+            white-space: pre;
+        }
+
+        .CodeMirror-scroll {
+            margin-right: 0;
+        }
+    }
+
     // Code blocks
     [class*="rsg--pre-"] {
         overflow: scroll;
