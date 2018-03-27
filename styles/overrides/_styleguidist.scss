@@ -205,6 +205,10 @@ $rsgSearchHeaderWidth: 250px;
 
             white-space: pre;
         }
+
+        .CodeMirror-scroll {
+            margin-right: 0;
+        }
     }
 
     // Code blocks
