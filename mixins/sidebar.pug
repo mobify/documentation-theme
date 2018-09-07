@@ -32,7 +32,8 @@ mixin buildMenu
                     .sdk-sidebar__accordion-title= category.title
                 ul.sdk-sidebar__accordion-item.u-list-style-none(style={ 'max-height': isActiveCategory ? 'initial': '' })
                     for document, documentSlug in documents
-                        a.sdk-sidebar__list-link(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
+                        unless document._excludeFromMenu
+                            a.sdk-sidebar__list-link(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
 
 mixin sidebar
     - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
