@@ -8,7 +8,6 @@
 // 1. The spacing between two cards is 16px, therefore we’re using 8px + 8px on
 //    both sides of the card. The Grid itself then extends out the sides by 8px
 //    to align each card optically to the exterior container edges.
-// 2. remove bottom spacing on last row
 
 .c-grid {
     display: flex;
@@ -21,11 +20,6 @@
         @for $n from 2 through 6 {
             &.c--#{$n}up > * {
                 width: calc(#{(100% / $n)} - #{$base-space});
-
-                &:last-child,
-                &:nth-last-of-type(-n + #{$n}) {
-                    margin-bottom: 0; //2
-                }
             }
         }
     }
