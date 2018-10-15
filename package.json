@@ -26,6 +26,6 @@
     "commander": "2.13.0",
     "fs-extra": "5.0.0",
     "glob": "7.1.2",
-    "harp": "mobify/harp#update-to-pug"
+    "harp": "mobify/harp#WEB-2067"
   }
 }
