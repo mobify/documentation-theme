@@ -26,6 +26,6 @@
     "commander": "2.13.0",
     "fs-extra": "5.0.0",
     "glob": "7.1.2",
-    "harp": "mobify/harp#WEB-2067-3"
+    "harp": "mobify/harp#850a9845c57e7eb47e562e134b8379c64314bea2"
   }
 }
