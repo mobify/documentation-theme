@@ -75,6 +75,11 @@ html(lang='en')
         //- 👉 Stylesheet
         link(rel="stylesheet" href=`${themePath}css/main.css`)
 
+        //- 👉 Stylesheets for jQuery UI and table of contents widget
+        link(rel="stylesheet" href=`${themePath}css/jquery-ui.min.css`)
+        link(rel="stylesheet" href=`${themePath}css/jquery-ui.theme.min.css`)
+        link(rel="stylesheet" href=`${themePath}css/jquery.tocify.css`)
+
         //- 👉 Typography.com font
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
 
@@ -134,12 +139,23 @@ html(lang='en')
                     });
                 })()
 
-            //- 👉 Syntax highlighter
-            script(src=`${themePath}js/prism.js`)
+            //- 👉 jQuery and jQuery UI
             script(src=`${themePath}js/jquery.min.js`)
             script(src=`${themePath}js/jquery-ui.min.js`)
 
-            //- Version picker
+            //- 👉 Browser and OS detection
+            script(src=`${themePath}js/pgwbrowser.min.js`)
+
+            //- 👉 Table of contents widget
+            script(src=`${themePath}js/jquery.tocify.min.js`)
+
+            //- 👉 Copy to clipboard button
+            script(src=`${themePath}js/clipboard.min.js`)
+            
+            //- 👉 Syntax highlighter
+            script(src=`${themePath}js/prism.js`)
+
+            //- 👉 Version picker
             if hasPicker
                 script(src=`${themePath}js/version-picker.js`)
                 script.
