@@ -68,7 +68,7 @@
 
 .sdk-sidebar__accordion-title {
     margin-left: $large-space;
-    font-size: $medium-font-size;
+    font-size: $smallish-font-size;
 }
 
 .sdk-sidebar__accordion:before {
@@ -104,14 +104,12 @@
     right: 16px;
     bottom: 0;
     left: 16px;
-
-    border-top: 1px solid $mobify-dark-blue;
 }
 
 .sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
     color: $white;
     background: $dark-accent-color;
-    padding: $base-space 0;
+    padding-bottom: $base-space;
 }
 
 .sdk-sidebar__accordion:focus {

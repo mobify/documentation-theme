@@ -55,7 +55,8 @@ $mono-font-family: 'consolas', 'menlo', monospace;
 
 $tiny-font-size: 10px;
 $small-font-size: 12px;
-$base-font-size: 16px;
+$smallish-font-size: 16px;
+$base-font-size: 18px;
 $medium-font-size: 18px;
 $large-font-size: 20px;
 $larger-font-size: 24px;
@@ -82,7 +83,7 @@ $heavy-font-weight: 700;
 // Content Area Widths
 // --
 
-$base-content-width: 60em;
+$base-content-width: 45em;
 
 $narrow-content-width: 20em;
 $small-content-width: 35em;
@@ -125,7 +126,7 @@ $mobify-light-red: #db1d3e;
 $mobify-dark-red: #b41f24;
 $mobify-light-blue-bg: rgba(2,136,167,0.1);
 
-$code-color: #e9f6fc;
+$code-color: #f5f2f0;
 $code-border-color: #d3e0e7;
 
 $border-color: darken($neutral-40, 10%);

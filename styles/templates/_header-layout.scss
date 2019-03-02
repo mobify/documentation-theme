@@ -7,11 +7,11 @@
 .t-header-layout {
     min-height: 125px; // 1
     padding-top: $base-space;
-    padding-bottom: $base-space;
+    // padding-bottom: $base-space;
     z-index: $z2-depth;
 
     .c-search-box {
-        float: right;
+        float: left;
         position: absolute;
         top: $very-small-space;
         right: 0;
@@ -36,7 +36,7 @@
 
     .c-version-picker {
         margin-right: $medium-space;
-        margin-bottom: $large-space;
+        // margin-bottom: $large-space;
 
         text-align: right;
     }
