@@ -8,16 +8,19 @@ mixin header(title, intro, hasPicker)
         div.c-contain
             div.c-search-sheet.u-small-shadow-inset
                 span.u-visually-hidden Search Sheet
-            div.c-search-box.u-margin-bottom-lg
-                gcse:searchbox-only
-            div.t-header-layout__content.u-flexbox
+            div.t-header-layout__content.u-flexbox.u-align-center.u-context.u-justify-between
+                div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
+                    div.c-search-box
+                        gcse:searchbox-only
                 div.u-flex
                     if hasPicker
                         div.u-hidden--for-tablet-landscape-up
                             +versionPicker
-                div.t-header-layout__search.u-flex-none.js-search-input.u-hidden--for-phone-only.u-hidden--for-tablet-only
+                div.u-flex-none.u-hidden--for-phone-only.u-hidden--for-tablet-only
                     if hasPicker
                         +versionPicker
-        div.c-contain
-            div.u-margin-top-lg
+        div.c-contain.u-margin-top.u-margin-bottom-lg
+            div.u-padding-top-xl.u-border-top
                 h1.c-heading.c--h1 #{title}
+                if intro
+                    p.u-margin-top-sm.u-neutral-50 #{intro}
