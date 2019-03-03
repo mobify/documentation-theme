@@ -254,6 +254,18 @@ html(lang='en')
                     });
                 });
                 
+                $(function() {
+                    // Initialize the table of contents
+                    var toc = $("#toc").tocify().data("toc-tocify");
+                    
+                    toc.setOptions({ context: "div.c-text-content", 
+                                     selectors: "h2,h3",
+                                     theme: "jqueryui",
+                                     showAndHide: false,
+                                     scrollTo: 100, 
+                                     smoothScroll: true });
+                });
+                
                 // Set the height properly for accordion that is open on page load
                 var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
                 if (activeItem !== null) {
