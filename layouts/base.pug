@@ -226,11 +226,34 @@ html(lang='en')
                     acc[i].onclick = handleAccClick;
                 };
 
-                // Initialize tabbed content
-                $( function() {
-                    $( ".tabs" ).tabs();
-                } );
-
+                $(document).ready(function () {
+                    $(".tabs").each(function (index, value) {
+                        // Initialize the current set of tabs
+                        $(this).tabs();
+                        
+                        // Preselect any tabs based on operating system
+                        var theBrowser = $.pgwBrowser();
+                        var tabIndex = 0;
+                        var osSearchString = "Windows"; // Default to Windows
+                        
+                        if (typeof theBrowser != "undefined") {
+                            if (theBrowser.os.group == "Windows") {
+                                // If the user is on Windows, get the tab index for the first "Windows" tab
+                                osSearchString = 'Windows';
+                            } else if (theBrowser.os.group == "Mac OS") {
+                                // If the user is on Mac, get the tab index for the first "Mac" tab
+                                osSearchString = 'Mac';    
+                            } else if (theBrowser.os.group == "Linux") {
+                                // If the user is on Linux, get the tab index for the first "Linux" tab
+                                osSearchString = 'Linux';
+                            }
+                            var osTab = $(this).find("a:contains('" + osSearchString + "')").first();
+                            var tabIndex = osTab.parent().index();
+                            $(this).tabs("option", "active", tabIndex);
+                        }
+                    });
+                });
+                
                 // Set the height properly for accordion that is open on page load
                 var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
                 if (activeItem !== null) {
