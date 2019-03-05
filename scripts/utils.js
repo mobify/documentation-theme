@@ -24,7 +24,7 @@ const remove = (location) => {
  * @param {string} dirString
  */
 const docsDirInfo = (dirString) => {
-    const split = dirString.split('/')
+    const split = dirString.split(path.sep)
     const publicFolderIndex = split.indexOf(HARP_PUBLIC_FOLDER)
     // Harp uses a conventional 'public' folder to store documentation in
     const root = split[publicFolderIndex - 1] || ''
