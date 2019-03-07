@@ -19,3 +19,8 @@ mixin header(title, intro, hasPicker)
                 div.u-flex-none.u-hidden--for-phone-only.u-hidden--for-tablet-only
                     if hasPicker
                         +versionPicker
+        div.t-header-layout__page-title.c-contain.u-margin-top.u-margin-bottom-lg
+            div.u-padding-top-xl.u-border-top
+                h1.c-heading.c--h1 #{title}
+                if intro
+                    p.u-margin-top-sm.u-neutral-50 #{intro}
