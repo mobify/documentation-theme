@@ -1,13 +1,10 @@
 // Header layout
 // ===
 //
-// 1. Set min height so looks okay without intro content
-// 2. To align picker and search input
+// 1. To align picker and search input
 
 .t-header-layout {
-    min-height: 125px; // 1
     padding-top: $base-space;
-    // padding-bottom: $base-space;
     z-index: $z2-depth;
 
     .c-search-box {
@@ -36,7 +33,6 @@
 
     .c-version-picker {
         margin-right: $medium-space;
-        // margin-bottom: $large-space;
 
         text-align: right;
     }
@@ -44,12 +40,11 @@
     .c-version-picker__list {
         right: 0;
 
-        transform: translateX($medium-space); // 2
+        transform: translateX($medium-space); // 1
     }
 
     @include for-tablet-landscape-up {
         padding-top: $large-space + 2; // align line to menu
-        // padding-bottom: $large-space + 1; // align line to menu
 
         .c-search-box {
             position: inherit;

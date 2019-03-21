@@ -1,0 +1,43 @@
+// Callout Component
+// ===
+
+
+// Standard callout
+// ---
+
+.c-callout {
+    padding: $base-space $base-space*2 $base-space $base-space*3; 
+    font-size: 16px;
+	box-shadow: -4px 0 0 0 #005C83;
+    background-color: #F0F7F9;
+}
+
+.c-callout:before {
+    content: '';
+    background-repeat: no-repeat;
+    background-size: $medium-space;
+    width: $medium-space;
+    height: $medium-space;
+    float: left;
+    margin-left: -$base-space*2;
+    margin-top: 1px;
+    background-image: url('../icons/icon-info.svg');
+}
+
+.c-callout:after {
+    content: ' ';
+    clear: both;
+    display: table;
+}
+
+// Important callout
+// ---
+
+.c-callout.c--important {
+    box-shadow: -4px 0 0 0 #DC0A3C;
+    background-color: #FFF8F7;
+}
+
+.c-callout.c--important:before {
+    background-image: url('../icons/icon-warning.svg');;
+}

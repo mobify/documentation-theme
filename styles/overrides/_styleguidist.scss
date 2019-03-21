@@ -180,9 +180,7 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-components__component-section {
     flex: 1 1 auto;
     max-width: 100%;
-    padding-top: $very-large-space;
-    padding-right: $base-space;
-    padding-left: $base-space;
+    padding-top: $base-space;
 
     // The component title. Emulate the appearance of an H1
     [id][class*="rsg--heading2-"] {

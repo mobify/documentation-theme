@@ -1,3 +1,8 @@
 .u-list-style-none {
     list-style-type: none !important;
 }
+
+.u-list-horizontal li {
+    display: inline;
+    padding-right: 10px;
+}

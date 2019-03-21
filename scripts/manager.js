@@ -7,7 +7,6 @@ const path = require('path')
 
 const { logAndExit, remove, docsDirInfo } = require('./utils.js')
 const copy = require('./copy.js')
-const generateComponentsList = require('./generate-components-list.js')
 const createSymlink = require('./create-version-link.js')
 const deploy = require('./deploy.js')
 
@@ -17,8 +16,7 @@ const BUILD_FOLDER_NAME = 'www'
 const copyAndGenerate = (dir) => {
     const docsDir = docsDirInfo(dir)
 
-    return generateComponentsList()
-        .then(() => copy(docsDir.absPath))
+    return copy(docsDir.absPath)
         .catch(logAndExit('Error while copying theme files:'))
         .then(() => docsDir)
         .catch(logAndExit('Error while creating component list:'))

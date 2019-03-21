@@ -133,13 +133,17 @@ html(lang='en')
 
                     productPicker && productPicker.addEventListener('click', function() {
                         var isActive = products.classList.toggle("c--active");
+                        var isInactive = products.classList.toggle("c--inactive");
+
 
                         if (isActive) {
                             setHeight(products, products.scrollHeight + "px");
                             chevron.classList.add('c--active');
+                            chevron.classList.remove('c--inactive');
                         } else {
                             setHeight(products, null);
                             chevron.classList.remove('c--active');
+                            chevron.classList.add('c--inactive');
                         }
                     });
                 })()

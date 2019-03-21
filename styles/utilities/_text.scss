@@ -41,8 +41,12 @@
     font-size: $small-font-size !important;
 }
 
+.u-text-size-smaller {
+    font-size: $smaller-font-size !important;
+}
+
 .u-text-size-smallish {
-    font-size: 14px !important;
+    font-size: $smallish-font-size !important;
 }
 
 .u-text-size-normal {

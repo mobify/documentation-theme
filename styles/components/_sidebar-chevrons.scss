@@ -12,7 +12,7 @@
         display: none !important;
     }
 
-    // need to place code here after .c--hide style so it will overide style
+    // need to place code here after .c--hide style so it will override style
     @include for-tablet-landscape-up {
         width: $sidebar-width;
 
@@ -33,13 +33,13 @@
 
 .sdk-sidebar__accordion {
     position: relative; /* 1 */
-    padding: $smallish-space $base-space $smallish-space $base-space;
+    padding: $base-space;
 
     width: 100%;
 
     border-radius: unset; /* 3 */
 
-    background-color: $dark-accent-color;
+    background-color: $mobify-dark-blue;
     color: $white;
     text-align: left;
 
@@ -49,11 +49,12 @@
 }
 
 .sdk-sidebar__accordion.c--active {
-    background: $light-accent-color;
+    background: $lighter-accent-color;
 }
 
 .sdk-sidebar__accordion:hover {
-    background: $light-accent-color;
+    background: $black-20;
+
     cursor: pointer;
 }
 
@@ -67,22 +68,21 @@
 
 .sdk-sidebar__accordion-title {
     font-size: $smallish-font-size;
-    font-weight: bold;
 }
 
 .sdk-sidebar__accordion:before {
     content: '';
 
     position: absolute; /* 1 */
-    top: 18px; /* 2 */
-    left: 0;
+    top: 24px; /* 2 */
+    right: 0;
 
-    width: 11px;
-    height: 11px;
-    background-size: 11px 11px;
-    margin-left: $base-space;
+    width: 12px;
+    height: 8px;
+    margin-right: $base-space;
 
-    background-image: url('../icons/icon-plus.svg');
+    background-image: url('../icons/icon-chevron-down.svg');
+    outline: none;
 
     transform: rotate(0);
 
@@ -90,7 +90,7 @@
 }
 
 .sdk-sidebar__accordion.sdk--active:before {
-    transform: rotate(45deg);
+    transform: rotate(180deg);
 }
 
 .sdk-sidebar__accordion.sdk--active {
@@ -109,6 +109,7 @@
 .sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
     color: $white;
     background: $dark-accent-color;
+    padding-bottom: $base-space;
 }
 
 .sdk-sidebar__accordion:focus {
@@ -129,29 +130,33 @@
 
 .sdk-sidebar__link {
     display: block;
-    padding: $smallish-space $base-space $smallish-space $base-space;
+    padding: $base-space;
+
     color: $white;
 }
 
 .sdk-sidebar__link.c--active {
-    background: $light-accent-color;
+    background: $lighter-accent-color;
 }
 
 .sdk-sidebar__link:hover {
-    background: $light-accent-color;
+    background: $black-20;
     color: $white;
 }
 
 .sdk-sidebar__list-link {
     display: block;
     margin: 1px 0;
-    padding: $small-space $small-space $small-space $base-space;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 16px;
 
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
 
     color: $white;
-    font-size: $smallish-font-size;
+    font-size: 14px;
     text-decoration: none;
 }
 
@@ -161,7 +166,9 @@
 }
 
 .sdk-sidebar__accordion-item a.c--active {
-    background-color: $light-accent-color;
+    background-color: $lighter-accent-color;
+
+    font-weight: $heavy-font-weight;
 }
 
 .sdk-sidebar__list-link:hover,
@@ -240,6 +247,6 @@
 
 .c-sidebar__doc-title {
     &:hover {
-        background-color: $light-accent-color;
+        background-color: $lighter-accent-color;
     }
 }
