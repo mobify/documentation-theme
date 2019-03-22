@@ -1,0 +1,32 @@
+//- This mixin used on the guides and component library overview pages
+
+mixin card(href, heading, message, type, image)
+    article.c-card(class=['c--small'])
+        a(href="../" + href)
+            if type
+                span.u-text-size-small.u-text-uppercase.u-text-medium.u-neutral-50 #{type}
+            if heading
+                h4.c-card__heading #{heading}
+            div.u-flexbox
+                if message
+                    p.u-text-size-smallish.u-flex.c-card__message #{message}
+                if image
+                    div.u-flex
+                        img(src=image)
+
+mixin renderCards(cards)
+    - var gridSize = 3
+    - var classes = ["c-grid", `c--${gridSize}up`]
+
+    div(class=classes)
+        each cardObject, URLKey in cards
+            if cardObject.title !== 'Overview'
+                +card(URL, cardObject.title, cardObject.description, cardObject.type)
+
+mixin cardCatalog
+    - var version = current.path[0]
+    - var category = current.path[1]
+    - var cards = public[version][category]._data
+    +renderCards(cards)
+
+    
