@@ -19,7 +19,7 @@ mixin buildMenu
         li
             //- No defined data for a given category means there are no child
                 documents
-            if Object.keys(documents).length === 0 || documents._excludeFromMenu
+            if Object.keys(documents).length === 0 || documents._excludeFromMenu || category._excludeFromMenu
                 a.sdk-sidebar__link.u-text-medium.u-padding-start-xl.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
                     .sdk-sidebar__accordion-title= category.title
             else

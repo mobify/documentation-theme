@@ -5,7 +5,6 @@
 
 /* The Table of Contents container element */
 .tocify {
-    width: 15%;
     max-height: 90%;
     overflow: auto;
     margin-left: 2%;
@@ -30,11 +29,11 @@
 
 .tocify li.active {
     font-weight: bold;
-    box-shadow: -3px 0 0 0 #005C83;
+    box-shadow: -3px 0 0 0 #0f7293;
 }
 
 .tocify li.active a {
-    color: #005c83;
+    color: #0f7293;
 }
 
 .tocify li a {
@@ -67,30 +66,4 @@
 /* Further indents third level subheader elements. You can continue this pattern if you have more nested elements. */
 .tocify-subheader .tocify-subheader .tocify-subheader {
     text-indent: 40px;
-}
-
-.tabs-nohdr { 
-    padding: 0px; 
-    background: none; 
-    border-width: 0px;
-}
-
-.tabs-nohdr .ui-tabs-nav { 
-    padding-left: 0px; 
-    background: transparent; 
-    border-width: 0px 0px 1px 0px; 
-    -moz-border-radius: 0px; 
-    -webkit-border-radius: 0px; 
-    border-radius: 0px; 
-}
-
-.tabs-nohdr .ui-tabs-panel { 
-    border-top: 0px;
-    border-bottom: 1px solid #c5c5c5;
-    border-left: 1px solid #c5c5c5;
-    border-right: 1px solid #c5c5c5;
-}
-
-.tabs-nohdr.ui-widget.ui-widget-content {
-    border: 0px;
 }

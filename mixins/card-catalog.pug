@@ -1,15 +1,22 @@
 //- This mixin used on the guides and component library overview pages
 
-mixin card(href, heading, message, type, image)
+mixin card(url, heading, message, type, image)
     article.c-card(class=['c--small'])
-        a(href="../" + href)
-            if type
-                span.u-text-size-small.u-text-uppercase.u-text-medium.u-neutral-50 #{type}
+        //- Massage the href for component library overview page
+        if type === 'Component' || type === 'Template'
+            - var href = '../' + url
+        else
+            - var href = url
+        a(href=href)
+            if type === 'Component'
+                span.u-text-size-tiny.u-text-uppercase.u-text-bold.u-accent-color #{type}
+            else if type === 'Template'
+                span.u-text-size-tiny.u-text-uppercase.u-text-bold.u-accent-red #{type}            
             if heading
-                h4.c-card__heading #{heading}
+                h4.u-margin-bottom-sm.c-card__heading #{heading}
             div.u-flexbox
                 if message
-                    p.u-text-size-smallish.u-flex.c-card__message #{message}
+                    p.u-text-size-smallish.u-neutral-50.u-flex.c-card__message #{message}
                 if image
                     div.u-flex
                         img(src=image)
@@ -21,7 +28,7 @@ mixin renderCards(cards)
     div(class=classes)
         each cardObject, URLKey in cards
             if cardObject.title !== 'Overview'
-                +card(URL, cardObject.title, cardObject.description, cardObject.type)
+                +card(URLKey, cardObject.title, cardObject.description, cardObject.type)
 
 mixin cardCatalog
     - var version = current.path[0]

@@ -226,12 +226,22 @@ html(lang='en')
                     acc[i].onclick = handleAccClick;
                 };
 
-                $(document).ready(function () {
+                // Initialize content accordions
+                $(function() {
+                    $( ".content-accordion" ).accordion({
+                        active: false,
+                        collapsible: true,
+                        heightStyle: "content",
+                        icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-close" }
+                    });
+                });
+
+                // Initialize the current set of on-page tabs
+                $(function () {
                     $(".tabs").each(function (index, value) {
-                        // Initialize the current set of tabs
                         $(this).tabs();
                         
-                        // Preselect any tabs based on operating system
+                        // Preselect any on-page tabs based on operating system
                         var theBrowser = $.pgwBrowser();
                         var tabIndex = 0;
                         var osSearchString = "Windows"; // Default to Windows
@@ -254,8 +264,8 @@ html(lang='en')
                     });
                 });
                 
+                // Initialize the table of contents if it exists
                 $(function() {
-                    // Initialize the table of contents
                     var toc = $("#toc").tocify().data("toc-tocify");
                     if (toc !== undefined) {
                         toc.setOptions({ context: "div.c-text-content", 
@@ -291,7 +301,7 @@ html(lang='en')
                     $('#content-filter').keyup();
                 });
                 
-                // Set the height properly for accordion that is open on page load
+                // Set the height properly for an accordion that is open on page load
                 var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
                 if (activeItem !== null) {
                     var nav = document.getElementById('navigation');

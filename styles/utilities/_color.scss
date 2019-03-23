@@ -1,6 +1,14 @@
 // Color Utilities
 // ===
 
+.u-accent-color {
+    color: $accent-color !important;
+}
+
+.u-accent-red {
+    color: #DC0A3C !important;
+}
+
 .u-neutral-10 {
     color: $neutral-10 !important;
 }
