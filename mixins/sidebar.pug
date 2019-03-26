@@ -43,25 +43,24 @@ mixin sidebar
         h2.u-visually-hidden Menu
 
         //- Logo and support link
-        - var homepageHref = isDocumentationHub ? `${DOCS_ROOT}` : `${DOCS_ROOT}${version}/`
         div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
             div.u-flexbox.u-align-center.u-justify-between
-                a#js-menu-first-focus.u-neutral-10(href=homepageHref)
+                a#js-menu-first-focus.u-neutral-10(href=DOCS_ROOT)
                     div.c-logo
                         +logo
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
                     span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
-
-        //- Product picker
-        div.u-background-accent-dark.u-padding-bottom-sm
-            div.c-sidebar__product-picker.u-flexbox.u-justify-between.u-align-center.u-margin-top-md.u-margin-bottom-sm.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium
-                a.c-sidebar__product-picker-button.u-background-accent-dark.u-neutral-10(href=`${DOCS_ROOT}${version}/`)= PROJECT_NAME
+            a.u-text-size-smallish.u-neutral-10(href=DOCS_ROOT) ← Back to documentation home
 
         //- Documentation Hub: Product type (i.e. Engagement Engine, Connection Center, etc.)
         if isDocumentationHub
             - var productName = public[version]._data.index.name
-            h3
-                a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium(href=`${DOCS_ROOT}${version}/`)= productName
+        else
+            - var productName = PROJECT_NAME
+        h3
+            a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-medium.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/`)= productName
+        
+
 
         //- The accordion menus
         div.u-flex.u-context.u-background-accent-dark

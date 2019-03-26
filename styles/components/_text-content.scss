@@ -59,9 +59,8 @@
     }
 
     blockquote {
-        margin-left: $base-space;
         padding-left: $base-space;
-        border-left: 4px solid $darker-accent-color;
+        border-left: 4px solid $light-accent-color;
     }
 
     hr {

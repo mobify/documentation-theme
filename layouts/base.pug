@@ -266,16 +266,27 @@ html(lang='en')
                 
                 // Initialize the table of contents if it exists
                 $(function() {
-                    var toc = $("#toc").tocify().data("toc-tocify");
-                    if (toc !== undefined) {
-                        toc.setOptions({ context: "div.c-text-content", 
-                                        ignoreSelectors: "h1",
-                                        selectors: "h2,h3",
-                                        theme: "jqueryui",
-                                        hashGenerator: "pretty",
-                                        highlightDefault: false,
-                                        showAndHide: false,
-                                        smoothScroll: true });
+                    var toc = $("#toc").tocify({ context: ".c-article", 
+                                                 selectors: "h2,h3",
+                                                 showAndHide: false,
+                                                 smoothScroll: true,
+                                                 scrollTo: 0,
+                                                 showAndHideOnScroll: false,
+                                                 highlightOnScroll: true,
+                                                 highlightOffset: 10,
+                                                 extendPage: true,
+                                                 history: true,                               
+                                                 hashGenerator: "pretty",
+                                                 highlightDefault: false,
+                                                 ignoreSelector: "h4,h5,h6",
+                                                 scrollHistory: false
+                                                 });
+                    
+
+                    // If there is a TOC and a hash in the URL, click that TOC link automatically
+                    if (toc.length > 0 && window.location.hash !== '') {
+                        var hash = window.location.hash.substr(1);
+                        $('.tocify-item[data-unique="' + hash + '"]').click();
                     }
                 });
 

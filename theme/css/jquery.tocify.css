@@ -8,14 +8,10 @@
     max-height: 90%;
     overflow: auto;
     margin-left: 2%;
-    margin-top: -8px;
     position: fixed;
-    top: 60px;
-    left: 1200px;
-}
-
-#tocify-header0 > li {
-    display: none;
+    top: 51px;
+    left: 1220px;
+    z-index: 10;
 }
 
 /* The Table of Contents is composed of multiple nested unordered lists.  These styles remove the default styling of an unordered list because it is ugly. */

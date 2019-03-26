@@ -8,10 +8,10 @@ mixin card(url, heading, message, type, image)
         else
             - var href = url
         a(href=href)
-            if type === 'Component'
+            if type === 'Component' || type === "Updated"
                 span.u-text-size-tiny.u-text-uppercase.u-text-bold.u-accent-color #{type}
-            else if type === 'Template'
-                span.u-text-size-tiny.u-text-uppercase.u-text-bold.u-accent-red #{type}            
+            else if type === 'Template' || type === 'New'
+                span.u-text-size-tiny.u-text-uppercase.u-text-bold.u-accent-red #{type}           
             if heading
                 h4.u-margin-bottom-sm.c-card__heading #{heading}
             div.u-flexbox
@@ -27,7 +27,7 @@ mixin renderCards(cards)
 
     div(class=classes)
         each cardObject, URLKey in cards
-            if cardObject.title !== 'Overview'
+            if !cardObject._excludeFromCatalog
                 +card(URLKey, cardObject.title, cardObject.description, cardObject.type)
 
 mixin cardCatalog

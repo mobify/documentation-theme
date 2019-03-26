@@ -41,15 +41,14 @@ h3,
     font-size: $base-font-size;
 
     @include for-tablet-portrait-up {
-        font-size: $medium-font-size;
-        font-weight: $medium-font-weight;
+        font-size: $large-font-size;
     }
 }
 
 h4,
 %h4 {
 
-    font-size: $base-font-size + 1;
+    font-size: $base-font-size - 1;
 
     @include for-tablet-portrait-up {
         font-size: $medium-font-size;

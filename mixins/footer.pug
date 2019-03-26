@@ -84,16 +84,17 @@ mixin footer
     //- won't have children for us to use
     - if (tree && tree._data && !tree._data._excludeFromMenu) nextSlug = getNames(tree._data)[0]
 
-    footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
+    footer.t-footer-layout.u-flex-none.u-padding-top-xl.u-padding-bottom-xl
         div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
             - var version = current.path[0]
             div.u-flex-shrink
                 if prevSlug
                     - var previous = getFooterLink(prevSlug, root, path, getLastChild)
-                    span.u-text-uppercase Prev—
+                    span.u-neutral-50.u-text-uppercase Prev. article: 
                     a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
             div.u-flex-shrink
                 if nextSlug
                     - var next = getFooterLink(nextSlug, root, path)
-                    span.u-text-uppercase Next—
+                    span.u-neutral-50.u-text-uppercase Next article: 
                     a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
+    div.tocify-extend-page(data-unique="tocify-extend-page" style="height: 1000px;")
