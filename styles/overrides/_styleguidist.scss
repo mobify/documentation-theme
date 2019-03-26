@@ -198,14 +198,6 @@ $rsgSearchHeaderWidth: 250px;
     }
 
     [class*="rsg--tab-"] {
-        // Fix WEB-1861: fix scroller issue that wont extend page length
-        .CodeMirror-line {
-            display: block;
-            width: 0;
-
-            white-space: pre;
-        }
-
         .CodeMirror-scroll {
             margin-right: 0;
         }
@@ -258,7 +250,7 @@ $rsgSearchHeaderWidth: 250px;
     [class*="rsg--cellHeading-"],
     [class*="rsg--cell-"],
     [class*="rsg--th-"],
-    [class*="rsg--td-"], {
+    [class*="rsg--td-"] {
         border: none !important; // 1
 
         color: $neutral-50;
@@ -316,9 +308,18 @@ $rsgSearchHeaderWidth: 250px;
 // 1. Fix a render bug where `white-space: pre;` elements overflow, and also
 //    force other parent elements to overflow as well. See example:
 //    @url: https://codepen.io/jeffkamo/pen/MQaxdz
+//    Also see WEB-1861!
+// 2. Related to #1... if word-wrap is set to `break-word` while width is `0`
+//    then the layout breaks in Safari. The content collapses into a single
+//    column, as the content breaks at every letter, since the width is
+//    indeed at `0`. This fix prevents that, preserving the layout.
+.rsg-components__component-section [class*="rsg--tab-"] .CodeMirror-line,
 pre code[class*="rsg--code-"],
 code[class*="language-"],
 pre[class*="rsg--root-"] {
     display: block;
     width: 0; // 1
+
+    word-wrap: initial; // 2
+    white-space: pre;
 }
