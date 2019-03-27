@@ -5,7 +5,6 @@ mixin header(title, intro, hasPicker)
     - title = title || SITE_TITLE
     header.t-header-layout.u-flex-none.u-margin-bottom-lg
         +top-nav
-        //- Do not set auto left and right margins on PWA SDK docs
         div.c-contain
             div.c-search-sheet.u-small-shadow-inset
                 span.u-visually-hidden Search Sheet
@@ -20,6 +19,6 @@ mixin header(title, intro, hasPicker)
                 div.u-flex-none.u-hidden--for-phone-only.u-hidden--for-tablet-only
                     if hasPicker
                         +versionPicker
-        //- Do not set auto left and right margins on PWA SDK docs
-        div.t-header-layout__page-title.u-margin-top.c-contain
-            h1.c-heading.c--h1 #{title}
+        if title !== 'Component Library'
+            div.t-header-layout__page-title.u-margin-top.c-contain
+                h1.c-heading.c--h1 #{title}
