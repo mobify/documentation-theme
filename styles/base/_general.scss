@@ -119,7 +119,7 @@ video {
 
 input {
     font-family: $base-font-family;
-    font-size: $base-font-size;
+    font-size: $smallish-font-size;
 }
 
 article,
@@ -158,6 +158,7 @@ code {
     background-color: $code-color;
 
     font-family: $mono-font-family;
+    font-size: $smaller-font-size;
 }
 
 [hidden] {

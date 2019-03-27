@@ -55,7 +55,7 @@ mixin footer
 
     - var prevSlug = null
     - var nextSlug = null
-    - var getLastChild = true
+    - var getLastChild = false
 
     - var tree = root
     //- Iterate over each section in the path, keeping track of only the closest
@@ -82,18 +82,21 @@ mixin footer
     //- next link instead
     //- Specifically avoid _data objects with _excludeFromMenu present - these
     //- won't have children for us to use
-    - if (tree && tree._data && !tree._data._excludeFromMenu) nextSlug = getNames(tree._data)[0]
+    //- - if (tree && tree._data && !tree._data._excludeFromMenu) nextSlug = getNames(tree._data)[0]
 
-    footer.t-footer-layout.u-flex-none.u-background-neutral-40.u-padding-start.u-padding-end.u-padding-top-xl.u-padding-bottom-xl
+    footer.t-footer-layout.u-flex-none.u-padding-top-xl.u-padding-bottom-xl
         div.t-footer-layout__buttons.c-contain.u-flexbox--for-tablet-portrait-up.u-align-center.u-justify-between.u-padding-bottom-xl
             - var version = current.path[0]
             div.u-flex-shrink
                 if prevSlug
                     - var previous = getFooterLink(prevSlug, root, path, getLastChild)
-                    span.u-text-uppercase Prev—
-                    a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
+                    if previous.path
+                        span.u-neutral-50.u-text-uppercase Prev: 
+                        a(href=`${DOCS_ROOT}${version}/${previous.path}`) #{previous.title}
             div.u-flex-shrink
                 if nextSlug
-                    - var next = getFooterLink(nextSlug, root, path)
-                    span.u-text-uppercase Next—
-                    a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
+                    - var next = getFooterLink(nextSlug, root, path, getLastChild)
+                    if next.path
+                        span.u-neutral-50.u-text-uppercase Next: 
+                        a(href=`${DOCS_ROOT}${version}/${next.path}`) #{next.title}
+    div.tocify-extend-page(data-unique="tocify-extend-page" style="height: 59vh;")

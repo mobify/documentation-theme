@@ -8,18 +8,16 @@
 
 .c-contain {
     width: 100%; // 3
-    margin-right: auto; // 1
-    margin-left: auto; // 1
     padding-right: $base-space;
     padding-left: $base-space;
 
     @include for-tablet-portrait-up {
-        max-width: calc(#{$base-content-width} + #{$xlarge-space * 2}); // 2
-        padding-right: $xlarge-space;
-        padding-left: $xlarge-space;
+        max-width: calc(#{$base-content-width} + #{$massive-space * 2}); // 2
+        padding-right: $massive-space;
+        padding-left: $massive-space;
     }
 
     &.c--narrow {
-        max-width: calc(#{$narrow-content-width} + #{$xlarge-space * 2}); // 2
+        max-width: calc(#{$narrow-content-width} + #{$massive-space * 2}); // 2
     }
 }

@@ -19,8 +19,8 @@ mixin buildMenu
         li
             //- No defined data for a given category means there are no child
                 documents
-            if Object.keys(documents).length === 0 || documents._excludeFromMenu
-                a.sdk-sidebar__link.u-text-medium(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
+            if Object.keys(documents).length === 0 || documents._excludeFromMenu || category._excludeFromMenu
+                a.sdk-sidebar__link.u-text-medium.u-padding-start-xl.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/${categorySlug}/` class={ 'c--active': isActiveCategory })
                     .sdk-sidebar__accordion-title= category.title
             else
                 -
@@ -29,52 +29,42 @@ mixin buildMenu
                         'sdk--remove-transition': isActiveCategory
                     }
                 button.sdk-sidebar__accordion.u-text-medium(class=accordionClasses)
-                    .sdk-sidebar__accordion-title= category.title
+                    .sdk-sidebar__accordion-title.u-padding-start-lg= category.title
                 ul.sdk-sidebar__accordion-item.u-list-style-none(style={ 'max-height': isActiveCategory ? 'initial': '' })
                     for document, documentSlug in documents
                         unless document._excludeFromMenu
-                            a.sdk-sidebar__list-link(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
+                            li
+                                a.sdk-sidebar__list-link.js-handle-active.u-padding-start-xl.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
 
 mixin sidebar
     - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'
 
-    nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent(role='navigation' id='navigation')
+    nav.c-sidebar.c--hide.u-flexbox.u-flex-column.u-fixed.u-place-top.u-place-bottom.u-place-start.u-clip.u-background-accent-dark(role='navigation' id='navigation')
         h2.u-visually-hidden Menu
 
         //- Logo and support link
-        - var homepageHref = isDocumentationHub ? `${DOCS_ROOT}` : `${DOCS_ROOT}${version}/`
         div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
             div.u-flexbox.u-align-center.u-justify-between
-                a#js-menu-first-focus.u-neutral-10(href=homepageHref)
+                a#js-menu-first-focus.u-neutral-10(href=DOCS_ROOT)
                     div.c-logo
                         +logo
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
                     span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
-
-        //- Product picker
-        div.u-background-accent-dark
-            div.c-sidebar__product-picker.u-flexbox.u-justify-between.u-align-center.u-margin-top-md.u-margin-bottom-md.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium
-                button.c-sidebar__product-picker-button.u-background-accent-dark= PROJECT_NAME
-                span.c-sidebar__product-picker-chevron
-                    include ../theme/icons/icon-chevron-down.svg
-            ul.c-sidebar__product-picker-item.u-text-size-medium
-                //- Projects define a PROJECT_NAME global in _harp.json, which
-                //- we use here to determine what appears in the list of other
-                //- products.
-                each href, name in { 'Progressive Web SDK': '/progressive-web', 'AMP SDK': '/amp-sdk', 'Documentation Home': '/' }
-                    if PROJECT_NAME !== name
-                        li
-                            a.c-sidebar__product-picker-link.u-padding(href=href)= name
+            a.u-text-size-smallish.u-neutral-10(href=DOCS_ROOT) ← Back to documentation home
 
         //- Documentation Hub: Product type (i.e. Engagement Engine, Connection Center, etc.)
         if isDocumentationHub
             - var productName = public[version]._data.index.name
-            h3
-                a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-size-medium(href=`${DOCS_ROOT}${version}/`)= productName
+        else
+            - var productName = PROJECT_NAME
+        h3
+            a.c-sidebar__doc-title.u-block.u-padding-top.u-padding-bottom.u-padding-start.u-padding-end.u-neutral-10.u-text-medium.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/`)= productName
+        
+
 
         //- The accordion menus
-        div.u-flex.u-context.u-background-accent
-            div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg.u-padding-top
-                ul#sidebar-links.u-list-style-none.u-background-accent
+        div.u-flex.u-context.u-background-accent-dark
+            div.sdk-sidebar__scroll.u-position.u-place-start.u-place-end.u-place-top.u-place-bottom.u-padding-bottom-lg
+                ul#sidebar-links.u-list-style-none.u-background-accent-dark
                     +buildMenu
                 button#js-close-menu.u-visually-hidden Close Menu

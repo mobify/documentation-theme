@@ -73,7 +73,7 @@ $search-min-height: 300px;
 
         font-family: $base-font-family;
         font-weight: $base-font-weight;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
         line-height: $base-line-height;
 
         .gsc-option-selector {
@@ -114,7 +114,7 @@ $search-min-height: 300px;
     .gsc-control-cse .gsc-table-result {
         font-family: $base-font-family;
         font-weight: $base-font-weight;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
         line-height: $base-line-height;
     }
 
@@ -140,7 +140,7 @@ $search-min-height: 300px;
         padding-left: 0;
 
         color: $neutral-50;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
     }
 
     .gsc-orderby-label {
@@ -157,7 +157,7 @@ $search-min-height: 300px;
         padding-left: $small-space;
 
         font-weight: $heavy-font-weight;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
         line-height: $tap-size;
     }
 
@@ -208,7 +208,7 @@ $search-min-height: 300px;
     .gs-imageResult .gs-snippet,
     .gs-fileFormatType {
         color: $font-color;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
     }
 
     .gs-webResult.gs-result a.gs-title:link,

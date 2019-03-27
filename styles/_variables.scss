@@ -31,6 +31,7 @@ $smallish-space: $unit*1.5; // 12px
 $base-space: $unit*2; // 16px
 $medium-space: $unit*2.5; // 20px
 $large-space: $unit*3; // 24px
+$larger-space: $unit*3.5; // 28px
 $xlarge-space: $unit*4; //32px
 $very-large-space: $unit*5; // 40px
 $massive-space: $unit*8; // 64px
@@ -53,13 +54,15 @@ $mono-font-family: 'consolas', 'menlo', monospace;
 // Font Sizes
 // ---
 
-$tiny-font-size: 10px;
+$tiny-font-size: 11px;
 $small-font-size: 12px;
+$smaller-font-size: 14px;
+$smallish-font-size: 15px;
 $base-font-size: 16px;
-$medium-font-size: 18px;
-$large-font-size: 20px;
-$larger-font-size: 24px;
-$very-large-font-size: 28px;
+$medium-font-size: 20px;
+$large-font-size: 24px;
+$larger-font-size: 28px;
+$very-large-font-size: 32px;
 $massive-font-size: 34px;
 $super-massive-font-size: 64px;
 
@@ -82,11 +85,11 @@ $heavy-font-weight: 700;
 // Content Area Widths
 // --
 
-$base-content-width: 60em;
+$base-content-width: 40em;
 
 $narrow-content-width: 20em;
 $small-content-width: 35em;
-$medium-content-width: $base-content-width;
+$medium-content-width: 60em;
 $large-content-width: 105em;
 $very-large-content-width: 125em;
 
@@ -100,11 +103,11 @@ $search-input-height: $unit*5; // 40px
 // Colour Options
 // ---
 
-$black: #061727;
+$black: #000;
 $white: #fff;
 $neutral-70: $black;
 $neutral-60: #333;
-$neutral-50: #707070;
+$neutral-50: #595959; 
 $neutral-40: #ebebeb;
 $neutral-20: #f7f7f7;
 $neutral-10: #fff;
@@ -125,7 +128,10 @@ $mobify-light-red: #db1d3e;
 $mobify-dark-red: #b41f24;
 $mobify-light-blue-bg: rgba(2,136,167,0.1);
 
-$code-color: #e9f6fc;
+$tab-color: #f6f6f6;
+$tab-highlight-color: #ededed;
+
+$code-color: #f5f2f0;
 $code-border-color: #d3e0e7;
 
 $border-color: darken($neutral-40, 10%);
@@ -135,7 +141,7 @@ $black-20: rgba(0,0,0,.2);
 // Appearance
 // ---
 
-$font-color: $neutral-60;
+$font-color: $black;
 
 $link-color: $accent-color;
 $active-link-color: $dark-accent-color;

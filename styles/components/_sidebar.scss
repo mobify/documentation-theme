@@ -33,13 +33,13 @@
 
 .sdk-sidebar__accordion {
     position: relative; /* 1 */
-    padding: $base-space;
+    padding: $smallish-space $base-space $smallish-space $base-space;
 
     width: 100%;
 
     border-radius: unset; /* 3 */
 
-    background-color: $mobify-dark-blue;
+    background-color: $dark-accent-color;
     color: $white;
     text-align: left;
 
@@ -49,12 +49,11 @@
 }
 
 .sdk-sidebar__accordion.c--active {
-    background: $lighter-accent-color;
+    background: $light-accent-color;
 }
 
 .sdk-sidebar__accordion:hover {
-    background: $black-20;
-
+    background: $light-accent-color;
     cursor: pointer;
 }
 
@@ -67,19 +66,20 @@
 }
 
 .sdk-sidebar__accordion-title {
-    margin-left: $large-space;
-    font-size: $medium-font-size;
+    font-size: $smallish-font-size;
+    font-weight: bold;
 }
 
 .sdk-sidebar__accordion:before {
     content: '';
 
     position: absolute; /* 1 */
-    top: 20px; /* 2 */
+    top: 18px; /* 2 */
     left: 0;
 
-    width: 15px;
-    height: 15px;
+    width: 11px;
+    height: 11px;
+    background-size: 11px 11px;
     margin-left: $base-space;
 
     background-image: url('../icons/icon-plus.svg');
@@ -104,18 +104,11 @@
     right: 16px;
     bottom: 0;
     left: 16px;
-
-    border-top: 1px solid $mobify-dark-blue;
 }
 
 .sdk-sidebar__accordion.sdk--active ~ .sdk-sidebar__accordion-item {
     color: $white;
     background: $dark-accent-color;
-    padding: $base-space 0;
-}
-
-.sdk-sidebar__accordion:focus {
-    outline: none;
 }
 
 .sdk-sidebar__accordion-item,
@@ -132,33 +125,31 @@
 
 .sdk-sidebar__link {
     display: block;
-    padding: $base-space;
-
+    padding: $smallish-space $base-space $smallish-space $base-space;
     color: $white;
 }
 
 .sdk-sidebar__link.c--active {
-    background: $lighter-accent-color;
+    background: $light-accent-color;
 }
 
+.sdk-sidebar__link:active, 
+.sdk-sidebar__link:focus,
 .sdk-sidebar__link:hover {
-    background: $black-20;
+    background: $light-accent-color;
     color: $white;
 }
 
 .sdk-sidebar__list-link {
     display: block;
     margin: 1px 0;
-    padding-top: 8px;
-    padding-right: 8px;
-    padding-bottom: 8px;
-    padding-left: 16px;
+    padding: $small-space $small-space $small-space $base-space;
 
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
 
     color: $white;
-    font-size: 14px;
+    font-size: $smallish-font-size;
     text-decoration: none;
 }
 
@@ -168,9 +159,7 @@
 }
 
 .sdk-sidebar__accordion-item a.c--active {
-    background-color: $lighter-accent-color;
-
-    font-weight: $heavy-font-weight;
+    background-color: $light-accent-color;
 }
 
 .sdk-sidebar__list-link:hover,
@@ -249,6 +238,6 @@
 
 .c-sidebar__doc-title {
     &:hover {
-        background-color: $lighter-accent-color;
+        background-color: $light-accent-color;
     }
 }

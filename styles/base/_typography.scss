@@ -7,7 +7,6 @@
 
 %heading {
     margin: 0;
-
     font-family: $brand-font-family;
     font-weight: $heavy-font-weight;
     line-height: 1.25;
@@ -18,10 +17,10 @@ h1,
 %h1 {
     @extend %heading;
 
-    font-size: $larger-font-size;
+    font-size: $large-font-size;
 
     @include for-tablet-portrait-up {
-        font-size: $massive-font-size;
+        font-size: $larger-font-size;
     }
 }
 
@@ -32,7 +31,7 @@ h2,
     font-size: $medium-font-size;
     
     @include for-tablet-portrait-up {
-        font-size: $larger-font-size;
+        font-size: $large-font-size;
     }
 }
 
@@ -43,17 +42,16 @@ h3,
 
     @include for-tablet-portrait-up {
         font-size: $medium-font-size;
-        font-weight: $medium-font-weight;
     }
 }
 
 h4,
 %h4 {
 
-    font-size: $base-font-size + 1;
+    font-size: $base-font-size;
 
     @include for-tablet-portrait-up {
-        font-size: $medium-font-size;
+        font-size: $base-font-size;
     }
 }
 

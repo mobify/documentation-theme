@@ -72,8 +72,18 @@ html(lang='en')
 
         link(rel='icon' href=`${themePath}img/favicon.ico`)
 
-        //- 👉 Stylesheet
+        //- 👉 Main stylesheet
         link(rel="stylesheet" href=`${themePath}css/main.css`)
+
+        //- 👉 Stylesheets for jQuery UI
+        link(rel="stylesheet" href=`${themePath}css/jquery-ui.min.css`)
+        link(rel="stylesheet" href=`${themePath}css/jquery-ui.theme.min.css`)
+
+        //- 👉 Stylesheet for table of contents generator
+        link(rel="stylesheet" href=`${themePath}css/jquery.tocify.css`)
+
+        //- 👉 Stylesheet for syntax highlighter
+        link(rel="stylesheet" href=`${themePath}css/prism.css`)
 
         //- 👉 Typography.com font
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
@@ -83,23 +93,23 @@ html(lang='en')
             iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-MD9HC8",
             height="0", width="0", style="display:none; visibility: hidden;")
 
-    body.u-background-neutral-20.sdk-base
+    body.sdk-base
         //- 👉 The block `main` is the main block.
         block main
-            main.t-category
+            div.t-category
                 block nav
                     +sidebar
 
-            article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-20
-                block header
-                    +header(metaData.title, metaData.intro, hasPicker)
+                article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-10
+                    block header
+                        +header(metaData.title, metaData.intro, hasPicker)
 
-                block content
-                    .c-contain.c-text-content.u-margin-bottom-xl.u-flex
-                        != yield
+                    block content
+                        main.c-contain.c-text-content.u-margin-bottom-xl.u-flex
+                            != yield
 
-                block footer
-                    +footer
+                    block footer
+                        +footer
 
         block scripts
             //- Expose version as a global so we can use it in JS (ex. styleguidist)
@@ -122,10 +132,10 @@ html(lang='en')
                     var chevron = document.querySelector('.c-sidebar__product-picker-chevron')
 
                     productPicker && productPicker.addEventListener('click', function() {
-                        var isActive = products.classList.toggle("c--active");
+                        var isActive = products.classList.toggle('c--active');
 
                         if (isActive) {
-                            setHeight(products, products.scrollHeight + "px");
+                            setHeight(products, products.scrollHeight + 'px');
                             chevron.classList.add('c--active');
                         } else {
                             setHeight(products, null);
@@ -134,16 +144,27 @@ html(lang='en')
                     });
                 })()
 
-            //- 👉 Syntax highlighter
-            script(src=`${themePath}js/prism.js`)
+            //- 👉 jQuery and jQuery UI
             script(src=`${themePath}js/jquery.min.js`)
             script(src=`${themePath}js/jquery-ui.min.js`)
 
-            //- Version picker
+            //- 👉 Browser and OS detection
+            script(src=`${themePath}js/pgwbrowser.min.js`)
+
+            //- 👉 Table of contents widget
+            script(src=`${themePath}js/jquery.tocify.min.js`)
+
+            //- 👉 Copy to clipboard button
+            script(src=`${themePath}js/clipboard.min.js`)
+            
+            //- 👉 Syntax highlighter
+            script(src=`${themePath}js/prism/prism.js`)
+
+            //- 👉 Version picker
             if hasPicker
                 script(src=`${themePath}js/version-picker.js`)
                 script.
-                    versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
+                    versionPicker('#{DOCS_ROOT}', '#{localPath}', '#{changelogPath}', '#{version}')
 
             //- 📈 Google Tag Manager
             script.
@@ -205,7 +226,92 @@ html(lang='en')
                     acc[i].onclick = handleAccClick;
                 };
 
-                // Set the height properly for accordion that is open on page load
+                // Initialize content accordions
+                $(function() {
+                    $( ".content-accordion" ).accordion({
+                        active: false,
+                        collapsible: true,
+                        heightStyle: "content",
+                        icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-close" }
+                    });
+                });
+
+                // Initialize the current set of on-page tabs
+                $(function () {
+                    $(".tabs").each(function (index, value) {
+                        $(this).tabs();
+                        
+                        // Preselect any on-page tabs based on operating system
+                        var theBrowser = $.pgwBrowser();
+                        var tabIndex = 0;
+                        var osSearchString = "Windows"; // Default to Windows
+                        
+                        if (typeof theBrowser != "undefined") {
+                            switch (theBrowser.os.group) {
+                                case 'Mac OS':
+                                    osSearchString = 'Mac'; break;
+                                case 'Linux':
+                                    osSearchString = 'Linux'; break;
+                                default:
+                                    osSearchString = 'Windows';
+                            }
+                            var osTab = $(this).find("a:contains('" + osSearchString + "')").first();
+                            var tabIndex = osTab.parent().index();
+                            $(this).tabs("option", "active", tabIndex);
+                        }
+                    });
+                });
+                
+                // Initialize the table of contents if it exists
+                $(function() {
+                    var toc = $("#toc").tocify({ context: ".c-article", 
+                                                 selectors: "h2,h3",
+                                                 showAndHide: false,
+                                                 smoothScroll: true,
+                                                 scrollTo: 0,
+                                                 showAndHideOnScroll: false,
+                                                 highlightOnScroll: true,
+                                                 highlightOffset: 10,
+                                                 extendPage: false,
+                                                 history: true,                               
+                                                 hashGenerator: "pretty",
+                                                 highlightDefault: false,
+                                                 ignoreSelector: "h4,h5,h6",
+                                                 scrollHistory: false
+                                                 });
+                    
+
+                    // If there is a TOC and a hash in the URL, click that TOC link automatically
+                    if (toc.length > 0 && window.location.hash !== '') {
+                        var hash = window.location.hash.substr(1);
+                        $('.tocify-item[data-unique="' + hash + '"]').click();
+                    }
+                });
+
+                $(function() {
+                    // Bind a click handler to highlight the currently selected component in the navbar
+                    $('.js-handle-active').click(function() {
+                        $("a.sdk-sidebar__list-link.c--active").removeClass('c--active');
+                        $(this).addClass('c--active');
+                    });
+
+                    // If the current URL has a hash in it and it corresponds to a component link in the sidebar, highlight that sidebar link
+                    $("a.sdk-sidebar__list-link[href$='" + window.location.hash + "']").addClass('c--active');
+                });
+
+                // Bind the content filter used on the guides and component library overview pages
+                $(function() {
+                    $('#content-filter').on('keyup', function() {
+                        var value = $(this).val().toLowerCase();
+                        $(".c-card").filter(
+                            function() {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        });
+                    });
+                    $('#content-filter').keyup();
+                });
+                
+                // Set the height properly for an accordion that is open on page load
                 var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
                 if (activeItem !== null) {
                     var nav = document.getElementById('navigation');

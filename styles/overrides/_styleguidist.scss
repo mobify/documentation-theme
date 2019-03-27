@@ -51,7 +51,7 @@ $rsgSearchHeaderWidth: 250px;
             margin-left: 0;
 
             a {
-                display: inline-block;
+                display: none;
 
                 color: $link-color;
                 font-weight: bold;
@@ -113,7 +113,7 @@ $rsgSearchHeaderWidth: 250px;
 
     a {
         color: $link-color;
-        font-size: $base-font-size;
+        font-size: $smallish-font-size;
         text-decoration: none;
     }
 
@@ -180,13 +180,12 @@ $rsgSearchHeaderWidth: 250px;
 .rsg-components__component-section {
     flex: 1 1 auto;
     max-width: 100%;
-    padding-top: $very-large-space;
-    padding-right: $base-space;
-    padding-left: $base-space;
+    padding-top: $base-space;
 
     // The component title. Emulate the appearance of an H1
     [id][class*="rsg--heading2-"] {
         font-size: $massive-font-size;
+        color: $neutral-70;
     }
 
     [class*="rsg--list-"] {
@@ -224,6 +223,7 @@ $rsgSearchHeaderWidth: 250px;
         font-weight: $heavy-font-weight;
         letter-spacing: -.05rem;
         text-decoration: none;
+        color: $neutral-70;
     }
 
     [class*="rsg--root-"]:not(:last-of-type) {
@@ -234,6 +234,7 @@ $rsgSearchHeaderWidth: 250px;
         position: relative; // temporary fix for issue with Carousel's layout="fill" example
 
         background: $neutral-10;
+        color: $neutral-70;
     }
 
     [class*="rsg--table-"] {
@@ -253,11 +254,11 @@ $rsgSearchHeaderWidth: 250px;
     [class*="rsg--td-"] {
         border: none !important; // 1
 
-        color: $neutral-50;
+        color: $neutral-70;
         font-size: $small-font-size;
 
         [class*="rsg--para-"] {
-            color: $neutral-50;
+            color: $neutral-70;
             font-size: $small-font-size;
         }
     }
@@ -275,7 +276,7 @@ $rsgSearchHeaderWidth: 250px;
         display: inline-block;
         margin-bottom: $small-space;
 
-        color: $neutral-60;
+        color: $neutral-70;
     }
 }
 
@@ -296,6 +297,15 @@ $rsgSearchHeaderWidth: 250px;
     }
 }
 
+// Body text
+[class*="rsg--para-"] {
+    color: $neutral-70;
+}
+
+[class*="rsg--text-"] {
+    color: $neutral-70;
+    font-size: $small-font-size;
+}
 
 // Isolation Buttons
 [class*="rsg--toolbar-"] [class*="rsg--button-"] {
