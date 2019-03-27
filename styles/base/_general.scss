@@ -158,7 +158,7 @@ code {
     background-color: $code-color;
 
     font-family: $mono-font-family;
-    font-size: 14px;
+    font-size: $smaller-font-size;
 }
 
 [hidden] {

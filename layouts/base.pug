@@ -132,10 +132,10 @@ html(lang='en')
                     var chevron = document.querySelector('.c-sidebar__product-picker-chevron')
 
                     productPicker && productPicker.addEventListener('click', function() {
-                        var isActive = products.classList.toggle("c--active");
+                        var isActive = products.classList.toggle('c--active');
 
                         if (isActive) {
-                            setHeight(products, products.scrollHeight + "px");
+                            setHeight(products, products.scrollHeight + 'px');
                             chevron.classList.add('c--active');
                         } else {
                             setHeight(products, null);
@@ -164,7 +164,7 @@ html(lang='en')
             if hasPicker
                 script(src=`${themePath}js/version-picker.js`)
                 script.
-                    versionPicker("#{DOCS_ROOT}", "#{localPath}", "#{changelogPath}", "#{version}")
+                    versionPicker('#{DOCS_ROOT}', '#{localPath}', '#{changelogPath}', '#{version}')
 
             //- 📈 Google Tag Manager
             script.
@@ -247,15 +247,13 @@ html(lang='en')
                         var osSearchString = "Windows"; // Default to Windows
                         
                         if (typeof theBrowser != "undefined") {
-                            if (theBrowser.os.group == "Windows") {
-                                // If the user is on Windows, get the tab index for the first "Windows" tab
-                                osSearchString = 'Windows';
-                            } else if (theBrowser.os.group == "Mac OS") {
-                                // If the user is on Mac, get the tab index for the first "Mac" tab
-                                osSearchString = 'Mac';    
-                            } else if (theBrowser.os.group == "Linux") {
-                                // If the user is on Linux, get the tab index for the first "Linux" tab
-                                osSearchString = 'Linux';
+                            switch (theBrowser.os.group) {
+                                case 'Mac OS':
+                                    osSearchString = 'Mac'; break;
+                                case 'Linux':
+                                    osSearchString = 'Linux'; break;
+                                default:
+                                    osSearchString = 'Windows';
                             }
                             var osTab = $(this).find("a:contains('" + osSearchString + "')").first();
                             var tabIndex = osTab.parent().index();
@@ -290,13 +288,14 @@ html(lang='en')
                     }
                 });
 
-                // Bind a click handler to highlight the currently selected component in the navbar
-                $("a.sdk-sidebar__list-link[href*='components']").click(function() {
-                    $("a.sdk-sidebar__list-link.c--active").removeClass('c--active');
-                    $(this).addClass('c--active');
-                });
-
                 $(function() {
+                    // Bind a click handler to highlight the currently selected component in the navbar
+                    $("a.sdk-sidebar__list-link[href*='components']").click(function() {
+                        $("a.sdk-sidebar__list-link.c--active").removeClass('c--active');
+                        $(this).addClass('c--active');
+                    });
+
+                    // If the current URL has a hash in it and it corresponds to a component link in the sidebar, highlight that sidebar link
                     $("a.sdk-sidebar__list-link[href$='" + window.location.hash + "']").addClass('c--active');
                 });
 

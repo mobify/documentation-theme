@@ -16,6 +16,6 @@
 @import 'vendor/prism';
 
 // Remove underlining on copy button in code blocks styled by Prism
-div.code-toolbar > .toolbar a {
-    text-decoration: none !important;
+.code-toolbar > .toolbar a {
+    text-decoration: none;
 }

@@ -6,22 +6,22 @@
 // ---
 
 .c-callout {
-    padding: $base-space $base-space*2 $base-space $base-space*3; 
-    font-size: 16px;
 	box-shadow: -4px 0 0 0 #005C83;
     background-color: #F0F7F9;
+    font-size: 16px;
+    padding: $base-space $base-space*2 $base-space $base-space*3;
 }
 
 .c-callout:before {
-    content: '';
+    background-image: url('../icons/icon-info.svg');
     background-repeat: no-repeat;
     background-size: $medium-space;
-    width: $medium-space;
-    height: $medium-space;
+    content: '';
     float: left;
+    height: $medium-space;
     margin-left: -$base-space*2;
     margin-top: 1px;
-    background-image: url('../icons/icon-info.svg');
+    width: $medium-space;
 }
 
 .c-callout:after {
@@ -39,5 +39,5 @@
 }
 
 .c-callout.c--important:before {
-    background-image: url('../icons/icon-warning.svg');;
+    background-image: url('../icons/icon-warning.svg');
 }
