@@ -34,7 +34,7 @@ mixin buildMenu
                     for document, documentSlug in documents
                         unless document._excludeFromMenu
                             li
-                                a.sdk-sidebar__list-link.u-padding-start-xl.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
+                                a.sdk-sidebar__list-link.js-handle-active.u-padding-start-xl.u-margin-bottom-xs(href=`${DOCS_ROOT}${version}/${categorySlug}/${documentSlug}` class={ 'c--active': documentSlug === path[2] })= document.title
 
 mixin sidebar
     - var isDocumentationHub = PROJECT_NAME === 'Documentation Home'

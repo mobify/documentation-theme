@@ -290,7 +290,7 @@ html(lang='en')
 
                 $(function() {
                     // Bind a click handler to highlight the currently selected component in the navbar
-                    $("a.sdk-sidebar__list-link[href*='components']").click(function() {
+                    $('.js-handle-active').click(function() {
                         $("a.sdk-sidebar__list-link.c--active").removeClass('c--active');
                         $(this).addClass('c--active');
                     });
