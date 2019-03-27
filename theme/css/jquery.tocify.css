@@ -6,21 +6,21 @@
 /* The Table of Contents container element */
 .tocify {
     max-height: 90%;
-    overflow: auto;
-    margin-left: 2%;
+    margin-left: 40px;
     position: fixed;
     top: 51px;
-    left: 1220px;
+    left: 1004px;
     z-index: 10;
+    width: 10%;
 }
 
 /* The Table of Contents is composed of multiple nested unordered lists.  These styles remove the default styling of an unordered list because it is ugly. */
 .tocify ul, .tocify li {
     list-style: none;
     margin-left: 4px;
-    margin-bottom: 16px !important;
+    margin-bottom: 15px !important;
     padding: 0px;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .tocify li.active {
@@ -36,6 +36,7 @@
     color: #000;
     text-decoration: none;
     padding-left: 8px;
+    display: block;
 }
 
 
@@ -51,12 +52,12 @@
 
 /* Makes the font smaller for all subheader elements. */
 .tocify-subheader li {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 /* Further indents second level subheader elements. */
 .tocify-subheader .tocify-subheader {
-    text-indent: 30px;
+    text-indent: 40px;
 }
 
 /* Further indents third level subheader elements. You can continue this pattern if you have more nested elements. */

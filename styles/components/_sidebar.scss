@@ -111,10 +111,6 @@
     background: $dark-accent-color;
 }
 
-.sdk-sidebar__accordion:focus {
-    outline: none;
-}
-
 .sdk-sidebar__accordion-item,
 .c-sidebar__product-picker-item {
     overflow: hidden;
@@ -137,6 +133,8 @@
     background: $light-accent-color;
 }
 
+.sdk-sidebar__link:active, 
+.sdk-sidebar__link:focus,
 .sdk-sidebar__link:hover {
     background: $light-accent-color;
     color: $white;

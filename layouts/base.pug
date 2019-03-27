@@ -96,20 +96,20 @@ html(lang='en')
     body.sdk-base
         //- 👉 The block `main` is the main block.
         block main
-            main.t-category
+            div.t-category
                 block nav
                     +sidebar
 
-            article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column
-                block header
-                    +header(metaData.title, metaData.intro, hasPicker)
+                article.c-article.u-context.u-z1.u-large-shadow.u-flexbox.u-flex-column.u-background-neutral-10
+                    block header
+                        +header(metaData.title, metaData.intro, hasPicker)
 
-                block content
-                    .c-contain.c-text-content.u-margin-bottom-xl.u-flex
-                        != yield
+                    block content
+                        main.c-contain.c-text-content.u-margin-bottom-xl.u-flex
+                            != yield
 
-                block footer
-                    +footer
+                    block footer
+                        +footer
 
         block scripts
             //- Expose version as a global so we can use it in JS (ex. styleguidist)
@@ -272,7 +272,7 @@ html(lang='en')
                                                  showAndHideOnScroll: false,
                                                  highlightOnScroll: true,
                                                  highlightOffset: 10,
-                                                 extendPage: true,
+                                                 extendPage: false,
                                                  history: true,                               
                                                  hashGenerator: "pretty",
                                                  highlightDefault: false,
