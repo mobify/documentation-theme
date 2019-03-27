@@ -16,7 +16,7 @@ const symlink = (newVersion, docsDir) => {
 
     console.log(`Creating symlink to ${docsDir.version} at ${linkPath}`)
     return fs
-        .symlink(docsDir.version, linkPath, 'dir')
+        .symlink(docsDir.version, linkPath, 'junction')
         .then(() => {
             console.log(`Symlink successful`)
             return path.resolve(linkPath)
