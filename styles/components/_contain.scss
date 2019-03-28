@@ -17,6 +17,10 @@
         padding-left: $massive-space;
     }
 
+    &.c--medium {
+        max-width: calc(#{$medium-content-width} + #{$massive-space * 2}); // 2
+    }
+
     &.c--narrow {
         max-width: calc(#{$narrow-content-width} + #{$massive-space * 2}); // 2
     }

@@ -4,7 +4,7 @@
 
 // Variables
 //
-$hover-box-shadow: 0 2px 10px 0 rgba(0,0,0,.16);
+$hover-box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
 
 // Card
 // ---
@@ -37,17 +37,19 @@ $hover-box-shadow: 0 2px 10px 0 rgba(0,0,0,.16);
 
     &:hover {
         box-shadow: $hover-box-shadow;
+
         transition: box-shadow .15s ease;
     }
 }
 
 .c-card__heading,
 .c-card__message {
-    margin-bottom: $base-space;
-    padding-right: $base-space;
-
-    color: $neutral-60;
+    color: $black;
     font-family: $base-font-family;
+    margin-bottom: $base-space;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: $base-space;
     text-decoration: none;
 }
 

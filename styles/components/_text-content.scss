@@ -12,8 +12,12 @@
         margin-bottom: $base-space;
     }
 
-    h2:not(:first-child) {
-        margin-top: $very-large-space;
+    h2 {
+        margin-top: $larger-space;
+    }
+
+    h2:not(first-of-type) {
+        margin-top: $large-space;
     }
 
     h3:not(:first-child) {

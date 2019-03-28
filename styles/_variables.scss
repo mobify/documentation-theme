@@ -85,7 +85,7 @@ $heavy-font-weight: 700;
 // Content Area Widths
 // --
 
-$base-content-width: 40em;
+$base-content-width: 43em;
 
 $narrow-content-width: 20em;
 $small-content-width: 35em;
@@ -148,7 +148,7 @@ $active-link-color: $dark-accent-color;
 $hover-link-color: $lighter-accent-color;
 
 $border-radius: ($unit/4);
-$small-box-shadow: 0 0.1rem 0.25rem rgba($neutral-70, 0.1);
+$small-box-shadow: 0 -1px 1px 0 rgba(0,0,0,0.05), 0 1px 2px 0 rgba(0,0,0,0.2);
 $small-box-shadow-inset: inset 0 0.25rem 0.1rem -0.1rem rgba($neutral-70, 0.1);
 $large-box-shadow: 0 0 0.35rem rgba($neutral-70, 0.4);
 
@@ -186,4 +186,4 @@ $z4-depth: 1000; // modal dialog or similar
 // Specifics
 // ---
 
-$sidebar-width: $unit*37.5;
+$sidebar-width: $unit*35;

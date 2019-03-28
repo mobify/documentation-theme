@@ -6,12 +6,15 @@
 /* The Table of Contents container element */
 .tocify {
     max-height: 90%;
-    margin-left: 40px;
+    margin-left: 28px;
+    padding-right: 24px;
     position: fixed;
     top: 51px;
-    left: 1004px;
+    right: 0;
+    left: 1050px;
     z-index: 10;
-    width: 10%;
+    min-width: 15%;
+    overflow: auto;
 }
 
 /* The Table of Contents is composed of multiple nested unordered lists.  These styles remove the default styling of an unordered list because it is ugly. */
