@@ -141,16 +141,16 @@
 }
 
 .sdk-sidebar__list-link {
-    display: block;
-    margin: 1px 0;
-    padding: $small-space $small-space $small-space $base-space;
-
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
-
     color: $white;
+    display: block;
     font-size: $smallish-font-size;
+    margin: 1px 0;
+    overflow: hidden;
+    padding: $small-space $small-space $small-space $base-space;
     text-decoration: none;
+    text-overflow: ellipsis;
 }
 
 /* Special padding for 3rd-level menu items */
