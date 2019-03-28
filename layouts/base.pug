@@ -265,7 +265,7 @@ html(lang='en')
                 // Initialize the table of contents if it exists
                 $(function() {
                     var toc = $("#toc").tocify({ context: ".c-article", 
-                                                 selectors: "h2,h3",
+                                                 selectors: "h2",
                                                  showAndHide: false,
                                                  smoothScroll: true,
                                                  scrollTo: 0,
@@ -276,7 +276,7 @@ html(lang='en')
                                                  history: true,                               
                                                  hashGenerator: "pretty",
                                                  highlightDefault: false,
-                                                 ignoreSelector: "h4,h5,h6",
+                                                 ignoreSelector: "h3,h4,h5,h6",
                                                  scrollHistory: false
                                                  });
                     

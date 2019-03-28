@@ -9,9 +9,9 @@
     margin-left: 40px;
     position: fixed;
     top: 51px;
-    left: 1004px;
+    left: 1050px;
     z-index: 10;
-    width: 10%;
+    min-width: 12%;
 }
 
 /* The Table of Contents is composed of multiple nested unordered lists.  These styles remove the default styling of an unordered list because it is ugly. */
