@@ -7,11 +7,13 @@
 .tocify {
     max-height: 90%;
     margin-left: 40px;
+    padding-right: 16px;
     position: fixed;
     top: 51px;
+    right: 0;
     left: 1050px;
     z-index: 10;
-    min-width: 12%;
+    min-width: 15%;
 }
 
 /* The Table of Contents is composed of multiple nested unordered lists.  These styles remove the default styling of an unordered list because it is ugly. */
