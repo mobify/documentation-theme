@@ -34,7 +34,7 @@ const deploy = (folder, project, env) => {
 
     return new Promise((resolve) => {
         exec(
-            `aws s3 sync --size-only \
+            `aws s3 cp \
             --acl public-read \
             --cache-control 'public,max-age=300' \
             --exclude "*" \
