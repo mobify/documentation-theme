@@ -8,20 +8,16 @@
 // WYSIWYG or markdown zone.
 
 .c-text-content {
+    > *:empty {
+        margin-bottom: 0px !important;
+    }
+
     > *:not(:last-child) {
-        margin-bottom: $base-space;
+        margin-bottom: $large-space;
     }
 
     h2 {
-        margin-top: $larger-space;
-    }
-
-    h2:not(first-of-type) {
-        margin-top: $large-space;
-    }
-
-    h3:not(:first-child) {
-        margin-top: $large-space;
+        padding-top: $base-space;
     }
 
     ul,
