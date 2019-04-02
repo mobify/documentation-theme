@@ -45,12 +45,12 @@ mixin sidebar
         //- Logo and support link
         div.u-flex-none.u-padding-start.u-padding-end.u-padding-top.u-padding-bottom.u-background-accent-darker
             div.u-flexbox.u-align-center.u-justify-between
-                a#js-menu-first-focus.u-neutral-10(href=DOCS_ROOT)
+                a#js-menu-first-focus.u-neutral-10(href='/')
                     div.c-logo
                         +logo
                 a.u-neutral-10(href='https://cloud.mobify.com/support/')
                     span.u-block.u-padding-top-sm.u-padding-bottom-sm.u-text-medium Support
-            a.u-text-size-smallish.u-neutral-10(href=DOCS_ROOT) ← Documentation Home
+            a.u-text-size-smallish.u-neutral-10(href='/') ← Documentation Home
 
         //- Documentation Hub: Product type (i.e. Engagement Engine, Connection Center, etc.)
         if isDocumentationHub
