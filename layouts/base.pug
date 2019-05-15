@@ -89,9 +89,12 @@ html(lang='en')
         link(rel="stylesheet" type="text/css" href="https://cloud.typography.com/7707534/6398772/css/fonts.css")
 
         //- 📈 Google Tag Manager
-        noscript
-            iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-MD9HC8",
-            height="0", width="0", style="display:none; visibility: hidden;")
+        script.
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-W738TKG');
 
     body.sdk-base
         //- 👉 The block `main` is the main block.
@@ -167,12 +170,9 @@ html(lang='en')
                     versionPicker('#{DOCS_ROOT}', '#{localPath}', '#{changelogPath}', '#{version}')
 
             //- 📈 Google Tag Manager
-            script.
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-MD9HC8');
+            noscript
+                iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-W738TKG",
+                height="0", width="0", style="display:none;visibility:hidden;")
 
             //- 🔎 Google Custom Search Engine (more details in README.md)
             script.
