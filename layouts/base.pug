@@ -318,7 +318,15 @@ html(lang='en')
                 // Bind click handlers to the feedback buttons if they exist
                 $(function() {
                     $('.t-feedback-layout__buttons > a').click(function() {
-                        // TODO: Submit feedback
+                        // Push a 'feedback' event through the data layer to Google Tag Manager.
+                        window.dataLayer.push({
+                            'event': 'helpfulnessFeedback',
+                            'attributes': {
+                                'helpfulnessValue': $(this).data('value')
+                            }
+                        });
+
+                        $('.t-feedback-layout > p').text('Thank you for your feedback.');
                     });
                 })
                 
