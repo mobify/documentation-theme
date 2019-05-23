@@ -3,6 +3,7 @@ include ../mixins/markdownify
 include ../mixins/sidebar
 include ../mixins/header
 include ../mixins/inject-metadata
+include ../mixins/feedback
 include ../mixins/footer
 
 //- 👉 Just a nice location to place variables for use within the template.
@@ -110,6 +111,9 @@ html(lang='en')
                     block content
                         main.c-contain.c-text-content.u-margin-bottom-xl.u-flex
                             != yield
+
+                    block feedback
+                        +feedback
 
                     block footer
                         +footer
@@ -310,6 +314,13 @@ html(lang='en')
                     });
                     $('#content-filter').keyup();
                 });
+
+                // Bind click handlers to the feedback buttons if they exist
+                $(function() {
+                    $('.t-feedback-layout__buttons > a').click(function() {
+                        // TODO: Submit feedback
+                    });
+                })
                 
                 // Set the height properly for an accordion that is open on page load
                 var activeItem = document.querySelector(".sdk--active + .sdk-sidebar__accordion-item");
